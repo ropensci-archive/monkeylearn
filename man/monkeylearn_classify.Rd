@@ -7,9 +7,9 @@
 monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE))
 }
 \arguments{
-\item{request}{}
+\item{request}{A vector of characters}
 
-\item{key}{}
+\item{key}{The API key}
 }
 \description{
 monkeylearn_classify
@@ -17,8 +17,8 @@ monkeylearn_classify
 \examples{
 text1 <- "lions are very big animals"
 text2 <- "i want to buy an iphone"
-request <- toJSON(list(text_list = c(text1, text2)))
-result <- monkeylearn_classify(request)
-httr::content(result)
+request <- c(text1, text2)
+output <- monkeylearn_classify(request)
+output
 }
 

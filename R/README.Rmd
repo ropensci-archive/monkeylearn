@@ -1,0 +1,28 @@
+---
+title: "monkeylearn R package"
+author: "Maëlle Salmon"
+date: "`r Sys.Date()`"
+output:
+  md_document:
+    variant: markdown_github
+---
+monkeylearn
+=============
+
+UNDER DEVELOPMENT!!
+
+This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
+
+# What it does for now
+
+Nearly nothing, but here is an example.
+
+```{r}
+library("monkeylearn")
+text1 <- "lions are very big animals"
+text2 <- "i want to buy an iphone"
+request <- c(text1, text2)
+output <- monkeylearn_classify(request)
+output
+
+```

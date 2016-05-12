@@ -2,17 +2,19 @@
 #'
 #' monkeylearn_classify
 #'
-#' @param request
+#' @param request A vector of characters
 #'
-#' @param key
+#' @param key The API key
 #'
 #' @importFrom jsonlite toJSON
 #' @examples text1 <- "lions are very big animals"
 #' text2 <- "i want to buy an iphone"
-#' request <- toJSON(list(text_list = c(text1, text2)))
-#' result <- monkeylearn_classify(request)
-#' httr::content(result)
+#' request <- c(text1, text2)
+#' output <- monkeylearn_classify(request)
+#' output
 #' @export
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE)){
-  monkeylearn_get(request, key)
+  request <- monkeylearn_prep(request)
+  output <- monkeylearn_get(request, key)
+  monkeylearn_parse(output)
 }
