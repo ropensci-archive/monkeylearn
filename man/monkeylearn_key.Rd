@@ -13,7 +13,7 @@ An Monkeylearn API Key
 Retrieve Monkeylearn API key
 }
 \details{
-Looks in env var \code{OPENCAGE_KEY}
+Looks in env var \code{MONKEYLEARN_KEY}
 }
 \keyword{internal}
 
