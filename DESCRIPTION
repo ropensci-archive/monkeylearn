@@ -1,0 +1,14 @@
+Package: monkeylearn
+Type: Package
+Title: Access to the Monkeylearn API for text classifiers and extractors
+Version: 0.1.0
+Authors@R: person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre"))
+Description: The package allows using some services of Monkeylearn which is
+    a Machine Learning platform on the cloud that allows software companies and
+    developers to easily extract actionable data from text.
+License: GPL (>= 2)
+LazyData: TRUE
+URL: http://github.com/masalmon/monkeylearn
+BugReports: http://github.com/masalmon/monkeylearn/issues
+Encoding: UTF-8
+RoxygenNote: 5.0.1
