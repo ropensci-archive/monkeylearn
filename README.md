@@ -37,23 +37,23 @@ monkeylearn_classify(request,
 ```
 
     ## $results
-    ## Source: local data frame [6 x 3]
+    ## Source: local data frame [6 x 4]
     ## 
-    ##   category_id probability                      label
-    ##         (int)       (dbl)                      (chr)
-    ## 1       65976       0.851                       Pets
-    ## 2       66008       0.239                       Fish
-    ## 3       66013       0.792                  Fish Food
-    ## 4       67618       0.702                Cell Phones
-    ## 5       67639       0.484              Family Mobile
-    ## 6       67641       0.547 Family Mobile Starter Kits
+    ##   category_id probability                      label  text
+    ##         (int)       (dbl)                      (chr) (int)
+    ## 1       65976       0.851                       Pets     1
+    ## 2       66008       0.239                       Fish     1
+    ## 3       66013       0.792                  Fish Food     1
+    ## 4       67618       0.702                Cell Phones     2
+    ## 5       67639       0.484              Family Mobile     2
+    ## 6       67641       0.547 Family Mobile Starter Kits     2
     ## 
     ## $headers
     ## Source: local data frame [1 x 10]
     ## 
     ##           allow     content.type                          date      server
     ##          (fctr)           (fctr)                        (fctr)      (fctr)
-    ## 1 POST, OPTIONS application/json Fri, 13 May 2016 11:52:44 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 13 May 2016 12:09:41 GMT nginx/1.8.0
     ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
     ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
     ##   content.length (fctr), connection (fctr)
@@ -71,24 +71,24 @@ output
 ```
 
     ## $results
-    ## Source: local data frame [7 x 3]
+    ## Source: local data frame [7 x 4]
     ## 
-    ##   count      tag            entity
-    ##   (int)    (chr)             (chr)
-    ## 1     1 LOCATION            Europe
-    ## 2     1 LOCATION           Prussia
-    ## 3     1 LOCATION   Austria-Hungary
-    ## 4     1 LOCATION           Austria
-    ## 5     1 LOCATION           Germany
-    ## 6     1   PERSON Otto von Bismarck
-    ## 7     2 LOCATION            Russia
+    ##   count      tag            entity  text
+    ##   (int)    (chr)             (chr) (int)
+    ## 1     1 LOCATION            Europe     1
+    ## 2     1 LOCATION           Prussia     1
+    ## 3     1 LOCATION   Austria-Hungary     1
+    ## 4     1 LOCATION           Austria     1
+    ## 5     1 LOCATION           Germany     1
+    ## 6     1   PERSON Otto von Bismarck     1
+    ## 7     2 LOCATION            Russia     1
     ## 
     ## $headers
     ## Source: local data frame [1 x 10]
     ## 
     ##           allow     content.type                          date      server
     ##          (fctr)           (fctr)                        (fctr)      (fctr)
-    ## 1 POST, OPTIONS application/json Fri, 13 May 2016 11:52:44 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 13 May 2016 12:03:52 GMT nginx/1.8.0
     ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
     ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
     ##   content.length (fctr), connection (fctr)
