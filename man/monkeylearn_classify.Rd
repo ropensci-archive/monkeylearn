@@ -4,18 +4,27 @@
 \alias{monkeylearn_classify}
 \title{monkeylearn_classify}
 \usage{
-monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE))
+monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
+  classifier_id = "cl_oFKL5wft")
 }
 \arguments{
 \item{request}{A vector of characters}
 
 \item{key}{The API key}
+
+\item{classifier_id}{The ID of the classifier}
+}
+\value{
+A list of two data.frames (dplyr tbl_df), one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
 }
 \description{
-monkeylearn_classify
+Access to Monkeylearn classifiers modules
+}
+\details{
+Find IDs of classifiers using \url{https://app.monkeylearn.com/main/explore}.
 }
 \examples{
-text1 <- "lions are very big animals"
+text1 <- "my dog is an avid rice eater"
 text2 <- "i want to buy an iphone"
 request <- c(text1, text2)
 output <- monkeylearn_classify(request)

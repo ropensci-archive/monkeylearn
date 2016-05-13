@@ -1,4 +1,5 @@
 #' @importFrom jsonlite toJSON fromJSON
+#' @importFrom dplyr tbl_df
 #' @importFrom httr content POST add_headers headers
 
 # format request
@@ -6,13 +7,44 @@ monkeylearn_prep <- function(text){
   toJSON(list(text_list = text))
 }
 
-# base URL for classify
-monkeylearn_url_classify <- function() {
-  "https://api.monkeylearn.com/v2/classifiers/cl_5icAVzKR/classify/"
+# base URL
+monkeylearn_url <- function(){
+  "https://api.monkeylearn.com/v2/"
 }
-# get results
-monkeylearn_get <- function(request, key){
-  POST(monkeylearn_url_classify(),
+
+# URL for classify
+monkeylearn_url_classify <- function(classifier_id) {
+  paste0(monkeylearn_url(),
+         "classifiers/",
+         classifier_id,
+         "/classify/")
+}
+
+# URL for extractor
+monkeylearn_url_extractor <- function(extractor_id) {
+  paste0(monkeylearn_url(),
+         "extractors/",
+         extractor_id,
+         "/extract/")
+}
+
+# get results classify
+monkeylearn_get_classify <- function(request, key, classifier_id){
+  POST(monkeylearn_url_classify(classifier_id),
+       add_headers(
+         "Accept" = "application/json",
+         "Authorization" = paste("Token ", key),
+         "Content-Type" =
+           "application/json"
+       ),
+       body = request
+  )
+}
+
+
+# get results extract
+monkeylearn_get_extractor <- function(request, key, extractor_id){
+  POST(monkeylearn_url_extractor(extractor_id),
        add_headers(
          "Accept" = "application/json",
          "Authorization" = paste("Token ", key),
@@ -35,8 +67,8 @@ monkeylearn_parse <- function(output){
   temp <-  do.call("rbind", temp$result)
   headers <- as.data.frame(headers(output))
 
-  list(results = temp,
-       headers = headers)
+  list(results = tbl_df(temp),
+       headers = tbl_df(headers))
 
 }
 
