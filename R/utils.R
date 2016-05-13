@@ -64,10 +64,13 @@ monkeylearn_parse <- function(output){
   if (identical(text, "")) stop("No output to parse",
                                 call. = FALSE)
   temp <- fromJSON(text)
-  temp <-  do.call("rbind", temp$result)
+  results <-  do.call("rbind", temp$result)
+  results$text <- unlist(mapply(rep, 1:length(temp$result),
+                                unlist(lapply(temp$result, length)),
+                                SIMPLIFY = FALSE))
   headers <- as.data.frame(headers(output))
 
-  list(results = tbl_df(temp),
+  list(results = tbl_df(results),
        headers = tbl_df(headers))
 
 }
