@@ -18,6 +18,7 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
                                 extractor_id = "ex_isnnZRbS"){
   request <- monkeylearn_prep(request)
   output <- monkeylearn_get_extractor(request, key, extractor_id)
+  monkeylearn_check(output)
   monkeylearn_parse(output)
 }
 

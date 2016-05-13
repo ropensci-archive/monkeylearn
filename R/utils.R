@@ -2,6 +2,12 @@
 #' @importFrom dplyr tbl_df
 #' @importFrom httr content POST add_headers headers
 
+# status check
+monkeylearn_check <- function(req) {
+  if (req$status_code < 400) return(invisible())
+  stop("HTTP failure: ", req$status_code, "\n", content(req)$detail, call. = FALSE)
+}
+
 # format request
 monkeylearn_prep <- function(text){
   toJSON(list(text_list = text))
