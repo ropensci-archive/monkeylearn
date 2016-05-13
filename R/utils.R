@@ -66,7 +66,7 @@ monkeylearn_parse <- function(output){
   temp <- fromJSON(text)
   results <-  do.call("rbind", temp$result)
   results$text <- unlist(mapply(rep, 1:length(temp$result),
-                                unlist(lapply(temp$result, length)),
+                                unlist(lapply(temp$result, nrow)),
                                 SIMPLIFY = FALSE))
   headers <- as.data.frame(headers(output))
 
