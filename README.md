@@ -1,6 +1,8 @@
 monkeylearn
 ===========
 
+[![Build Status](https://travis-ci.org/masalmon/monkeylearn.svg?branch=master)](https://travis-ci.org/masalmon/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/a7bjnb5dpr8qrx58?svg=true)](https://ci.appveyor.com/project/masalmon/monkeylearn)
+
 UNDER DEVELOPMENT!!
 
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
@@ -51,7 +53,7 @@ monkeylearn_classify(request,
     ## 
     ##           allow     content.type                          date      server
     ##          (fctr)           (fctr)                        (fctr)      (fctr)
-    ## 1 POST, OPTIONS application/json Fri, 13 May 2016 11:39:25 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 13 May 2016 11:52:44 GMT nginx/1.8.0
     ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
     ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
     ##   content.length (fctr), connection (fctr)
@@ -86,7 +88,7 @@ output
     ## 
     ##           allow     content.type                          date      server
     ##          (fctr)           (fctr)                        (fctr)      (fctr)
-    ## 1 POST, OPTIONS application/json Fri, 13 May 2016 11:39:25 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 13 May 2016 11:52:44 GMT nginx/1.8.0
     ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
     ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
     ##   content.length (fctr), connection (fctr)
