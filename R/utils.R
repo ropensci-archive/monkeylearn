@@ -4,7 +4,19 @@
 
 # status check
 monkeylearn_check <- function(req) {
-  if (req$status_code < 400) return(invisible())
+  if (req$status_code < 400) return(TRUE)
+  if (req$status_code == 429) {
+    "Pause for throttle limit, 60 seconds"
+    Sys.sleep(60)
+    return(FALSE)
+  }
+  if (identical(text, "")){
+    stop("No output to parse, waiting 10 seconds and re-trying",
+         call. = FALSE)
+    Sys.sleep(10)
+    return(FALSE)
+  }
+
   stop("HTTP failure: ", req$status_code, "\n", content(req)$detail, call. = FALSE)
 }
 
@@ -36,10 +48,7 @@ monkeylearn_url_extractor <- function(extractor_id) {
 
 # check text size
 monkeylearn_text_size <- function(request){
-  if(length(request) > 20){
-    stop("The request should not contain more than 20 texts.",
-         call. = FALSE)
-  }
+
   if(any(unlist(lapply(request, nchar, type = "bytes")) > 500000)){
     stop("Each text in the request should be smaller than 500 kb.",
          call. = FALSE)
@@ -79,8 +88,6 @@ monkeylearn_parse <- function(output){
 
   text <- content(output, as = "text",
                         encoding = "UTF-8")
-  if (identical(text, "")) stop("No output to parse",
-                                call. = FALSE)
   temp <- fromJSON(text)
   results <-  do.call("rbind", temp$result)
   results$text <- unlist(mapply(rep, 1:length(temp$result),

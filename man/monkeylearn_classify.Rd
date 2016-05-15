@@ -8,7 +8,7 @@ monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
   classifier_id = "cl_oFKL5wft")
 }
 \arguments{
-\item{request}{A vector of characters}
+\item{request}{A vector of characters (each text smaller than 50kB)}
 
 \item{key}{The API key}
 
@@ -22,6 +22,13 @@ Access to Monkeylearn classifiers modules
 }
 \details{
 Find IDs of classifiers using \url{https://app.monkeylearn.com/main/explore}.
+ You can use batch to send up to 200 texts to be analyzed within the API
+ (classification or extraction) with each request.
+So for example, if you need to analyze 6000 tweets,
+instead of doing 6000 requests to the API, you can use batch to send 30 requests,
+each request with 200 tweets.
+The function automatically makes these batch calls and waits if there is a throttle limit error,
+but you might want to control the process yourself using several calls to the function.
 }
 \examples{
 text1 <- "my dog is an avid rice eater"
