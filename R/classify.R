@@ -19,6 +19,7 @@
 #' @export
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft"){
+  monkeylearn_text_size(request)
   request <- monkeylearn_prep(request)
   output <- monkeylearn_get_classify(request, key, classifier_id)
   monkeylearn_check(output)

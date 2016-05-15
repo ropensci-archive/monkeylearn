@@ -34,6 +34,18 @@ monkeylearn_url_extractor <- function(extractor_id) {
          "/extract/")
 }
 
+# check text size
+monkeylearn_text_size <- function(request){
+  if(length(request) > 20){
+    stop("The request should not contain more than 20 texts.",
+         call. = FALSE)
+  }
+  if(any(unlist(lapply(request, nchar, type = "bytes")) > 500000)){
+    stop("Each text in the request should be smaller than 500 kb.",
+         call. = FALSE)
+  }
+}
+
 # get results classify
 monkeylearn_get_classify <- function(request, key, classifier_id){
   POST(monkeylearn_url_classify(classifier_id),
