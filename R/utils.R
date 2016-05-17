@@ -11,7 +11,7 @@ monkeylearn_check <- function(req) {
     return(FALSE)
   }
   if (identical(text, "")){
-    stop("No output to parse, waiting 10 seconds and re-trying",
+    stop("No output to parse",
          call. = FALSE)
     Sys.sleep(10)
     return(FALSE)

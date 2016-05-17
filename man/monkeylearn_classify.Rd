@@ -5,7 +5,7 @@
 \title{monkeylearn_classify}
 \usage{
 monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
-  classifier_id = "cl_oFKL5wft")
+  classifier_id = "cl_oFKL5wft", verbose = FALSE)
 }
 \arguments{
 \item{request}{A vector of characters (each text smaller than 50kB)}
@@ -13,6 +13,8 @@ monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
 \item{key}{The API key}
 
 \item{classifier_id}{The ID of the classifier}
+
+\item{verbose}{whether to output messages about batch requests}
 }
 \value{
 A list of two data.frames (dplyr tbl_df), one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".

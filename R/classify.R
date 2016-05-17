@@ -6,6 +6,7 @@
 #'
 #' @param key The API key
 #' @param classifier_id The ID of the classifier
+#' @param verbose whether to output messages about batch requests
 #'
 #' @details Find IDs of classifiers using \url{https://app.monkeylearn.com/main/explore}.
 #'  You can use batch to send up to 200 texts to be analyzed within the API
@@ -25,7 +26,8 @@
 #' @return A list of two data.frames (dplyr tbl_df), one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
 #' @export
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
-                                 classifier_id = "cl_oFKL5wft"){
+                                 classifier_id = "cl_oFKL5wft",
+                                 verbose = FALSE){
 
   # 20 texts per request
   request <- split(request, ceiling(seq_along(request)/20))
@@ -35,19 +37,29 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
 
   for(i in 1:length(request)){
 
-    print(paste0("Processing request number ", i, " out of ", length(request)))
+    if(verbose){
+      print(paste0("Processing request number ", i, " out of ", length(request)))
+    }
+
     monkeylearn_text_size(request[[i]])
     request_part <- monkeylearn_prep(request[[i]])
     output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
     # for the case when the server returns nothing
-    while(class(output) == "try-error"){
-      print("Server returned nothing, trying again in 10 seconds")
-      Sys.sleep(10)
+    # try 5 times, not more
+    try_number <- 1
+    while(class(output) == "try-error" && try_number < 6){
+      print(paste0("Server returned nothing, trying again, try number", i))
+      Sys.sleep(2^try_number)
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
+      try_number <- try_number + 1
     }
+
     # check the output -- if it is 429 try again (throttle limit)
-    while(!monkeylearn_check(output)){
-      output <- monkeylearn_get_extractor(request_part, key, classifier_id)
+    # try 5 times, not more
+    try_number <- 1
+    while(!monkeylearn_check(output) && try_number < 6){
+      output <- monkeylearn_get_classify(request_part, key, classifier_id)
+      try_number <- try_number + 1
     }
     # parse output
     output <- monkeylearn_parse(output)
