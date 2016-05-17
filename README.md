@@ -22,44 +22,6 @@ To install the package, you will need the `devtools` package.
 devtools::install_github("masalmon/monkeylearn")
 ```
 
-Classify
-========
-
-You can find classifiers and their IDs at <https://app.monkeylearn.com/main/explore>
-
-``` r
-library("monkeylearn")
-text1 <- "my dog is an avid rice eater"
-text2 <- "i want to buy an iphone"
-request <- c(text1, text2)
-monkeylearn_classify(request,
-                     classifier_id = "cl_oFKL5wft")
-```
-
-    ## [1] "Processing request number 1 out of 1"
-
-    ## $results
-    ## Source: local data frame [6 x 4]
-    ## 
-    ##   category_id probability                      label  text
-    ##         (int)       (dbl)                      (chr) (dbl)
-    ## 1       65976       0.851                       Pets     1
-    ## 2       66008       0.239                       Fish     1
-    ## 3       66013       0.792                  Fish Food     1
-    ## 4       67618       0.702                Cell Phones     2
-    ## 5       67639       0.484              Family Mobile     2
-    ## 6       67641       0.547 Family Mobile Starter Kits     2
-    ## 
-    ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
-    ##           allow     content.type                          date      server
-    ##          (fctr)           (fctr)                        (fctr)      (fctr)
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 12:58:56 GMT nginx/1.8.0
-    ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
-    ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
-    ##   content.length (fctr), connection (fctr)
-
 Extract
 =======
 
@@ -67,6 +29,7 @@ A first example
 ---------------
 
 ``` r
+library("monkeylearn")
 text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
 output <- monkeylearn_extract(request = text,
                               extractor_id = "ex_isnnZRbS")
@@ -96,7 +59,7 @@ output
     ## 
     ##           allow     content.type                          date      server
     ##          (fctr)           (fctr)                        (fctr)      (fctr)
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 12:52:55 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 13:04:00 GMT nginx/1.8.0
     ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
     ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
     ##   content.length (fctr), connection (fctr)
@@ -149,7 +112,7 @@ output
     ## 
     ##           allow     content.type                          date      server
     ##          (fctr)           (fctr)                        (fctr)      (fctr)
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 12:58:56 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 13:10:02 GMT nginx/1.8.0
     ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
     ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
     ##   content.length (fctr), connection (fctr)
@@ -184,7 +147,145 @@ output
     ## 
     ##           allow     content.type                          date      server
     ##          (fctr)           (fctr)                        (fctr)      (fctr)
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 12:52:55 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 13:10:02 GMT nginx/1.8.0
+    ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
+    ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
+    ##   content.length (fctr), connection (fctr)
+
+Classify
+========
+
+A first example
+---------------
+
+``` r
+text1 <- "my dog is an avid rice eater"
+text2 <- "i want to buy an iphone"
+request <- c(text1, text2)
+monkeylearn_classify(request,
+                     classifier_id = "cl_oFKL5wft")
+```
+
+    ## [1] "Processing request number 1 out of 1"
+
+    ## $results
+    ## Source: local data frame [6 x 4]
+    ## 
+    ##   category_id probability                      label  text
+    ##         (int)       (dbl)                      (chr) (dbl)
+    ## 1       65976       0.851                       Pets     1
+    ## 2       66008       0.239                       Fish     1
+    ## 3       66013       0.792                  Fish Food     1
+    ## 4       67618       0.702                Cell Phones     2
+    ## 5       67639       0.484              Family Mobile     2
+    ## 6       67641       0.547 Family Mobile Starter Kits     2
+    ## 
+    ## $headers
+    ## Source: local data frame [1 x 10]
+    ## 
+    ##           allow     content.type                          date      server
+    ##          (fctr)           (fctr)                        (fctr)      (fctr)
+    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 13:04:01 GMT nginx/1.8.0
+    ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
+    ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
+    ##   content.length (fctr), connection (fctr)
+
+You can find classifiers and their IDs at <https://app.monkeylearn.com/main/explore> Here are a few examples:
+
+-   [Language detection](https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab), `classifier_id = "cl_oJNMkt2V"`. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.
+
+``` r
+text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
+text2 <- "i want to buy an iphone"
+text3 <- "Je déteste ne plus avoir de dentifrice."
+request <- c(text1, text2, text3)
+monkeylearn_classify(request,
+                     classifier_id = "cl_oJNMkt2V")
+```
+
+    ## [1] "Processing request number 1 out of 1"
+
+    ## $results
+    ## Source: local data frame [6 x 4]
+    ## 
+    ##   category_id probability      label  text
+    ##         (int)       (dbl)      (chr) (dbl)
+    ## 1       64494       0.994     Italic     1
+    ## 2       64495       0.993 Catalan-ca     1
+    ## 3       64483       0.360   Germanic     2
+    ## 4       64486       0.759 English-en     2
+    ## 5       64494       0.562     Italic     3
+    ## 6       64496       0.994  French-fr     3
+    ## 
+    ## $headers
+    ## Source: local data frame [1 x 10]
+    ## 
+    ##           allow     content.type                          date      server
+    ##          (fctr)           (fctr)                        (fctr)      (fctr)
+    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 13:10:03 GMT nginx/1.8.0
+    ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
+    ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
+    ##   content.length (fctr), connection (fctr)
+
+-   [Profanity and abuse detection](https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab), `classifier_id = "cl_KFXhoTdt"`.
+
+``` r
+text1 <- "I think this is awesome."
+text2 <- "Holy shit! You did great!"
+request <- c(text1, text2)
+monkeylearn_classify(request,
+                     classifier_id = "cl_KFXhoTdt")
+```
+
+    ## [1] "Processing request number 1 out of 1"
+
+    ## $results
+    ## Source: local data frame [2 x 4]
+    ## 
+    ##   category_id probability     label  text
+    ##         (int)       (dbl)     (chr) (dbl)
+    ## 1      103768       0.827     clean     1
+    ## 2      103767       1.000 profanity     2
+    ## 
+    ## $headers
+    ## Source: local data frame [1 x 10]
+    ## 
+    ##           allow     content.type                          date      server
+    ##          (fctr)           (fctr)                        (fctr)      (fctr)
+    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 13:04:03 GMT nginx/1.8.0
+    ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
+    ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
+    ##   content.length (fctr), connection (fctr)
+
+-   [General topic classifier](https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/), `classifier_id = "cl_5icAVzKR"`.
+
+``` r
+text1 <- "Let me tell you about my dog and my cat. They are really friendly and like going on walks. They both like chasing mice."
+text2 <- "My first R package was probably a disaster but I keep learning how to program."
+request <- c(text1, text2)
+monkeylearn_classify(request,
+                     classifier_id = "cl_5icAVzKR")
+```
+
+    ## [1] "Processing request number 1 out of 1"
+
+    ## $results
+    ## Source: local data frame [5 x 4]
+    ## 
+    ##   category_id probability                label  text
+    ##         (int)       (dbl)                (chr) (dbl)
+    ## 1       64600       0.894              Animals     1
+    ## 2       64608       0.649              Mammals     1
+    ## 3       64611       0.869         Land Mammals     1
+    ## 4       64638       0.240 Computers & Internet     2
+    ## 5       64640       0.252             Internet     2
+    ## 
+    ## $headers
+    ## Source: local data frame [1 x 10]
+    ## 
+    ##           allow     content.type                          date      server
+    ##          (fctr)           (fctr)                        (fctr)      (fctr)
+    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 13:04:03 GMT nginx/1.8.0
     ## Variables not shown: vary (fctr), x.query.limit.limit (fctr),
     ##   x.query.limit.remaining (fctr), x.query.limit.request.queries (fctr),
     ##   content.length (fctr), connection (fctr)
