@@ -89,13 +89,21 @@ monkeylearn_parse <- function(output){
   text <- content(output, as = "text",
                         encoding = "UTF-8")
   temp <- fromJSON(text)
-  results <-  do.call("rbind", temp$result)
-  results$text <- unlist(mapply(rep, 1:length(temp$result),
-                                unlist(lapply(temp$result, nrow)),
-                                SIMPLIFY = FALSE))
+  if(is(temp$result, "list")){
+    results <-  do.call("rbind", temp$result)
+    results$text <- unlist(mapply(rep, 1:length(temp$result),
+                                  unlist(lapply(temp$result, nrow)),
+                                  SIMPLIFY = FALSE))
+    results <- tbl_df(results)
+  } else{
+    results <- as.data.frame(temp$result)
+    results$text <- 1:nrow(results)
+  }
+
+
   headers <- as.data.frame(headers(output))
 
-  list(results = tbl_df(results),
+  list(results = results,
        headers = tbl_df(headers))
 
 }
