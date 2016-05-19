@@ -7,7 +7,7 @@
 #' @param key The API key
 #' @param extractor_id The ID of the extractor
 #' @param verbose whether to output messages about batch requests
-#' @params params parameters for the module as a named list. See the second example.
+#' @param params parameters for the module as a named list. See the second example.
 #'
 #' @importFrom jsonlite toJSON
 #' @examples text <- "In the 19th century, the major European powers had gone to great lengths

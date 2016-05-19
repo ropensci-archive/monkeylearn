@@ -15,6 +15,8 @@ monkeylearn_extract(request, key = monkeylearn_key(quiet = TRUE),
 \item{extractor_id}{The ID of the extractor}
 
 \item{verbose}{whether to output messages about batch requests}
+
+\item{params}{parameters for the module as a named list. See the second example.}
 }
 \value{
 A list of two data.frames (dplyr tbl_df), one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
