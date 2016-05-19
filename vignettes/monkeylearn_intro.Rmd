@@ -1,0 +1,154 @@
+---
+title: "monkeylearn, a R Package for Natural Language Processing Using monkeylearn Existing Modules"
+author: "M. Salmon"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{intro}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+  This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
+
+The goal of the package is not to support machine learning algorithms development with R or the API, but only to *reap the benefits of the existing modules on Monkeylearn*. Therefore, there are only two functions, one for using *extractors*, and one for using *classifiers*. The difference between extractors and classifiers is that extractors output information about words, whereas classifiers output information about each text as a whole. Named entity recognition is an extraction task, whereas assigning a topic to a text is a classification task.
+
+To get an API key for MonkeyLearn, register at http://monkeylearn.com/. The free API key provides up to 100,000 requests a month For ease of use, save your API key as an environment variable as described at http://stat545.com/bit003_api-key-env-var.html.
+
+Both functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN_KEY" you don't need to input it manually.
+
+# Installation
+
+To install the package, you will need the `devtools` package.
+
+```{r, eval = FALSE}
+devtools::install_github("masalmon/monkeylearn")
+
+```
+
+
+# Extract
+
+## A first example
+
+```{r, message = FALSE}
+library("monkeylearn")
+text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
+output <- monkeylearn_extract(request = text,
+extractor_id = "ex_isnnZRbS")
+output
+
+```
+
+## Parameters
+
+If the documentation of the extractor you use states it has parameters, you can pass them as a named list, see below.
+
+```{r}
+text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the
+Columbia University faculty club trying to convince a packed room of potential
+recruits that Wall Street, not Silicon Valley, was the place to be for computer
+scientists.\n\n The Goldman employees knew they had an uphill battle. They were
+fighting against perceptions of Wall Street as boring and regulation-bound and
+Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+stock options.\n\n Their argument to the room of technologically inclined students
+was that Wall Street was where they could find far more challenging, diverse and,
+yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n
+Whereas in other opportunities you might be considering, it is working one type of data
+or one type of application, we deal in hundreds of products in hundreds of markets, with
+thousands or tens of thousands of clients, every day, millions of times of day worldwide,
+Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+output <- monkeylearn_extract(text,
+extractor_id = "ex_y7BPYzNG",
+params = list(max_keywords = 3))
+output
+output2 <- monkeylearn_extract(text,
+extractor_id = "ex_y7BPYzNG",
+params = list(max_keywords = 1))
+output2
+```
+
+## How to find extractors?
+
+You can find extractors and their IDs, including extractors for text in Spanish, at https://app.monkeylearn.com/main/explore Here are a few ones for text in English:
+
+* [Entity extractor](https://app.monkeylearn.com/extraction/extractors/ex_isnnZRbS/tab/description-tab), `extractor_id = "ex_isnnZRbS"` (used in the first example). Extract Entities from text using Named Entity Recognition (NER). NER labels sequences of words in a text which are the names of things, such as person and company names. This implementation labels 3 classes: PERSON, ORGANIZATION and LOCATION. This NER tagger is implemented using Conditional Random Field (CRF) sequence models.
+
+* [Keyword extractor](https://app.monkeylearn.com/extraction/extractors/ex_y7BPYzNG/tab/description-tab), `extractor_id = "ex_y7BPYzNG"`. Extract keywords from text in English. Keywords can be compounded by one or more words and are defined as the important topics in your content and can be used to index data, generate tag clouds or for searching. This keyword extraction algorithm employs statistical algorithms and natural language processing technology to analyze your content and identify the relevant keywords.
+
+```{r, message = FALSE}
+text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.
+
+The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.
+
+Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the world’s most difficult technical problems.
+
+“Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide,” Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+output <- monkeylearn_extract(request = text,
+extractor_id = "ex_y7BPYzNG")
+output
+
+```
+
+* [Useful data extractor](https://app.monkeylearn.com/extraction/extractors/ex_dqRio5sG/tab/description-tab), `extractor_id = "ex_dqRio5sG"`. Extract useful data from text. This algorithm can be used to detect many different useful data: links, phones, ips, prices, times, emails, bitcoin addresses, dates, ipv6s, hex colors and credit cards.
+
+When using this extractor, the format of the API output is a bit different than for other extractors, see below how the output looks like.
+
+```{r, message = FALSE}
+text <- "Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am"
+text2 <- "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"
+output <- monkeylearn_extract(request = c(text, text2),
+extractor_id = "ex_dqRio5sG")
+output
+
+```
+
+
+# Classify
+
+## A first example
+
+```{r, message = FALSE}
+text1 <- "my dog is an avid rice eater"
+text2 <- "i want to buy an iphone"
+request <- c(text1, text2)
+monkeylearn_classify(request,
+classifier_id = "cl_oFKL5wft")
+
+```
+
+You can find classifiers and their IDs at https://app.monkeylearn.com/main/explore Here are a few examples:
+
+* [Language detection](https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab), `classifier_id = "cl_oJNMkt2V"`. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.
+
+```{r, message = FALSE}
+text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
+text2 <- "i want to buy an iphone"
+text3 <- "Je déteste ne plus avoir de dentifrice."
+request <- c(text1, text2, text3)
+monkeylearn_classify(request,
+classifier_id = "cl_oJNMkt2V")
+
+```
+
+* [Profanity and abuse detection](https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab), `classifier_id = "cl_KFXhoTdt"`.
+
+```{r, message = FALSE}
+text1 <- "I think this is awesome."
+text2 <- "Holy shit! You did great!"
+request <- c(text1, text2)
+monkeylearn_classify(request,
+classifier_id = "cl_KFXhoTdt")
+
+```
+
+* [General topic classifier](https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/), `classifier_id = "cl_5icAVzKR"`.
+
+```{r, message = FALSE}
+text1 <- "Let me tell you about my dog and my cat. They are really friendly and like going on walks. They both like chasing mice."
+text2 <- "My first R package was probably a disaster but I keep learning how to program."
+request <- c(text1, text2)
+monkeylearn_classify(request,
+classifier_id = "cl_5icAVzKR")
+
+```

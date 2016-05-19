@@ -12,5 +12,8 @@ URL: http://github.com/masalmon/monkeylearn
 BugReports: http://github.com/masalmon/monkeylearn/issues
 Encoding: UTF-8
 RoxygenNote: 5.0.1
-Suggests: testthat
+Suggests: testthat,
+    knitr,
+    rmarkdown
 Imports: jsonlite, dplyr, httr
+VignetteBuilder: knitr
