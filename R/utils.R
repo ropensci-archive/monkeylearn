@@ -21,8 +21,10 @@ monkeylearn_check <- function(req) {
 }
 
 # format request
-monkeylearn_prep <- function(text){
-  toJSON(list(text_list = text))
+monkeylearn_prep <- function(text, params){
+  toJSON(c(list(text_list = I(text)),
+           params),
+         auto_unbox = TRUE)
 }
 
 # base URL

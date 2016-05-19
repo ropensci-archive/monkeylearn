@@ -7,11 +7,36 @@
 #' @param key The API key
 #' @param extractor_id The ID of the extractor
 #' @param verbose whether to output messages about batch requests
+#' @params params parameters for the module as a named list. See the second example.
 #'
 #' @importFrom jsonlite toJSON
-#' @examples text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
+#' @examples text <- "In the 19th century, the major European powers had gone to great lengths
+#' to maintain a balance of power throughout Europe, resulting in the existence of
+#'  a complex network of political and military alliances throughout the continent by 1900.[7]
+#'   These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria.
+#'   Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of
+#'    the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary,
+#'     Russia and Germany."
 #' output <- monkeylearn_extract(request = text)
 #' output
+#' # example with parameters
+#' text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the
+#' Columbia University faculty club trying to convince a packed room of potential
+#' recruits that Wall Street, not Silicon Valley, was the place to be for computer
+#' scientists.\n\n The Goldman employees knew they had an uphill battle. They were
+#'  fighting against perceptions of Wall Street as boring and regulation-bound and
+#'  Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+#'   stock options.\n\n Their argument to the room of technologically inclined students
+#'   was that Wall Street was where they could find far more challenging, diverse and,
+#'    yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n
+#'    Whereas in other opportunities you might be considering, it is working one type of data
+#'    or one type of application, we deal in hundreds of products in hundreds of markets, with
+#'     thousands or tens of thousands of clients, every day, millions of times of day worldwide,
+#'      Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+#' output <- monkeylearn_extract(text,
+#'                               extractor_id = "ex_y7BPYzNG",
+#'                               params = list(max_keywords = 3,
+#'                                             use_company_names = 1))
 #' @details Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 #' Within the free plan, you can make up to 20 requests per minute.
 #'  You can use batch to send up to 200 texts to be analyzed within the API
@@ -25,7 +50,8 @@
 #' @export
 monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
                                 extractor_id = "ex_isnnZRbS",
-                                verbose = FALSE){
+                                verbose = FALSE,
+                                params = NULL){
 
   # 20 texts per request
   request <- split(request, ceiling(seq_along(request)/20))
@@ -39,7 +65,8 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
     }
 
     monkeylearn_text_size(request[[i]])
-    request_part <- monkeylearn_prep(request[[i]])
+    request_part <- monkeylearn_prep(request[[i]],
+                                     params)
     output <- tryCatch(monkeylearn_get_extractor(request_part, key, extractor_id))
     # for the case when the server returns nothing
     # try 5 times, not more

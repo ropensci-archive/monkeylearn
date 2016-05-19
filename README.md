@@ -3,7 +3,7 @@ monkeylearn
 
 [![Build Status](https://travis-ci.org/masalmon/monkeylearn.svg?branch=master)](https://travis-ci.org/masalmon/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/a7bjnb5dpr8qrx58?svg=true)](https://ci.appveyor.com/project/masalmon/monkeylearn) [![codecov](https://codecov.io/gh/masalmon/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/masalmon/monkeylearn)
 
-UNDER DEVELOPMENT!!
+UNDER DEVELOPMENT!! Feedback and suggestions and pull request welcome. This project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
 
@@ -54,7 +54,75 @@ output
     ## 
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 14:56:16 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:31 GMT nginx/1.8.0
+    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
+    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ##   content.length <fctr>, connection <fctr>.
+
+Parameters
+----------
+
+If the documentation of the extractor you use states it has parameters, you can pass them as a named list, see below.
+
+``` r
+text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the
+Columbia University faculty club trying to convince a packed room of potential
+recruits that Wall Street, not Silicon Valley, was the place to be for computer
+scientists.\n\n The Goldman employees knew they had an uphill battle. They were
+ fighting against perceptions of Wall Street as boring and regulation-bound and
+ Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+  stock options.\n\n Their argument to the room of technologically inclined students
+  was that Wall Street was where they could find far more challenging, diverse and,
+   yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n
+   Whereas in other opportunities you might be considering, it is working one type of data
+   or one type of application, we deal in hundreds of products in hundreds of markets, with
+    thousands or tens of thousands of clients, every day, millions of times of day worldwide,
+     Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+output <- monkeylearn_extract(text,
+                              extractor_id = "ex_y7BPYzNG",
+                              params = list(max_keywords = 3))
+output
+```
+
+    ## $results
+    ## Source: local data frame [3 x 5]
+    ## 
+    ##   relevance count positions_in_text                      keyword  text
+    ## *     <chr> <int>            <list>                        <chr> <dbl>
+    ## 1     0.978     3         <int [3]>                  Wall Street     1
+    ## 2     0.652     2         <int [2]>               Silicon Valley     1
+    ## 3     0.543     0         <int [0]> million-dollar stock options     1
+    ## 
+    ## $headers
+    ## Source: local data frame [1 x 10]
+    ## 
+    ##           allow     content.type                          date      server
+    ## *        <fctr>           <fctr>                        <fctr>      <fctr>
+    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:30:38 GMT nginx/1.8.0
+    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
+    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ##   content.length <fctr>, connection <fctr>.
+
+``` r
+output2 <- monkeylearn_extract(text,
+                              extractor_id = "ex_y7BPYzNG",
+                              params = list(max_keywords = 1))
+output2
+```
+
+    ## $results
+    ## Source: local data frame [1 x 5]
+    ## 
+    ##   relevance count positions_in_text     keyword  text
+    ## *     <chr> <int>            <list>       <chr> <dbl>
+    ## 1     0.978     3         <int [3]> Wall Street     1
+    ## 
+    ## $headers
+    ## Source: local data frame [1 x 10]
+    ## 
+    ##           allow     content.type                          date      server
+    ## *        <fctr>           <fctr>                        <fctr>      <fctr>
+    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:31 GMT nginx/1.8.0
     ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
     ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
     ##   content.length <fctr>, connection <fctr>.
@@ -102,7 +170,7 @@ output
     ## 
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 14:56:17 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:30:38 GMT nginx/1.8.0
     ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
     ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
     ##   content.length <fctr>, connection <fctr>.
@@ -132,7 +200,7 @@ output
     ## 
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 15:02:18 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:32 GMT nginx/1.8.0
     ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
     ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
     ##   content.length <fctr>, connection <fctr>.
@@ -168,7 +236,7 @@ monkeylearn_classify(request,
     ## 
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 14:56:17 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:30:39 GMT nginx/1.8.0
     ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
     ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
     ##   content.length <fctr>, connection <fctr>.
@@ -203,7 +271,7 @@ monkeylearn_classify(request,
     ## 
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 14:56:18 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:34 GMT nginx/1.8.0
     ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
     ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
     ##   content.length <fctr>, connection <fctr>.
@@ -231,7 +299,7 @@ monkeylearn_classify(request,
     ## 
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 14:56:19 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:30:41 GMT nginx/1.8.0
     ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
     ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
     ##   content.length <fctr>, connection <fctr>.
@@ -262,7 +330,7 @@ monkeylearn_classify(request,
     ## 
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Tue, 17 May 2016 15:02:21 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:35 GMT nginx/1.8.0
     ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
     ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
     ##   content.length <fctr>, connection <fctr>.
