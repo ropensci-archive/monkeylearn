@@ -29,6 +29,7 @@ build_script:
   - travis-tool.sh install_r DBI
   - travis-tool.sh install_r assertthat
   - travis-tool.sh install_r Rcpp
+  - travis-tool.sh install_r tibble
 
 test_script:
   - travis-tool.sh run_tests
