@@ -97,7 +97,7 @@ monkeylearn_parse <- function(output) {
     results$text <- unlist(mapply(rep, 1:length(temp$result),
                                   unlist(lapply(temp$result, nrow)),
                                   SIMPLIFY = FALSE))
-    results <- tbl_df(results)
+    results <- tibble::as_tibble(results)
   } else{
     results <- as.data.frame(temp$result)
     results$text <- 1:nrow(results)
@@ -107,7 +107,7 @@ monkeylearn_parse <- function(output) {
   headers <- as.data.frame(headers(output))
 
   list(results = results,
-       headers = tbl_df(headers))
+       headers = tibble::as_tibble(headers))
 
 }
 

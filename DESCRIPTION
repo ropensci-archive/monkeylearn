@@ -15,5 +15,5 @@ RoxygenNote: 5.0.1
 Suggests: testthat,
     knitr,
     rmarkdown
-Imports: jsonlite, dplyr, httr, methods
+Imports: jsonlite, dplyr, httr, methods, tibble (>= 1.1)
 VignetteBuilder: knitr
