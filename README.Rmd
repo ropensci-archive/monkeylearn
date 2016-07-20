@@ -122,6 +122,7 @@ monkeylearn_classify(request,
                      classifier_id = "cl_oFKL5wft")
 
 ```
+## How to find classifiers?
 
 You can find classifiers and their IDs at https://app.monkeylearn.com/main/explore Here are a few examples:
 

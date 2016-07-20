@@ -27,16 +27,6 @@ To get an API key for MonkeyLearn, register at http://monkeylearn.com/. Note tha
 
 Both functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN_KEY" you don't need to input it manually.
 
-# Installation
-
-To install the package, you will need the `devtools` package.
-
-```{r, eval = FALSE}
-devtools::install_github("masalmon/monkeylearn")
-
-```
-
-
 # Extract
 
 ## A first example
@@ -126,6 +116,7 @@ monkeylearn_classify(request,
 classifier_id = "cl_oFKL5wft")
 
 ```
+## How to find classifiers?
 
 You can find classifiers and their IDs at https://app.monkeylearn.com/main/explore Here are a few examples:
 

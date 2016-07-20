@@ -76,13 +76,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <p>This package is an interface to the <a href="http://docs.monkeylearn.com/article/api-reference/">MonkeyLearn API</a>. MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.</p>
 <p>The goal of the package is not to support machine learning algorithms development with R or the API, but only to <em>reap the benefits of the existing modules on Monkeylearn</em>. Therefore, there are only two functions, one for using <em>extractors</em>, and one for using <em>classifiers</em>. The difference between extractors and classifiers is that extractors output information about words, whereas classifiers output information about each text as a whole. Named entity recognition is an extraction task, whereas assigning a topic to a text is a classification task.</p>
-<p>To get an API key for MonkeyLearn, register at <a href="http://monkeylearn.com/" class="uri">http://monkeylearn.com/</a>. The free API key provides up to 100,000 requests a month For ease of use, save your API key as an environment variable as described at <a href="http://stat545.com/bit003_api-key-env-var.html" class="uri">http://stat545.com/bit003_api-key-env-var.html</a>.</p>
+<p>To get an API key for MonkeyLearn, register at <a href="http://monkeylearn.com/" class="uri">http://monkeylearn.com/</a>. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. The free API key provides up to 100,000 requests a month For ease of use, save your API key as an environment variable as described at <a href="http://stat545.com/bit003_api-key-env-var.html" class="uri">http://stat545.com/bit003_api-key-env-var.html</a>.</p>
 <p>Both functions of the package will conveniently look for your API key using <code>Sys.getenv(&quot;MONKEYLEARN_KEY&quot;)</code> so if your API key is an environment variable called “MONKEYLEARN_KEY” you don’t need to input it manually.</p>
-<div id="installation" class="section level1">
-<h1>Installation</h1>
-<p>To install the package, you will need the <code>devtools</code> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;masalmon/monkeylearn&quot;</span>)</code></pre></div>
-</div>
 <div id="extract" class="section level1">
 <h1>Extract</h1>
 <div id="a-first-example" class="section level2">
@@ -93,25 +88,24 @@ output &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>
 <span class="dt">extractor_id =</span> <span class="st">&quot;ex_isnnZRbS&quot;</span>)
 output
 <span class="co">#&gt; $results</span>
-<span class="co">#&gt; # A tibble: 7 x 4</span>
-<span class="co">#&gt;   count      tag            entity  text</span>
-<span class="co">#&gt; * &lt;int&gt;    &lt;chr&gt;             &lt;chr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1 LOCATION            Europe     1</span>
-<span class="co">#&gt; 2     1 LOCATION           Prussia     1</span>
-<span class="co">#&gt; 3     1 LOCATION   Austria-Hungary     1</span>
-<span class="co">#&gt; 4     1 LOCATION           Austria     1</span>
-<span class="co">#&gt; 5     1 LOCATION           Germany     1</span>
-<span class="co">#&gt; 6     1   PERSON Otto von Bismarck     1</span>
-<span class="co">#&gt; 7     2 LOCATION            Russia     1</span>
+<span class="co">#&gt;   count      tag            entity                         text_md5</span>
+<span class="co">#&gt; 1     1 LOCATION            Europe 95132b831aa7a4ba1a666b93490b3c9c</span>
+<span class="co">#&gt; 2     1 LOCATION           Prussia 95132b831aa7a4ba1a666b93490b3c9c</span>
+<span class="co">#&gt; 3     1 LOCATION   Austria-Hungary 95132b831aa7a4ba1a666b93490b3c9c</span>
+<span class="co">#&gt; 4     1 LOCATION           Austria 95132b831aa7a4ba1a666b93490b3c9c</span>
+<span class="co">#&gt; 5     1 LOCATION           Germany 95132b831aa7a4ba1a666b93490b3c9c</span>
+<span class="co">#&gt; 6     1   PERSON Otto von Bismarck 95132b831aa7a4ba1a666b93490b3c9c</span>
+<span class="co">#&gt; 7     2 LOCATION            Russia 95132b831aa7a4ba1a666b93490b3c9c</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
 <span class="co">#&gt;           allow     content.type                          date      server</span>
-<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
-<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:25 GMT nginx/1.8.0</span>
-<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:14:48 GMT nginx/1.8.0</span>
+<span class="co">#&gt;             vary x.query.limit.limit x.query.limit.remaining</span>
+<span class="co">#&gt; 1 Accept, Cookie               50000                   49479</span>
+<span class="co">#&gt;   x.query.limit.request.queries content.length connection</span>
+<span class="co">#&gt; 1                             1            406 keep-alive</span>
+<span class="co">#&gt;                           text_md5</span>
+<span class="co">#&gt; 1 95132b831aa7a4ba1a666b93490b3c9c</span></code></pre></div>
 </div>
 <div id="parameters" class="section level2">
 <h2>Parameters</h2>
@@ -134,39 +128,43 @@ output &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>
 <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">max_keywords =</span> <span class="dv">3</span>))
 output
 <span class="co">#&gt; $results</span>
-<span class="co">#&gt; # A tibble: 3 x 5</span>
-<span class="co">#&gt;   relevance count positions_in_text                      keyword  text</span>
-<span class="co">#&gt; *     &lt;chr&gt; &lt;int&gt;            &lt;list&gt;                        &lt;chr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     0.978     3         &lt;int [3]&gt;                  Wall Street     1</span>
-<span class="co">#&gt; 2     0.652     2         &lt;int [2]&gt;               Silicon Valley     1</span>
-<span class="co">#&gt; 3     0.543     0         &lt;int [0]&gt; million-dollar stock options     1</span>
+<span class="co">#&gt;   relevance count positions_in_text                      keyword</span>
+<span class="co">#&gt; 1     0.978     3     164, 340, 562                  Wall Street</span>
+<span class="co">#&gt; 2     0.652     2          181, 387               Silicon Valley</span>
+<span class="co">#&gt; 3     0.543     0                   million-dollar stock options</span>
+<span class="co">#&gt;                           text_md5</span>
+<span class="co">#&gt; 1 d281c3b84a8f11972a17c5e2eeea32de</span>
+<span class="co">#&gt; 2 d281c3b84a8f11972a17c5e2eeea32de</span>
+<span class="co">#&gt; 3 d281c3b84a8f11972a17c5e2eeea32de</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
 <span class="co">#&gt;           allow     content.type                          date      server</span>
-<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
-<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:02:37 GMT nginx/1.8.0</span>
-<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:14:48 GMT nginx/1.8.0</span>
+<span class="co">#&gt;             vary x.query.limit.limit x.query.limit.remaining</span>
+<span class="co">#&gt; 1 Accept, Cookie               50000                   49478</span>
+<span class="co">#&gt;   x.query.limit.request.queries content.length connection</span>
+<span class="co">#&gt; 1                             1            316 keep-alive</span>
+<span class="co">#&gt;                           text_md5</span>
+<span class="co">#&gt; 1 d281c3b84a8f11972a17c5e2eeea32de</span>
 output2 &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>(text,
 <span class="dt">extractor_id =</span> <span class="st">&quot;ex_y7BPYzNG&quot;</span>,
 <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">max_keywords =</span> <span class="dv">1</span>))
 output2
 <span class="co">#&gt; $results</span>
-<span class="co">#&gt; # A tibble: 1 x 5</span>
-<span class="co">#&gt;   relevance count positions_in_text     keyword  text</span>
-<span class="co">#&gt; *     &lt;chr&gt; &lt;int&gt;            &lt;list&gt;       &lt;chr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     0.978     3         &lt;int [3]&gt; Wall Street     1</span>
+<span class="co">#&gt;   relevance count positions_in_text     keyword</span>
+<span class="co">#&gt; 1     0.978     3     164, 340, 562 Wall Street</span>
+<span class="co">#&gt;                           text_md5</span>
+<span class="co">#&gt; 1 d281c3b84a8f11972a17c5e2eeea32de</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
 <span class="co">#&gt;           allow     content.type                          date      server</span>
-<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
-<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:26 GMT nginx/1.8.0</span>
-<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:05:37 GMT nginx/1.8.0</span>
+<span class="co">#&gt;             vary x.query.limit.limit x.query.limit.remaining</span>
+<span class="co">#&gt; 1 Accept, Cookie               50000                   49477</span>
+<span class="co">#&gt;   x.query.limit.request.queries content.length connection</span>
+<span class="co">#&gt; 1                             1            114 keep-alive</span>
+<span class="co">#&gt;                           text_md5</span>
+<span class="co">#&gt; 1 d281c3b84a8f11972a17c5e2eeea32de</span></code></pre></div>
 </div>
 <div id="how-to-find-extractors" class="section level2">
 <h2>How to find extractors?</h2>
@@ -186,28 +184,38 @@ output &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>
 <span class="dt">extractor_id =</span> <span class="st">&quot;ex_y7BPYzNG&quot;</span>)
 output
 <span class="co">#&gt; $results</span>
-<span class="co">#&gt; # A tibble: 10 x 5</span>
-<span class="co">#&gt;    relevance count positions_in_text                      keyword  text</span>
-<span class="co">#&gt; *      &lt;chr&gt; &lt;int&gt;            &lt;list&gt;                        &lt;chr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      0.978     3         &lt;int [3]&gt;                  Wall Street     1</span>
-<span class="co">#&gt; 2      0.652     2         &lt;int [2]&gt;               Silicon Valley     1</span>
-<span class="co">#&gt; 3      0.543     1         &lt;int [1]&gt; million-dollar stock options     1</span>
-<span class="co">#&gt; 4      0.543     1         &lt;int [1]&gt;      Goldman Sachs employees     1</span>
-<span class="co">#&gt; 5      0.543     1         &lt;int [1]&gt;      University faculty club     1</span>
-<span class="co">#&gt; 6      0.543     1         &lt;int [1]&gt;         recent Tuesday night     1</span>
-<span class="co">#&gt; 7      0.543     1         &lt;int [1]&gt; difficult technical problems     1</span>
-<span class="co">#&gt; 8      0.435     2         &lt;int [2]&gt;                    thousands     1</span>
-<span class="co">#&gt; 9      0.435     2         &lt;int [2]&gt;                         type     1</span>
-<span class="co">#&gt; 10     0.435     2         &lt;int [2]&gt;                     hundreds     1</span>
+<span class="co">#&gt;    relevance count positions_in_text                      keyword</span>
+<span class="co">#&gt; 1      0.978     3     164, 339, 560                  Wall Street</span>
+<span class="co">#&gt; 2      0.652     2          181, 386               Silicon Valley</span>
+<span class="co">#&gt; 3      0.543     1               456 million-dollar stock options</span>
+<span class="co">#&gt; 4      0.543     1                11      Goldman Sachs employees</span>
+<span class="co">#&gt; 5      0.543     1                80      University faculty club</span>
+<span class="co">#&gt; 6      0.543     1                43         recent Tuesday night</span>
+<span class="co">#&gt; 7      0.543     1               689 difficult technical problems</span>
+<span class="co">#&gt; 8      0.435     2          898, 919                    thousands</span>
+<span class="co">#&gt; 9      0.435     2          796, 816                         type</span>
+<span class="co">#&gt; 10     0.435     2          848, 872                     hundreds</span>
+<span class="co">#&gt;                            text_md5</span>
+<span class="co">#&gt; 1  92e785ec2d96e130be99085a3de2025d</span>
+<span class="co">#&gt; 2  92e785ec2d96e130be99085a3de2025d</span>
+<span class="co">#&gt; 3  92e785ec2d96e130be99085a3de2025d</span>
+<span class="co">#&gt; 4  92e785ec2d96e130be99085a3de2025d</span>
+<span class="co">#&gt; 5  92e785ec2d96e130be99085a3de2025d</span>
+<span class="co">#&gt; 6  92e785ec2d96e130be99085a3de2025d</span>
+<span class="co">#&gt; 7  92e785ec2d96e130be99085a3de2025d</span>
+<span class="co">#&gt; 8  92e785ec2d96e130be99085a3de2025d</span>
+<span class="co">#&gt; 9  92e785ec2d96e130be99085a3de2025d</span>
+<span class="co">#&gt; 10 92e785ec2d96e130be99085a3de2025d</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
 <span class="co">#&gt;           allow     content.type                          date      server</span>
-<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
-<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:02:37 GMT nginx/1.8.0</span>
-<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:06:38 GMT nginx/1.8.0</span>
+<span class="co">#&gt;             vary x.query.limit.limit x.query.limit.remaining</span>
+<span class="co">#&gt; 1 Accept, Cookie               50000                   49476</span>
+<span class="co">#&gt;   x.query.limit.request.queries content.length connection</span>
+<span class="co">#&gt; 1                             1            999 keep-alive</span>
+<span class="co">#&gt;                           text_md5</span>
+<span class="co">#&gt; 1 92e785ec2d96e130be99085a3de2025d</span></code></pre></div>
 <ul>
 <li><a href="https://app.monkeylearn.com/extraction/extractors/ex_dqRio5sG/tab/description-tab">Useful data extractor</a>, <code>extractor_id = &quot;ex_dqRio5sG&quot;</code>. Extract useful data from text. This algorithm can be used to detect many different useful data: links, phones, ips, prices, times, emails, bitcoin addresses, dates, ipv6s, hex colors and credit cards.</li>
 </ul>
@@ -221,18 +229,22 @@ output
 <span class="co">#&gt;         links     phones  ips prices   times           emails</span>
 <span class="co">#&gt; 1 example.com 15555 9876 NULL    $10 10:00am john@example.com</span>
 <span class="co">#&gt; 2 example.com 16655 9876 NULL        10:00am mary@example.com</span>
-<span class="co">#&gt;   bitcoin_addresses     dates ipv6s hex_colors        credit_cards text</span>
-<span class="co">#&gt; 1              NULL April 16,  NULL       NULL 4242-4242-4242-4242    1</span>
-<span class="co">#&gt; 2              NULL April 16,  NULL       NULL 4242-4232-4242-4242    2</span>
+<span class="co">#&gt;   bitcoin_addresses     dates ipv6s hex_colors        credit_cards</span>
+<span class="co">#&gt; 1              NULL April 16,  NULL       NULL 4242-4242-4242-4242</span>
+<span class="co">#&gt; 2              NULL April 16,  NULL       NULL 4242-4232-4242-4242</span>
+<span class="co">#&gt;                           text_md5</span>
+<span class="co">#&gt; 1 8c2b65bfca064616356c6a2cae2f5519</span>
+<span class="co">#&gt; 2 c97eba30f94868ba6b7c3d250f59133a</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
 <span class="co">#&gt;           allow     content.type                          date      server</span>
-<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
-<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:27 GMT nginx/1.8.0</span>
-<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:15:49 GMT nginx/1.8.0</span>
+<span class="co">#&gt;             vary x.query.limit.limit x.query.limit.remaining</span>
+<span class="co">#&gt; 1 Accept, Cookie               50000                   49474</span>
+<span class="co">#&gt;   x.query.limit.request.queries content.length connection</span>
+<span class="co">#&gt; 1                             2            525 keep-alive</span>
+<span class="co">#&gt;                                                             text_md5</span>
+<span class="co">#&gt; 1 8c2b65bfca064616356c6a2cae2f5519, c97eba30f94868ba6b7c3d250f59133a</span></code></pre></div>
 </div>
 </div>
 <div id="classify" class="section level1">
@@ -245,24 +257,33 @@ request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
 <span class="kw">monkeylearn_classify</span>(request,
 <span class="dt">classifier_id =</span> <span class="st">&quot;cl_oFKL5wft&quot;</span>)
 <span class="co">#&gt; $results</span>
-<span class="co">#&gt; # A tibble: 6 x 4</span>
-<span class="co">#&gt;   category_id probability                      label  text</span>
-<span class="co">#&gt; *       &lt;int&gt;       &lt;dbl&gt;                      &lt;chr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       65976       0.851                       Pets     1</span>
-<span class="co">#&gt; 2       66008       0.239                       Fish     1</span>
-<span class="co">#&gt; 3       66013       0.792                  Fish Food     1</span>
-<span class="co">#&gt; 4       67618       0.702                Cell Phones     2</span>
-<span class="co">#&gt; 5       67639       0.484              Family Mobile     2</span>
-<span class="co">#&gt; 6       67641       0.547 Family Mobile Starter Kits     2</span>
+<span class="co">#&gt;   category_id probability                      label</span>
+<span class="co">#&gt; 1       65976       0.851                       Pets</span>
+<span class="co">#&gt; 2       66008       0.239                       Fish</span>
+<span class="co">#&gt; 3       66013       0.792                  Fish Food</span>
+<span class="co">#&gt; 4       67618       0.702                Cell Phones</span>
+<span class="co">#&gt; 5       67639       0.484              Family Mobile</span>
+<span class="co">#&gt; 6       67641       0.547 Family Mobile Starter Kits</span>
+<span class="co">#&gt;                           text_md5</span>
+<span class="co">#&gt; 1 f4837d7e5dfdcd3775b3d890a320dc89</span>
+<span class="co">#&gt; 2 f4837d7e5dfdcd3775b3d890a320dc89</span>
+<span class="co">#&gt; 3 f4837d7e5dfdcd3775b3d890a320dc89</span>
+<span class="co">#&gt; 4 af5c621a49a008f6e6a0d5ad47f2e1f4</span>
+<span class="co">#&gt; 5 af5c621a49a008f6e6a0d5ad47f2e1f4</span>
+<span class="co">#&gt; 6 af5c621a49a008f6e6a0d5ad47f2e1f4</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
 <span class="co">#&gt;           allow     content.type                          date      server</span>
-<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
-<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:02:38 GMT nginx/1.8.0</span>
-<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:06:38 GMT nginx/1.8.0</span>
+<span class="co">#&gt;             vary x.query.limit.limit x.query.limit.remaining</span>
+<span class="co">#&gt; 1 Accept, Cookie               50000                   49472</span>
+<span class="co">#&gt;   x.query.limit.request.queries content.length connection</span>
+<span class="co">#&gt; 1                             2            437 keep-alive</span>
+<span class="co">#&gt;                                                             text_md5</span>
+<span class="co">#&gt; 1 f4837d7e5dfdcd3775b3d890a320dc89, af5c621a49a008f6e6a0d5ad47f2e1f4</span></code></pre></div>
+</div>
+<div id="how-to-find-classifiers" class="section level2">
+<h2>How to find classifiers?</h2>
 <p>You can find classifiers and their IDs at <a href="https://app.monkeylearn.com/main/explore" class="uri">https://app.monkeylearn.com/main/explore</a> Here are a few examples:</p>
 <ul>
 <li><a href="https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab">Language detection</a>, <code>classifier_id = &quot;cl_oJNMkt2V&quot;</code>. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.</li>
@@ -274,24 +295,23 @@ request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2, te
 <span class="kw">monkeylearn_classify</span>(request,
 <span class="dt">classifier_id =</span> <span class="st">&quot;cl_oJNMkt2V&quot;</span>)
 <span class="co">#&gt; $results</span>
-<span class="co">#&gt; # A tibble: 6 x 4</span>
-<span class="co">#&gt;   category_id probability      label  text</span>
-<span class="co">#&gt; *       &lt;int&gt;       &lt;dbl&gt;      &lt;chr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       64494       0.994     Italic     1</span>
-<span class="co">#&gt; 2       64495       0.993 Catalan-ca     1</span>
-<span class="co">#&gt; 3       64483       0.360   Germanic     2</span>
-<span class="co">#&gt; 4       64486       0.759 English-en     2</span>
-<span class="co">#&gt; 5       64494       0.562     Italic     3</span>
-<span class="co">#&gt; 6       64496       0.994  French-fr     3</span>
+<span class="co">#&gt;   category_id probability      label                         text_md5</span>
+<span class="co">#&gt; 1       64494       0.994     Italic ec3fd6de86b1f2044c7bf7fb47831197</span>
+<span class="co">#&gt; 2       64495       0.993 Catalan-ca ec3fd6de86b1f2044c7bf7fb47831197</span>
+<span class="co">#&gt; 3       64483       0.360   Germanic af5c621a49a008f6e6a0d5ad47f2e1f4</span>
+<span class="co">#&gt; 4       64486       0.759 English-en af5c621a49a008f6e6a0d5ad47f2e1f4</span>
+<span class="co">#&gt; 5       64494       0.562     Italic 7543a88ecc9cc8d4dd8d515cc25f196c</span>
+<span class="co">#&gt; 6       64496       0.994  French-fr 7543a88ecc9cc8d4dd8d515cc25f196c</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
 <span class="co">#&gt;           allow     content.type                          date      server</span>
-<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
-<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:28 GMT nginx/1.8.0</span>
-<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:06:39 GMT nginx/1.8.0</span>
+<span class="co">#&gt;             vary x.query.limit.limit x.query.limit.remaining</span>
+<span class="co">#&gt; 1 Accept, Cookie               50000                   49469</span>
+<span class="co">#&gt;   x.query.limit.request.queries content.length connection</span>
+<span class="co">#&gt; 1                             3            420 keep-alive</span>
+<span class="co">#&gt;                                                                                               text_md5</span>
+<span class="co">#&gt; 1 ec3fd6de86b1f2044c7bf7fb47831197, af5c621a49a008f6e6a0d5ad47f2e1f4, 7543a88ecc9cc8d4dd8d515cc25f196c</span></code></pre></div>
 <ul>
 <li><a href="https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab">Profanity and abuse detection</a>, <code>classifier_id = &quot;cl_KFXhoTdt&quot;</code>.</li>
 </ul>
@@ -301,20 +321,19 @@ request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
 <span class="kw">monkeylearn_classify</span>(request,
 <span class="dt">classifier_id =</span> <span class="st">&quot;cl_KFXhoTdt&quot;</span>)
 <span class="co">#&gt; $results</span>
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   category_id probability     label  text</span>
-<span class="co">#&gt; *       &lt;int&gt;       &lt;dbl&gt;     &lt;chr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      103768       0.827     clean     1</span>
-<span class="co">#&gt; 2      103767       1.000 profanity     2</span>
+<span class="co">#&gt;   category_id probability     label                         text_md5</span>
+<span class="co">#&gt; 1      103768       0.827     clean 641e443d9485034d30fec6c36d67d4cd</span>
+<span class="co">#&gt; 2      103767       1.000 profanity 2b9e3eb08b256277e4c2b3dfcc8d5c75</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
 <span class="co">#&gt;           allow     content.type                          date      server</span>
-<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
-<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:02:39 GMT nginx/1.8.0</span>
-<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:15:51 GMT nginx/1.8.0</span>
+<span class="co">#&gt;             vary x.query.limit.limit x.query.limit.remaining</span>
+<span class="co">#&gt; 1 Accept, Cookie               50000                   49467</span>
+<span class="co">#&gt;   x.query.limit.request.queries content.length connection</span>
+<span class="co">#&gt; 1                             2            148 keep-alive</span>
+<span class="co">#&gt;                                                             text_md5</span>
+<span class="co">#&gt; 1 641e443d9485034d30fec6c36d67d4cd, 2b9e3eb08b256277e4c2b3dfcc8d5c75</span></code></pre></div>
 <ul>
 <li><a href="https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/">General topic classifier</a>, <code>classifier_id = &quot;cl_5icAVzKR&quot;</code>.</li>
 </ul>
@@ -324,23 +343,28 @@ request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
 <span class="kw">monkeylearn_classify</span>(request,
 <span class="dt">classifier_id =</span> <span class="st">&quot;cl_5icAVzKR&quot;</span>)
 <span class="co">#&gt; $results</span>
-<span class="co">#&gt; # A tibble: 5 x 4</span>
-<span class="co">#&gt;   category_id probability                label  text</span>
-<span class="co">#&gt; *       &lt;int&gt;       &lt;dbl&gt;                &lt;chr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       64600       0.894              Animals     1</span>
-<span class="co">#&gt; 2       64608       0.649              Mammals     1</span>
-<span class="co">#&gt; 3       64611       0.869         Land Mammals     1</span>
-<span class="co">#&gt; 4       64638       0.240 Computers &amp; Internet     2</span>
-<span class="co">#&gt; 5       64640       0.252             Internet     2</span>
+<span class="co">#&gt;   category_id probability                label</span>
+<span class="co">#&gt; 1       64600       0.894              Animals</span>
+<span class="co">#&gt; 2       64608       0.649              Mammals</span>
+<span class="co">#&gt; 3       64611       0.869         Land Mammals</span>
+<span class="co">#&gt; 4       64638       0.240 Computers &amp; Internet</span>
+<span class="co">#&gt; 5       64640       0.252             Internet</span>
+<span class="co">#&gt;                           text_md5</span>
+<span class="co">#&gt; 1 309e318e5676605efae126b5191c1028</span>
+<span class="co">#&gt; 2 309e318e5676605efae126b5191c1028</span>
+<span class="co">#&gt; 3 309e318e5676605efae126b5191c1028</span>
+<span class="co">#&gt; 4 ee6bbcd0f530265a50ac49d8ccf0462b</span>
+<span class="co">#&gt; 5 ee6bbcd0f530265a50ac49d8ccf0462b</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
 <span class="co">#&gt;           allow     content.type                          date      server</span>
-<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
-<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:29 GMT nginx/1.8.0</span>
-<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
-<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:15:52 GMT nginx/1.8.0</span>
+<span class="co">#&gt;             vary x.query.limit.limit x.query.limit.remaining</span>
+<span class="co">#&gt; 1 Accept, Cookie               50000                   49465</span>
+<span class="co">#&gt;   x.query.limit.request.queries content.length connection</span>
+<span class="co">#&gt; 1                             2            364 keep-alive</span>
+<span class="co">#&gt;                                                             text_md5</span>
+<span class="co">#&gt; 1 309e318e5676605efae126b5191c1028, ee6bbcd0f530265a50ac49d8ccf0462b</span></code></pre></div>
 </div>
 </div>
 

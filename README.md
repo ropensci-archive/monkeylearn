@@ -6,6 +6,7 @@
     -   [How to find extractors?](#how-to-find-extractors)
 -   [Classify](#classify)
     -   [A first example](#a-first-example-1)
+    -   [How to find classifiers?](#how-to-find-classifiers)
 
 monkeylearn
 ===========
@@ -57,9 +58,9 @@ output
     ## 
     ## $headers
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:08:12 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:38 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49548
+    ## 1 Accept, Cookie               50000                   49533
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -102,9 +103,9 @@ output
     ## 
     ## $headers
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 12:59:01 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:38 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49547
+    ## 1 Accept, Cookie               50000                   49532
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            316 keep-alive
     ##                           text_md5
@@ -125,9 +126,9 @@ output2
     ## 
     ## $headers
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:08:13 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:39 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49546
+    ## 1 Accept, Cookie               50000                   49531
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
@@ -181,9 +182,9 @@ output
     ## 
     ## $headers
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 12:59:02 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:03:28 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49545
+    ## 1 Accept, Cookie               50000                   49530
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            999 keep-alive
     ##                           text_md5
@@ -214,9 +215,9 @@ output
     ## 
     ## $headers
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:08:13 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:40 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49543
+    ## 1 Accept, Cookie               50000                   49528
     ##   x.query.limit.request.queries content.length connection
     ## 1                             2            525 keep-alive
     ##                                                             text_md5
@@ -254,13 +255,16 @@ monkeylearn_classify(request,
     ## 
     ## $headers
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:08:14 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:40 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49541
+    ## 1 Accept, Cookie               50000                   49526
     ##   x.query.limit.request.queries content.length connection
     ## 1                             2            437 keep-alive
     ##                                                             text_md5
     ## 1 f4837d7e5dfdcd3775b3d890a320dc89, af5c621a49a008f6e6a0d5ad47f2e1f4
+
+How to find classifiers?
+------------------------
 
 You can find classifiers and their IDs at <https://app.monkeylearn.com/main/explore> Here are a few examples:
 
@@ -286,9 +290,9 @@ monkeylearn_classify(request,
     ## 
     ## $headers
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 12:59:03 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:03:29 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49538
+    ## 1 Accept, Cookie               50000                   49523
     ##   x.query.limit.request.queries content.length connection
     ## 1                             3            420 keep-alive
     ##                                                                                               text_md5
@@ -311,9 +315,9 @@ monkeylearn_classify(request,
     ## 
     ## $headers
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:08:15 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:41 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49536
+    ## 1 Accept, Cookie               50000                   49521
     ##   x.query.limit.request.queries content.length connection
     ## 1                             2            148 keep-alive
     ##                                                             text_md5
@@ -345,9 +349,9 @@ monkeylearn_classify(request,
     ## 
     ## $headers
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 12:59:04 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:03:30 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49534
+    ## 1 Accept, Cookie               50000                   49519
     ##   x.query.limit.request.queries content.length connection
     ## 1                             2            364 keep-alive
     ##                                                             text_md5
