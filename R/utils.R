@@ -11,7 +11,7 @@ monkeylearn_check <- function(req) {
     Sys.sleep(60)
     return(FALSE)
   }
-  if (identical(req, "")){
+  if (identical(req, "")) {
     stop("No output to parse",
          call. = FALSE)
     Sys.sleep(10)
@@ -22,14 +22,14 @@ monkeylearn_check <- function(req) {
 }
 
 # format request
-monkeylearn_prep <- function(text, params){
+monkeylearn_prep <- function(text, params) {
   toJSON(c(list(text_list = I(text)),
            params),
          auto_unbox = TRUE)
 }
 
 # base URL
-monkeylearn_url <- function(){
+monkeylearn_url <- function() {
   "https://api.monkeylearn.com/v2/"
 }
 
@@ -50,16 +50,16 @@ monkeylearn_url_extractor <- function(extractor_id) {
 }
 
 # check text size
-monkeylearn_text_size <- function(request){
+monkeylearn_text_size <- function(request) {
 
-  if(any(unlist(lapply(request, nchar, type = "bytes")) > 500000)){
+  if(any(unlist(lapply(request, nchar, type = "bytes")) > 500000)) {
     stop("Each text in the request should be smaller than 500 kb.",
          call. = FALSE)
   }
 }
 
 # get results classify
-monkeylearn_get_classify <- function(request, key, classifier_id){
+monkeylearn_get_classify <- function(request, key, classifier_id) {
   POST(monkeylearn_url_classify(classifier_id),
        add_headers(
          "Accept" = "application/json",
@@ -73,7 +73,7 @@ monkeylearn_get_classify <- function(request, key, classifier_id){
 
 
 # get results extract
-monkeylearn_get_extractor <- function(request, key, extractor_id){
+monkeylearn_get_extractor <- function(request, key, extractor_id) {
   POST(monkeylearn_url_extractor(extractor_id),
        add_headers(
          "Accept" = "application/json",
@@ -86,13 +86,13 @@ monkeylearn_get_extractor <- function(request, key, extractor_id){
 }
 
 # parse results
-monkeylearn_parse <- function(output){
+monkeylearn_parse <- function(output) {
 
 
   text <- content(output, as = "text",
                         encoding = "UTF-8")
   temp <- fromJSON(text)
-  if(is(temp$result, "list")){
+  if(is(temp$result, "list")) {
     results <-  do.call("rbind", temp$result)
     results$text <- unlist(mapply(rep, 1:length(temp$result),
                                   unlist(lapply(temp$result, nrow)),

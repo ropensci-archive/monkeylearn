@@ -52,7 +52,7 @@
 monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
                                 extractor_id = "ex_isnnZRbS",
                                 verbose = FALSE,
-                                params = NULL){
+                                params = NULL) {
 
   # 20 texts per request
   request <- split(request, ceiling(seq_along(request)/20))
@@ -60,9 +60,9 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
   results <- NULL
   headers <- NULL
 
-  for(i in 1:length(request)){
-    if(verbose){
-      print(paste0("Processing request number ", i, " out of ", length(request)))
+  for(i in 1:length(request)) {
+    if(verbose) {
+      message(paste0("Processing request number ", i, " out of ", length(request)))
     }
 
     monkeylearn_text_size(request[[i]])
@@ -72,15 +72,15 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
     # for the case when the server returns nothing
     # try 5 times, not more
     try_number <- 1
-    while(class(output) == "try-error" && try_number < 6){
-      print(paste0("Server returned nothing, trying again, try number", i))
+    while(class(output) == "try-error" && try_number < 6) {
+      message(paste0("Server returned nothing, trying again, try number", i))
       Sys.sleep(2^try_number)
       output <- tryCatch(monkeylearn_get_extractor(request_part, key, extractor_id))
       try_number <- try_number + 1
     }
 
     # check the output -- if it is 429 try again (throttle limit)
-    while(!monkeylearn_check(output)){
+    while(!monkeylearn_check(output)) {
       output <- monkeylearn_get_extractor(request_part, key, extractor_id)
     }
     # parse output
