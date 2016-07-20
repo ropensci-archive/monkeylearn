@@ -33,10 +33,11 @@ The function automatically makes these batch calls and waits if there is a throt
 but you might want to control the process yourself using several calls to the function.
 }
 \examples{
+\dontrun{
 text1 <- "my dog is an avid rice eater"
 text2 <- "i want to buy an iphone"
 request <- c(text1, text2)
 output <- monkeylearn_classify(request)
-output
+output}
 }
 

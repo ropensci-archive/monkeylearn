@@ -36,6 +36,7 @@ The function automatically makes these batch calls and waits if there is a throt
 but you might want to control the process yourself using several calls to the function.
 }
 \examples{
+\dontrun{
 text <- "In the 19th century, the major European powers had gone to great lengths
 to maintain a balance of power throughout Europe, resulting in the existence of
  a complex network of political and military alliances throughout the continent by 1900.[7]
@@ -62,6 +63,6 @@ scientists.\\n\\n The Goldman employees knew they had an uphill battle. They wer
 output <- monkeylearn_extract(text,
                               extractor_id = "ex_y7BPYzNG",
                               params = list(max_keywords = 3,
-                                            use_company_names = 1))
+                                            use_company_names = 1))}
 }
 

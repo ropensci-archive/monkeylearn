@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="M. Salmon" />
+
+<meta name="date" content="2016-07-20" />
+
+<title>monkeylearn, a R Package for Natural Language Processing Using monkeylearn Existing Modules</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">monkeylearn, a R Package for Natural Language Processing Using monkeylearn Existing Modules</h1>
+<h4 class="author"><em>M. Salmon</em></h4>
+<h4 class="date"><em>2016-07-20</em></h4>
+
+
+
+<p>This package is an interface to the <a href="http://docs.monkeylearn.com/article/api-reference/">MonkeyLearn API</a>. MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.</p>
+<p>The goal of the package is not to support machine learning algorithms development with R or the API, but only to <em>reap the benefits of the existing modules on Monkeylearn</em>. Therefore, there are only two functions, one for using <em>extractors</em>, and one for using <em>classifiers</em>. The difference between extractors and classifiers is that extractors output information about words, whereas classifiers output information about each text as a whole. Named entity recognition is an extraction task, whereas assigning a topic to a text is a classification task.</p>
+<p>To get an API key for MonkeyLearn, register at <a href="http://monkeylearn.com/" class="uri">http://monkeylearn.com/</a>. The free API key provides up to 100,000 requests a month For ease of use, save your API key as an environment variable as described at <a href="http://stat545.com/bit003_api-key-env-var.html" class="uri">http://stat545.com/bit003_api-key-env-var.html</a>.</p>
+<p>Both functions of the package will conveniently look for your API key using <code>Sys.getenv(&quot;MONKEYLEARN_KEY&quot;)</code> so if your API key is an environment variable called “MONKEYLEARN_KEY” you don’t need to input it manually.</p>
+<div id="installation" class="section level1">
+<h1>Installation</h1>
+<p>To install the package, you will need the <code>devtools</code> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;masalmon/monkeylearn&quot;</span>)</code></pre></div>
+</div>
+<div id="extract" class="section level1">
+<h1>Extract</h1>
+<div id="a-first-example" class="section level2">
+<h2>A first example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;monkeylearn&quot;</span>)
+text &lt;-<span class="st"> &quot;In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany.&quot;</span>
+output &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>(<span class="dt">request =</span> text,
+<span class="dt">extractor_id =</span> <span class="st">&quot;ex_isnnZRbS&quot;</span>)
+output
+<span class="co">#&gt; $results</span>
+<span class="co">#&gt; # A tibble: 7 x 4</span>
+<span class="co">#&gt;   count      tag            entity  text</span>
+<span class="co">#&gt; * &lt;int&gt;    &lt;chr&gt;             &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1 LOCATION            Europe     1</span>
+<span class="co">#&gt; 2     1 LOCATION           Prussia     1</span>
+<span class="co">#&gt; 3     1 LOCATION   Austria-Hungary     1</span>
+<span class="co">#&gt; 4     1 LOCATION           Austria     1</span>
+<span class="co">#&gt; 5     1 LOCATION           Germany     1</span>
+<span class="co">#&gt; 6     1   PERSON Otto von Bismarck     1</span>
+<span class="co">#&gt; 7     2 LOCATION            Russia     1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $headers</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;           allow     content.type                          date      server</span>
+<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:25 GMT nginx/1.8.0</span>
+<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+</div>
+<div id="parameters" class="section level2">
+<h2>Parameters</h2>
+<p>If the documentation of the extractor you use states it has parameters, you can pass them as a named list, see below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> &quot;A panel of Goldman Sachs employees spent a recent Tuesday night at the</span>
+<span class="st">Columbia University faculty club trying to convince a packed room of potential</span>
+<span class="st">recruits that Wall Street, not Silicon Valley, was the place to be for computer</span>
+<span class="st">scientists.</span><span class="ch">\n\n</span><span class="st"> The Goldman employees knew they had an uphill battle. They were</span>
+<span class="st">fighting against perceptions of Wall Street as boring and regulation-bound and</span>
+<span class="st">Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar</span>
+<span class="st">stock options.</span><span class="ch">\n\n</span><span class="st"> Their argument to the room of technologically inclined students</span>
+<span class="st">was that Wall Street was where they could find far more challenging, diverse and,</span>
+<span class="st">yes, lucrative jobs working on some of the worlds most difficult technical problems.</span><span class="ch">\n\n</span>
+<span class="st">Whereas in other opportunities you might be considering, it is working one type of data</span>
+<span class="st">or one type of application, we deal in hundreds of products in hundreds of markets, with</span>
+<span class="st">thousands or tens of thousands of clients, every day, millions of times of day worldwide,</span>
+<span class="st">Afsheen Afshar, a managing director at Goldman Sachs, told the students.&quot;</span>
+output &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>(text,
+<span class="dt">extractor_id =</span> <span class="st">&quot;ex_y7BPYzNG&quot;</span>,
+<span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">max_keywords =</span> <span class="dv">3</span>))
+output
+<span class="co">#&gt; $results</span>
+<span class="co">#&gt; # A tibble: 3 x 5</span>
+<span class="co">#&gt;   relevance count positions_in_text                      keyword  text</span>
+<span class="co">#&gt; *     &lt;chr&gt; &lt;int&gt;            &lt;list&gt;                        &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     0.978     3         &lt;int [3]&gt;                  Wall Street     1</span>
+<span class="co">#&gt; 2     0.652     2         &lt;int [2]&gt;               Silicon Valley     1</span>
+<span class="co">#&gt; 3     0.543     0         &lt;int [0]&gt; million-dollar stock options     1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $headers</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;           allow     content.type                          date      server</span>
+<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:02:37 GMT nginx/1.8.0</span>
+<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span>
+output2 &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>(text,
+<span class="dt">extractor_id =</span> <span class="st">&quot;ex_y7BPYzNG&quot;</span>,
+<span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">max_keywords =</span> <span class="dv">1</span>))
+output2
+<span class="co">#&gt; $results</span>
+<span class="co">#&gt; # A tibble: 1 x 5</span>
+<span class="co">#&gt;   relevance count positions_in_text     keyword  text</span>
+<span class="co">#&gt; *     &lt;chr&gt; &lt;int&gt;            &lt;list&gt;       &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     0.978     3         &lt;int [3]&gt; Wall Street     1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $headers</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;           allow     content.type                          date      server</span>
+<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:26 GMT nginx/1.8.0</span>
+<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+</div>
+<div id="how-to-find-extractors" class="section level2">
+<h2>How to find extractors?</h2>
+<p>You can find extractors and their IDs, including extractors for text in Spanish, at <a href="https://app.monkeylearn.com/main/explore" class="uri">https://app.monkeylearn.com/main/explore</a> Here are a few ones for text in English:</p>
+<ul>
+<li><p><a href="https://app.monkeylearn.com/extraction/extractors/ex_isnnZRbS/tab/description-tab">Entity extractor</a>, <code>extractor_id = &quot;ex_isnnZRbS&quot;</code> (used in the first example). Extract Entities from text using Named Entity Recognition (NER). NER labels sequences of words in a text which are the names of things, such as person and company names. This implementation labels 3 classes: PERSON, ORGANIZATION and LOCATION. This NER tagger is implemented using Conditional Random Field (CRF) sequence models.</p></li>
+<li><p><a href="https://app.monkeylearn.com/extraction/extractors/ex_y7BPYzNG/tab/description-tab">Keyword extractor</a>, <code>extractor_id = &quot;ex_y7BPYzNG&quot;</code>. Extract keywords from text in English. Keywords can be compounded by one or more words and are defined as the important topics in your content and can be used to index data, generate tag clouds or for searching. This keyword extraction algorithm employs statistical algorithms and natural language processing technology to analyze your content and identify the relevant keywords.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> &quot;A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.</span>
+
+<span class="st">The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.</span>
+
+<span class="st">Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the world’s most difficult technical problems.</span>
+
+<span class="st">“Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide,” Afsheen Afshar, a managing director at Goldman Sachs, told the students.&quot;</span>
+output &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>(<span class="dt">request =</span> text,
+<span class="dt">extractor_id =</span> <span class="st">&quot;ex_y7BPYzNG&quot;</span>)
+output
+<span class="co">#&gt; $results</span>
+<span class="co">#&gt; # A tibble: 10 x 5</span>
+<span class="co">#&gt;    relevance count positions_in_text                      keyword  text</span>
+<span class="co">#&gt; *      &lt;chr&gt; &lt;int&gt;            &lt;list&gt;                        &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1      0.978     3         &lt;int [3]&gt;                  Wall Street     1</span>
+<span class="co">#&gt; 2      0.652     2         &lt;int [2]&gt;               Silicon Valley     1</span>
+<span class="co">#&gt; 3      0.543     1         &lt;int [1]&gt; million-dollar stock options     1</span>
+<span class="co">#&gt; 4      0.543     1         &lt;int [1]&gt;      Goldman Sachs employees     1</span>
+<span class="co">#&gt; 5      0.543     1         &lt;int [1]&gt;      University faculty club     1</span>
+<span class="co">#&gt; 6      0.543     1         &lt;int [1]&gt;         recent Tuesday night     1</span>
+<span class="co">#&gt; 7      0.543     1         &lt;int [1]&gt; difficult technical problems     1</span>
+<span class="co">#&gt; 8      0.435     2         &lt;int [2]&gt;                    thousands     1</span>
+<span class="co">#&gt; 9      0.435     2         &lt;int [2]&gt;                         type     1</span>
+<span class="co">#&gt; 10     0.435     2         &lt;int [2]&gt;                     hundreds     1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $headers</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;           allow     content.type                          date      server</span>
+<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:02:37 GMT nginx/1.8.0</span>
+<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<ul>
+<li><a href="https://app.monkeylearn.com/extraction/extractors/ex_dqRio5sG/tab/description-tab">Useful data extractor</a>, <code>extractor_id = &quot;ex_dqRio5sG&quot;</code>. Extract useful data from text. This algorithm can be used to detect many different useful data: links, phones, ips, prices, times, emails, bitcoin addresses, dates, ipv6s, hex colors and credit cards.</li>
+</ul>
+<p>When using this extractor, the format of the API output is a bit different than for other extractors, see below how the output looks like.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> &quot;Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am&quot;</span>
+text2 &lt;-<span class="st"> &quot;Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am&quot;</span>
+output &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>(<span class="dt">request =</span> <span class="kw">c</span>(text, text2),
+<span class="dt">extractor_id =</span> <span class="st">&quot;ex_dqRio5sG&quot;</span>)
+output
+<span class="co">#&gt; $results</span>
+<span class="co">#&gt;         links     phones  ips prices   times           emails</span>
+<span class="co">#&gt; 1 example.com 15555 9876 NULL    $10 10:00am john@example.com</span>
+<span class="co">#&gt; 2 example.com 16655 9876 NULL        10:00am mary@example.com</span>
+<span class="co">#&gt;   bitcoin_addresses     dates ipv6s hex_colors        credit_cards text</span>
+<span class="co">#&gt; 1              NULL April 16,  NULL       NULL 4242-4242-4242-4242    1</span>
+<span class="co">#&gt; 2              NULL April 16,  NULL       NULL 4242-4232-4242-4242    2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $headers</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;           allow     content.type                          date      server</span>
+<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:27 GMT nginx/1.8.0</span>
+<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+</div>
+</div>
+<div id="classify" class="section level1">
+<h1>Classify</h1>
+<div id="a-first-example-1" class="section level2">
+<h2>A first example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> &quot;my dog is an avid rice eater&quot;</span>
+text2 &lt;-<span class="st"> &quot;i want to buy an iphone&quot;</span>
+request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
+<span class="kw">monkeylearn_classify</span>(request,
+<span class="dt">classifier_id =</span> <span class="st">&quot;cl_oFKL5wft&quot;</span>)
+<span class="co">#&gt; $results</span>
+<span class="co">#&gt; # A tibble: 6 x 4</span>
+<span class="co">#&gt;   category_id probability                      label  text</span>
+<span class="co">#&gt; *       &lt;int&gt;       &lt;dbl&gt;                      &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       65976       0.851                       Pets     1</span>
+<span class="co">#&gt; 2       66008       0.239                       Fish     1</span>
+<span class="co">#&gt; 3       66013       0.792                  Fish Food     1</span>
+<span class="co">#&gt; 4       67618       0.702                Cell Phones     2</span>
+<span class="co">#&gt; 5       67639       0.484              Family Mobile     2</span>
+<span class="co">#&gt; 6       67641       0.547 Family Mobile Starter Kits     2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $headers</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;           allow     content.type                          date      server</span>
+<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:02:38 GMT nginx/1.8.0</span>
+<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<p>You can find classifiers and their IDs at <a href="https://app.monkeylearn.com/main/explore" class="uri">https://app.monkeylearn.com/main/explore</a> Here are a few examples:</p>
+<ul>
+<li><a href="https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab">Language detection</a>, <code>classifier_id = &quot;cl_oJNMkt2V&quot;</code>. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> &quot;Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir.&quot;</span>
+text2 &lt;-<span class="st"> &quot;i want to buy an iphone&quot;</span>
+text3 &lt;-<span class="st"> &quot;Je déteste ne plus avoir de dentifrice.&quot;</span>
+request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2, text3)
+<span class="kw">monkeylearn_classify</span>(request,
+<span class="dt">classifier_id =</span> <span class="st">&quot;cl_oJNMkt2V&quot;</span>)
+<span class="co">#&gt; $results</span>
+<span class="co">#&gt; # A tibble: 6 x 4</span>
+<span class="co">#&gt;   category_id probability      label  text</span>
+<span class="co">#&gt; *       &lt;int&gt;       &lt;dbl&gt;      &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       64494       0.994     Italic     1</span>
+<span class="co">#&gt; 2       64495       0.993 Catalan-ca     1</span>
+<span class="co">#&gt; 3       64483       0.360   Germanic     2</span>
+<span class="co">#&gt; 4       64486       0.759 English-en     2</span>
+<span class="co">#&gt; 5       64494       0.562     Italic     3</span>
+<span class="co">#&gt; 6       64496       0.994  French-fr     3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $headers</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;           allow     content.type                          date      server</span>
+<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:28 GMT nginx/1.8.0</span>
+<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<ul>
+<li><a href="https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab">Profanity and abuse detection</a>, <code>classifier_id = &quot;cl_KFXhoTdt&quot;</code>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> &quot;I think this is awesome.&quot;</span>
+text2 &lt;-<span class="st"> &quot;Holy shit! You did great!&quot;</span>
+request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
+<span class="kw">monkeylearn_classify</span>(request,
+<span class="dt">classifier_id =</span> <span class="st">&quot;cl_KFXhoTdt&quot;</span>)
+<span class="co">#&gt; $results</span>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   category_id probability     label  text</span>
+<span class="co">#&gt; *       &lt;int&gt;       &lt;dbl&gt;     &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1      103768       0.827     clean     1</span>
+<span class="co">#&gt; 2      103767       1.000 profanity     2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $headers</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;           allow     content.type                          date      server</span>
+<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:02:39 GMT nginx/1.8.0</span>
+<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+<ul>
+<li><a href="https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/">General topic classifier</a>, <code>classifier_id = &quot;cl_5icAVzKR&quot;</code>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> &quot;Let me tell you about my dog and my cat. They are really friendly and like going on walks. They both like chasing mice.&quot;</span>
+text2 &lt;-<span class="st"> &quot;My first R package was probably a disaster but I keep learning how to program.&quot;</span>
+request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
+<span class="kw">monkeylearn_classify</span>(request,
+<span class="dt">classifier_id =</span> <span class="st">&quot;cl_5icAVzKR&quot;</span>)
+<span class="co">#&gt; $results</span>
+<span class="co">#&gt; # A tibble: 5 x 4</span>
+<span class="co">#&gt;   category_id probability                label  text</span>
+<span class="co">#&gt; *       &lt;int&gt;       &lt;dbl&gt;                &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       64600       0.894              Animals     1</span>
+<span class="co">#&gt; 2       64608       0.649              Mammals     1</span>
+<span class="co">#&gt; 3       64611       0.869         Land Mammals     1</span>
+<span class="co">#&gt; 4       64638       0.240 Computers &amp; Internet     2</span>
+<span class="co">#&gt; 5       64640       0.252             Internet     2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $headers</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;           allow     content.type                          date      server</span>
+<span class="co">#&gt; *        &lt;fctr&gt;           &lt;fctr&gt;                        &lt;fctr&gt;      &lt;fctr&gt;</span>
+<span class="co">#&gt; 1 POST, OPTIONS application/json Wed, 20 Jul 2016 09:53:29 GMT nginx/1.8.0</span>
+<span class="co">#&gt; # ... with 6 more variables: vary &lt;fctr&gt;, x.query.limit.limit &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   x.query.limit.remaining &lt;fctr&gt;, x.query.limit.request.queries &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   content.length &lt;fctr&gt;, connection &lt;fctr&gt;</span></code></pre></div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

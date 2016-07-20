@@ -18,11 +18,12 @@
 #' but you might want to control the process yourself using several calls to the function.
 #'
 #' @importFrom jsonlite toJSON
-#' @examples text1 <- "my dog is an avid rice eater"
+#' @examples \dontrun{
+#' text1 <- "my dog is an avid rice eater"
 #' text2 <- "i want to buy an iphone"
 #' request <- c(text1, text2)
 #' output <- monkeylearn_classify(request)
-#' output
+#' output}
 #' @return A list of two data.frames (dplyr tbl_df), one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
 #' @export
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),

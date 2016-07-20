@@ -10,7 +10,8 @@
 #' @param params parameters for the module as a named list. See the second example.
 #'
 #' @importFrom jsonlite toJSON
-#' @examples text <- "In the 19th century, the major European powers had gone to great lengths
+#' @examples \dontrun{
+#' text <- "In the 19th century, the major European powers had gone to great lengths
 #' to maintain a balance of power throughout Europe, resulting in the existence of
 #'  a complex network of political and military alliances throughout the continent by 1900.[7]
 #'   These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria.
@@ -36,7 +37,7 @@
 #' output <- monkeylearn_extract(text,
 #'                               extractor_id = "ex_y7BPYzNG",
 #'                               params = list(max_keywords = 3,
-#'                                             use_company_names = 1))
+#'                                             use_company_names = 1))}
 #' @details Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 #' Within the free plan, you can make up to 20 requests per minute.
 #'  You can use batch to send up to 200 texts to be analyzed within the API
