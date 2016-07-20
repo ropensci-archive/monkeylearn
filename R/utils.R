@@ -86,7 +86,7 @@ monkeylearn_get_extractor <- function(request, key, extractor_id) {
 }
 
 # parse results
-monkeylearn_parse <- function(output) {
+monkeylearn_parse <- function(output, request_text) {
 
 
   text <- content(output, as = "text",
@@ -94,20 +94,28 @@ monkeylearn_parse <- function(output) {
   temp <- fromJSON(text)
   if(is(temp$result, "list")) {
     results <-  do.call("rbind", temp$result)
-    results$text <- unlist(mapply(rep, 1:length(temp$result),
+    results$text_md5 <- unlist(mapply(rep, sapply(request_text,
+                                              digest::digest, algo = "md5",
+                                              simplify = TRUE,
+                                              USE.NAMES = FALSE),
                                   unlist(lapply(temp$result, nrow)),
                                   SIMPLIFY = FALSE))
-    results <- tibble::as_tibble(results)
   } else{
     results <- as.data.frame(temp$result)
-    results$text <- 1:nrow(results)
+    results$text_md5 <- sapply(request_text,
+                               digest::digest, algo = "md5",
+                               simplify = TRUE,
+                               USE.NAMES = FALSE)
   }
 
-
   headers <- as.data.frame(headers(output))
+  headers$text_md5 <- list(sapply(request_text,
+                             digest::digest, algo = "md5",
+                             simplify = TRUE,
+                             USE.NAMES = FALSE))
 
   list(results = results,
-       headers = tibble::as_tibble(headers))
+       headers = headers)
 
 }
 

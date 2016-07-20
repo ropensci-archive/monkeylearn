@@ -24,7 +24,8 @@
 #' request <- c(text1, text2)
 #' output <- monkeylearn_classify(request)
 #' output}
-#' @return A list of two data.frames (dplyr tbl_df), one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
+#' @return A list of two data.frames, one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
+#' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 #' @export
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
@@ -64,9 +65,8 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
       try_number <- try_number + 1
     }
     # parse output
-    output <- monkeylearn_parse(output)
-    # text index
-    output$results$text <- output$results$text + (i-1)*20
+    output <- monkeylearn_parse(output, request_text = request[[i]])
+
     results <- rbind(results, output$results)
     headers <- rbind(headers, output$headers)
   }

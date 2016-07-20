@@ -19,7 +19,8 @@ monkeylearn_extract(request, key = monkeylearn_key(quiet = TRUE),
 \item{params}{parameters for the module as a named list. See the second example.}
 }
 \value{
-A list of two data.frames (dplyr tbl_df), one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
+A list of two data.frames, one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
+Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s).
 }
 \description{
 Access to Monkeylearn extractors modules

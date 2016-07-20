@@ -47,7 +47,8 @@
 #' each request with 200 tweets.
 #' The function automatically makes these batch calls and waits if there is a throttle limit error,
 #' but you might want to control the process yourself using several calls to the function.
-#' @return A list of two data.frames (dplyr tbl_df), one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
+#' @return A list of two data.frames, one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
+#' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 #' @export
 monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
                                 extractor_id = "ex_isnnZRbS",
@@ -84,9 +85,8 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
       output <- monkeylearn_get_extractor(request_part, key, extractor_id)
     }
     # parse output
-    output <- monkeylearn_parse(output)
-    # text index
-    output$results$text <- output$results$text + (i-1)*20
+    output <- monkeylearn_parse(output, request_text = request[[i]])
+
     results <- rbind(results, output$results)
     headers <- rbind(headers, output$headers)
   }
