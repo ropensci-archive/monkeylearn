@@ -1,5 +1,6 @@
 #' @importFrom jsonlite toJSON fromJSON
 #' @importFrom dplyr tbl_df
+#' @importFrom methods is
 #' @importFrom httr content POST add_headers headers
 
 # status check
@@ -10,7 +11,7 @@ monkeylearn_check <- function(req) {
     Sys.sleep(60)
     return(FALSE)
   }
-  if (identical(text, "")){
+  if (identical(req, "")){
     stop("No output to parse",
          call. = FALSE)
     Sys.sleep(10)
