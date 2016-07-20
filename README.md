@@ -9,7 +9,7 @@ This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.co
 
 The goal of the package is not to support machine learning algorithms development with R or the API, but only to *reap the benefits of the existing modules on Monkeylearn*. Therefore, there are only two functions, one for using *extractors*, and one for using *classifiers*. The difference between extractors and classifiers is that extractors output information about words, whereas classifiers output information about each text as a whole. Named entity recognition is an extraction task, whereas assigning a topic to a text is a classification task.
 
-To get an API key for MonkeyLearn, register at <http://monkeylearn.com/>. The free API key provides up to 100,000 requests a month For ease of use, save your API key as an environment variable as described at <http://stat545.com/bit003_api-key-env-var.html>.
+To get an API key for MonkeyLearn, register at <http://monkeylearn.com/>. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. The free API key provides up to 100,000 requests a month For ease of use, save your API key as an environment variable as described at <http://stat545.com/bit003_api-key-env-var.html>.
 
 Both functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN\_KEY" you don't need to input it manually.
 
@@ -37,8 +37,7 @@ output
 ```
 
     ## $results
-    ## Source: local data frame [7 x 4]
-    ## 
+    ## # A tibble: 7 x 4
     ##   count      tag            entity  text
     ## * <int>    <chr>             <chr> <dbl>
     ## 1     1 LOCATION            Europe     1
@@ -50,14 +49,13 @@ output
     ## 7     2 LOCATION            Russia     1
     ## 
     ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
+    ## # A tibble: 1 x 10
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:31 GMT nginx/1.8.0
-    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
-    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
-    ##   content.length <fctr>, connection <fctr>.
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:28:35 GMT nginx/1.8.0
+    ## # ... with 6 more variables: vary <fctr>, x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   content.length <fctr>, connection <fctr>
 
 Parameters
 ----------
@@ -85,8 +83,7 @@ output
 ```
 
     ## $results
-    ## Source: local data frame [3 x 5]
-    ## 
+    ## # A tibble: 3 x 5
     ##   relevance count positions_in_text                      keyword  text
     ## *     <chr> <int>            <list>                        <chr> <dbl>
     ## 1     0.978     3         <int [3]>                  Wall Street     1
@@ -94,14 +91,13 @@ output
     ## 3     0.543     0         <int [0]> million-dollar stock options     1
     ## 
     ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
+    ## # A tibble: 1 x 10
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:30:38 GMT nginx/1.8.0
-    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
-    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
-    ##   content.length <fctr>, connection <fctr>.
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:37:46 GMT nginx/1.8.0
+    ## # ... with 6 more variables: vary <fctr>, x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   content.length <fctr>, connection <fctr>
 
 ``` r
 output2 <- monkeylearn_extract(text,
@@ -111,21 +107,19 @@ output2
 ```
 
     ## $results
-    ## Source: local data frame [1 x 5]
-    ## 
+    ## # A tibble: 1 x 5
     ##   relevance count positions_in_text     keyword  text
     ## *     <chr> <int>            <list>       <chr> <dbl>
     ## 1     0.978     3         <int [3]> Wall Street     1
     ## 
     ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
+    ## # A tibble: 1 x 10
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:31 GMT nginx/1.8.0
-    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
-    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
-    ##   content.length <fctr>, connection <fctr>.
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:28:36 GMT nginx/1.8.0
+    ## # ... with 6 more variables: vary <fctr>, x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   content.length <fctr>, connection <fctr>
 
 How to find extractors?
 -----------------------
@@ -150,8 +144,7 @@ output
 ```
 
     ## $results
-    ## Source: local data frame [10 x 5]
-    ## 
+    ## # A tibble: 10 x 5
     ##    relevance count positions_in_text                      keyword  text
     ## *      <chr> <int>            <list>                        <chr> <dbl>
     ## 1      0.978     3         <int [3]>                  Wall Street     1
@@ -166,14 +159,13 @@ output
     ## 10     0.435     2         <int [2]>                     hundreds     1
     ## 
     ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
+    ## # A tibble: 1 x 10
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:30:38 GMT nginx/1.8.0
-    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
-    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
-    ##   content.length <fctr>, connection <fctr>.
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:37:47 GMT nginx/1.8.0
+    ## # ... with 6 more variables: vary <fctr>, x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   content.length <fctr>, connection <fctr>
 
 -   [Useful data extractor](https://app.monkeylearn.com/extraction/extractors/ex_dqRio5sG/tab/description-tab), `extractor_id = "ex_dqRio5sG"`. Extract useful data from text. This algorithm can be used to detect many different useful data: links, phones, ips, prices, times, emails, bitcoin addresses, dates, ipv6s, hex colors and credit cards.
 
@@ -196,14 +188,13 @@ output
     ## 2              NULL April 16,  NULL       NULL 4242-4232-4242-4242    2
     ## 
     ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
+    ## # A tibble: 1 x 10
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:32 GMT nginx/1.8.0
-    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
-    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
-    ##   content.length <fctr>, connection <fctr>.
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:28:36 GMT nginx/1.8.0
+    ## # ... with 6 more variables: vary <fctr>, x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   content.length <fctr>, connection <fctr>
 
 Classify
 ========
@@ -220,8 +211,7 @@ monkeylearn_classify(request,
 ```
 
     ## $results
-    ## Source: local data frame [6 x 4]
-    ## 
+    ## # A tibble: 6 x 4
     ##   category_id probability                      label  text
     ## *       <int>       <dbl>                      <chr> <dbl>
     ## 1       65976       0.851                       Pets     1
@@ -232,14 +222,13 @@ monkeylearn_classify(request,
     ## 6       67641       0.547 Family Mobile Starter Kits     2
     ## 
     ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
+    ## # A tibble: 1 x 10
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:30:39 GMT nginx/1.8.0
-    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
-    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
-    ##   content.length <fctr>, connection <fctr>.
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:37:48 GMT nginx/1.8.0
+    ## # ... with 6 more variables: vary <fctr>, x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   content.length <fctr>, connection <fctr>
 
 You can find classifiers and their IDs at <https://app.monkeylearn.com/main/explore> Here are a few examples:
 
@@ -255,8 +244,7 @@ monkeylearn_classify(request,
 ```
 
     ## $results
-    ## Source: local data frame [6 x 4]
-    ## 
+    ## # A tibble: 6 x 4
     ##   category_id probability      label  text
     ## *       <int>       <dbl>      <chr> <dbl>
     ## 1       64494       0.994     Italic     1
@@ -267,14 +255,13 @@ monkeylearn_classify(request,
     ## 6       64496       0.994  French-fr     3
     ## 
     ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
+    ## # A tibble: 1 x 10
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:34 GMT nginx/1.8.0
-    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
-    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
-    ##   content.length <fctr>, connection <fctr>.
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:28:38 GMT nginx/1.8.0
+    ## # ... with 6 more variables: vary <fctr>, x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   content.length <fctr>, connection <fctr>
 
 -   [Profanity and abuse detection](https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab), `classifier_id = "cl_KFXhoTdt"`.
 
@@ -287,22 +274,20 @@ monkeylearn_classify(request,
 ```
 
     ## $results
-    ## Source: local data frame [2 x 4]
-    ## 
+    ## # A tibble: 2 x 4
     ##   category_id probability     label  text
     ## *       <int>       <dbl>     <chr> <dbl>
     ## 1      103768       0.827     clean     1
     ## 2      103767       1.000 profanity     2
     ## 
     ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
+    ## # A tibble: 1 x 10
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:30:41 GMT nginx/1.8.0
-    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
-    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
-    ##   content.length <fctr>, connection <fctr>.
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:37:49 GMT nginx/1.8.0
+    ## # ... with 6 more variables: vary <fctr>, x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   content.length <fctr>, connection <fctr>
 
 -   [General topic classifier](https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/), `classifier_id = "cl_5icAVzKR"`.
 
@@ -315,8 +300,7 @@ monkeylearn_classify(request,
 ```
 
     ## $results
-    ## Source: local data frame [5 x 4]
-    ## 
+    ## # A tibble: 5 x 4
     ##   category_id probability                label  text
     ## *       <int>       <dbl>                <chr> <dbl>
     ## 1       64600       0.894              Animals     1
@@ -326,11 +310,10 @@ monkeylearn_classify(request,
     ## 5       64640       0.252             Internet     2
     ## 
     ## $headers
-    ## Source: local data frame [1 x 10]
-    ## 
+    ## # A tibble: 1 x 10
     ##           allow     content.type                          date      server
     ## *        <fctr>           <fctr>                        <fctr>      <fctr>
-    ## 1 POST, OPTIONS application/json Thu, 19 May 2016 08:24:35 GMT nginx/1.8.0
-    ## Variables not shown: vary <fctr>, x.query.limit.limit <fctr>,
-    ##   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
-    ##   content.length <fctr>, connection <fctr>.
+    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 10:28:39 GMT nginx/1.8.0
+    ## # ... with 6 more variables: vary <fctr>, x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   content.length <fctr>, connection <fctr>
