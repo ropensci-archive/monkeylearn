@@ -43,7 +43,7 @@ text <- "In the 19th century, the major European powers had gone to great length
 output <- monkeylearn_extract(request = text,
                               extractor_id = "ex_isnnZRbS")
 output
-
+attr(output, "headers")
 ```
 
 ## Parameters
@@ -72,6 +72,7 @@ output2 <- monkeylearn_extract(text,
                               extractor_id = "ex_y7BPYzNG",
                               params = list(max_keywords = 1))
 output2
+attr(output2, "headers")
 ```
 
 ## How to find extractors?

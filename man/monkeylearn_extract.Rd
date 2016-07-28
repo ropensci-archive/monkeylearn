@@ -19,8 +19,8 @@ monkeylearn_extract(request, key = monkeylearn_key(quiet = TRUE),
 \item{params}{parameters for the module as a named list. See the second example.}
 }
 \value{
-A list of two data.frames, one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
-Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s).
+A data.frames with the results whose attribute is a data.frame "headers" including the number of remaining queries as "x.query.limit.remaining".
+Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 }
 \description{
 Access to Monkeylearn extractors modules
@@ -64,6 +64,7 @@ scientists.\\n\\n The Goldman employees knew they had an uphill battle. They wer
 output <- monkeylearn_extract(text,
                               extractor_id = "ex_y7BPYzNG",
                               params = list(max_keywords = 3,
-                                            use_company_names = 1))}
+                                            use_company_names = 1))
+attr(output, "headers")}
 }
 

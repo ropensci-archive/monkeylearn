@@ -46,7 +46,6 @@ output <- monkeylearn_extract(request = text,
 output
 ```
 
-    ## $results
     ##   count      tag            entity                         text_md5
     ## 1     1 LOCATION            Europe 95132b831aa7a4ba1a666b93490b3c9c
     ## 2     1 LOCATION           Prussia 95132b831aa7a4ba1a666b93490b3c9c
@@ -55,12 +54,15 @@ output
     ## 5     1 LOCATION           Germany 95132b831aa7a4ba1a666b93490b3c9c
     ## 6     1   PERSON Otto von Bismarck 95132b831aa7a4ba1a666b93490b3c9c
     ## 7     2 LOCATION            Russia 95132b831aa7a4ba1a666b93490b3c9c
-    ## 
-    ## $headers
+
+``` r
+attr(output, "headers")
+```
+
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:38 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 28 Jul 2016 15:31:02 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49533
+    ## 1 Accept, Cookie               50000                   48944
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -91,7 +93,6 @@ output <- monkeylearn_extract(text,
 output
 ```
 
-    ## $results
     ##   relevance count positions_in_text                      keyword
     ## 1     0.978     3     164, 341, 568                  Wall Street
     ## 2     0.652     2          181, 389               Silicon Valley
@@ -100,16 +101,6 @@ output
     ## 1 c52e4d898bf4009ba347820c86275973
     ## 2 c52e4d898bf4009ba347820c86275973
     ## 3 c52e4d898bf4009ba347820c86275973
-    ## 
-    ## $headers
-    ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:38 GMT nginx/1.8.0
-    ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49532
-    ##   x.query.limit.request.queries content.length connection
-    ## 1                             1            316 keep-alive
-    ##                           text_md5
-    ## 1 c52e4d898bf4009ba347820c86275973
 
 ``` r
 output2 <- monkeylearn_extract(text,
@@ -118,17 +109,19 @@ output2 <- monkeylearn_extract(text,
 output2
 ```
 
-    ## $results
     ##   relevance count positions_in_text     keyword
     ## 1     0.978     3     164, 341, 568 Wall Street
     ##                           text_md5
     ## 1 c52e4d898bf4009ba347820c86275973
-    ## 
-    ## $headers
+
+``` r
+attr(output2, "headers")
+```
+
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:39 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 28 Jul 2016 15:31:03 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49531
+    ## 1 Accept, Cookie               50000                   48942
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
@@ -156,7 +149,6 @@ output <- monkeylearn_extract(request = text,
 output
 ```
 
-    ## $results
     ##    relevance count positions_in_text                      keyword
     ## 1      0.978     3     164, 339, 560                  Wall Street
     ## 2      0.652     2          181, 386               Silicon Valley
@@ -179,16 +171,6 @@ output
     ## 8  92e785ec2d96e130be99085a3de2025d
     ## 9  92e785ec2d96e130be99085a3de2025d
     ## 10 92e785ec2d96e130be99085a3de2025d
-    ## 
-    ## $headers
-    ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:03:28 GMT nginx/1.8.0
-    ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49530
-    ##   x.query.limit.request.queries content.length connection
-    ## 1                             1            999 keep-alive
-    ##                           text_md5
-    ## 1 92e785ec2d96e130be99085a3de2025d
 
 -   [Useful data extractor](https://app.monkeylearn.com/extraction/extractors/ex_dqRio5sG/tab/description-tab), `extractor_id = "ex_dqRio5sG"`. Extract useful data from text. This algorithm can be used to detect many different useful data: links, phones, ips, prices, times, emails, bitcoin addresses, dates, ipv6s, hex colors and credit cards.
 
@@ -202,7 +184,6 @@ output <- monkeylearn_extract(request = c(text, text2),
 output
 ```
 
-    ## $results
     ##         links     phones  ips prices   times           emails
     ## 1 example.com 15555 9876 NULL    $10 10:00am john@example.com
     ## 2 example.com 16655 9876 NULL        10:00am mary@example.com
@@ -212,16 +193,6 @@ output
     ##                           text_md5
     ## 1 8c2b65bfca064616356c6a2cae2f5519
     ## 2 c97eba30f94868ba6b7c3d250f59133a
-    ## 
-    ## $headers
-    ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:40 GMT nginx/1.8.0
-    ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49528
-    ##   x.query.limit.request.queries content.length connection
-    ## 1                             2            525 keep-alive
-    ##                                                             text_md5
-    ## 1 8c2b65bfca064616356c6a2cae2f5519, c97eba30f94868ba6b7c3d250f59133a
 
 Classify
 ========
@@ -237,7 +208,6 @@ monkeylearn_classify(request,
                      classifier_id = "cl_oFKL5wft")
 ```
 
-    ## $results
     ##   category_id probability                      label
     ## 1       65976       0.851                       Pets
     ## 2       66008       0.239                       Fish
@@ -252,16 +222,6 @@ monkeylearn_classify(request,
     ## 4 af5c621a49a008f6e6a0d5ad47f2e1f4
     ## 5 af5c621a49a008f6e6a0d5ad47f2e1f4
     ## 6 af5c621a49a008f6e6a0d5ad47f2e1f4
-    ## 
-    ## $headers
-    ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:40 GMT nginx/1.8.0
-    ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49526
-    ##   x.query.limit.request.queries content.length connection
-    ## 1                             2            437 keep-alive
-    ##                                                             text_md5
-    ## 1 f4837d7e5dfdcd3775b3d890a320dc89, af5c621a49a008f6e6a0d5ad47f2e1f4
 
 How to find classifiers?
 ------------------------
@@ -279,7 +239,6 @@ monkeylearn_classify(request,
                      classifier_id = "cl_oJNMkt2V")
 ```
 
-    ## $results
     ##   category_id probability      label                         text_md5
     ## 1       64494       0.994     Italic ec3fd6de86b1f2044c7bf7fb47831197
     ## 2       64495       0.993 Catalan-ca ec3fd6de86b1f2044c7bf7fb47831197
@@ -287,16 +246,6 @@ monkeylearn_classify(request,
     ## 4       64486       0.759 English-en af5c621a49a008f6e6a0d5ad47f2e1f4
     ## 5       64494       0.562     Italic 7543a88ecc9cc8d4dd8d515cc25f196c
     ## 6       64496       0.994  French-fr 7543a88ecc9cc8d4dd8d515cc25f196c
-    ## 
-    ## $headers
-    ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:03:29 GMT nginx/1.8.0
-    ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49523
-    ##   x.query.limit.request.queries content.length connection
-    ## 1                             3            420 keep-alive
-    ##                                                                                               text_md5
-    ## 1 ec3fd6de86b1f2044c7bf7fb47831197, af5c621a49a008f6e6a0d5ad47f2e1f4, 7543a88ecc9cc8d4dd8d515cc25f196c
 
 -   [Profanity and abuse detection](https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab), `classifier_id = "cl_KFXhoTdt"`.
 
@@ -308,20 +257,9 @@ monkeylearn_classify(request,
                      classifier_id = "cl_KFXhoTdt")
 ```
 
-    ## $results
     ##   category_id probability     label                         text_md5
     ## 1      103768       0.827     clean 641e443d9485034d30fec6c36d67d4cd
     ## 2      103767       1.000 profanity 2b9e3eb08b256277e4c2b3dfcc8d5c75
-    ## 
-    ## $headers
-    ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:12:41 GMT nginx/1.8.0
-    ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49521
-    ##   x.query.limit.request.queries content.length connection
-    ## 1                             2            148 keep-alive
-    ##                                                             text_md5
-    ## 1 641e443d9485034d30fec6c36d67d4cd, 2b9e3eb08b256277e4c2b3dfcc8d5c75
 
 -   [General topic classifier](https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/), `classifier_id = "cl_5icAVzKR"`.
 
@@ -333,7 +271,6 @@ monkeylearn_classify(request,
                      classifier_id = "cl_5icAVzKR")
 ```
 
-    ## $results
     ##   category_id probability                label
     ## 1       64600       0.894              Animals
     ## 2       64608       0.649              Mammals
@@ -346,13 +283,3 @@ monkeylearn_classify(request,
     ## 3 309e318e5676605efae126b5191c1028
     ## 4 ee6bbcd0f530265a50ac49d8ccf0462b
     ## 5 ee6bbcd0f530265a50ac49d8ccf0462b
-    ## 
-    ## $headers
-    ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Wed, 20 Jul 2016 13:03:30 GMT nginx/1.8.0
-    ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   49519
-    ##   x.query.limit.request.queries content.length connection
-    ## 1                             2            364 keep-alive
-    ##                                                             text_md5
-    ## 1 309e318e5676605efae126b5191c1028, ee6bbcd0f530265a50ac49d8ccf0462b

@@ -37,7 +37,8 @@
 #' output <- monkeylearn_extract(text,
 #'                               extractor_id = "ex_y7BPYzNG",
 #'                               params = list(max_keywords = 3,
-#'                                             use_company_names = 1))}
+#'                                             use_company_names = 1))
+#' attr(output, "headers")}
 #' @details Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 #' Within the free plan, you can make up to 20 requests per minute.
 #'  You can use batch to send up to 200 texts to be analyzed within the API
@@ -47,7 +48,7 @@
 #' each request with 200 tweets.
 #' The function automatically makes these batch calls and waits if there is a throttle limit error,
 #' but you might want to control the process yourself using several calls to the function.
-#' @return A list of two data.frames, one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
+#' @return A data.frames with the results whose attribute is a data.frame "headers" including the number of remaining queries as "x.query.limit.remaining".
 #' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 #' @export
 monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
@@ -92,8 +93,8 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
   }
 
   # done!
-  list(results = results,
-       headers = headers)
+  attr(results, "headers") <- headers
+  results
 
 }
 

@@ -23,8 +23,9 @@
 #' text2 <- "i want to buy an iphone"
 #' request <- c(text1, text2)
 #' output <- monkeylearn_classify(request)
-#' output}
-#' @return A list of two data.frames, one with the results, the other with headers including the number of remaining queries as "x.query.limit.remaining".
+#' output
+#' attr(output, "headers")}
+#' @return A data.frames with the results whose attribute is a data.frame "headers" including the number of remaining queries as "x.query.limit.remaining".
 #' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 #' @export
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
@@ -72,6 +73,6 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
   }
 
   # done!
-  list(results = results,
-       headers = headers)
+  attr(results, "headers") <- headers
+  results
 }
