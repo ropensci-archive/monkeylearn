@@ -7,6 +7,7 @@
 -   [Classify](#classify)
     -   [A first example](#a-first-example-1)
     -   [How to find classifiers?](#how-to-find-classifiers)
+-   [Check the number of remaining calls](#check-the-number-of-remaining-calls)
 
 monkeylearn
 ===========
@@ -60,9 +61,9 @@ attr(output, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Thu, 28 Jul 2016 15:31:02 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 28 Jul 2016 15:58:33 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48944
+    ## 1 Accept, Cookie               50000                   48788
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -119,9 +120,9 @@ attr(output2, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Thu, 28 Jul 2016 15:31:03 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Thu, 28 Jul 2016 15:58:34 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48942
+    ## 1 Accept, Cookie               50000                   48783
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
@@ -283,3 +284,8 @@ monkeylearn_classify(request,
     ## 3 309e318e5676605efae126b5191c1028
     ## 4 ee6bbcd0f530265a50ac49d8ccf0462b
     ## 5 ee6bbcd0f530265a50ac49d8ccf0462b
+
+Check the number of remaining calls
+===================================
+
+After each call to a function you can check how many calls to the API you can still make using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit}`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.

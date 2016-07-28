@@ -164,3 +164,7 @@ monkeylearn_classify(request,
                      classifier_id = "cl_5icAVzKR")
 
 ```
+
+# Check the number of remaining calls
+
+After each call to a function you can check how many calls to the API you can still make  using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit}`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
