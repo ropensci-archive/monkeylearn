@@ -41,13 +41,18 @@
 #' attr(output, "headers")}
 #' @details Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 #' Within the free plan, you can make up to 20 requests per minute.
-#'  You can use batch to send up to 200 texts to be analyzed within the API
+#'
+#'   You can use batch to send up to 200 texts to be analyzed within the API
 #'  (classification or extraction) with each request.
 #' So for example, if you need to analyze 6000 tweets,
 #' instead of doing 6000 requests to the API, you can use batch to send 30 requests,
 #' each request with 200 tweets.
 #' The function automatically makes these batch calls and waits if there is a throttle limit error,
 #' but you might want to control the process yourself using several calls to the function.
+#'
+#' You can check the number of calls you can still make in the API using \code{attr(output, "headers")$x.query.limit.remaining}
+#' and \code{attr(output, "headers")$x.query.limit.limit}.
+#'
 #' @return A data.frames with the results whose attribute is a data.frame "headers" including the number of remaining queries as "x.query.limit.remaining".
 #' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 #' @export
