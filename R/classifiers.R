@@ -23,7 +23,7 @@ monkeylearn_classifiers <- function(private = FALSE,
   has_next <- TRUE
   results <- NULL
 
-  while(has_next == TRUE){
+  while(has_next == TRUE) {
     address <- ifelse(!private,
                       paste0(monkeylearn_url(), "classifiers",
                              "/?all=1&page=",
@@ -45,7 +45,7 @@ monkeylearn_classifiers <- function(private = FALSE,
                           encoding = "UTF-8")
     temp <- jsonlite::fromJSON(text)
 
-    if(class(temp$results) == "data.frame"){
+    if(class(temp$results) == "data.frame") {
       has_next <- temp$has_next[1]
 
       names(temp$results)[1] <- "classifier_id"
