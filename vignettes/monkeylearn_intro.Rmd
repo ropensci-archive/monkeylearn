@@ -127,9 +127,18 @@ monkeylearn_classify(request,
                      classifier_id = "cl_oFKL5wft")
 
 ```
+
 ## How to find classifiers?
 
-You can find classifiers and their IDs at https://app.monkeylearn.com/main/explore Here are a few examples:
+You can find classifiers and their IDs at https://app.monkeylearn.com/main/explore or you can use the `monkeylearn_classifiers` function, choosing to show all classifiers or only the private ones with `private = TRUE`. The first column of the resulting data.frame is the `classifier_id` to be used in `monkeylearn_classify`.
+
+```{r}
+
+monkeylearn_classifiers(private = FALSE)
+
+```
+
+Here are a few examples:
 
 * [Language detection](https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab), `classifier_id = "cl_oJNMkt2V"`. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.
 

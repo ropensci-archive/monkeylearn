@@ -4,15 +4,31 @@
 \alias{monkeylearn_classifiers}
 \title{monkeylearn_classifiers}
 \usage{
-monkeylearn_classifiers(private = FALSE)
+monkeylearn_classifiers(private = FALSE, key = monkeylearn_key(quiet =
+  TRUE))
 }
 \arguments{
-\item{private}{default is FALSE, whether to show private modules instead of public modules}
+\item{private}{default is FALSE, whether to show private modules only instead of private and public modules}
+
+\item{key}{The API key}
 }
 \value{
-A data.frame, but nothing now, in dev.
+A data.frame (tibble) with details about the
+classifiers including their classifier_id which should be used in
+\code{monkeylearn_classify}.
 }
 \description{
 List of Monkeylearn classifiers modules
+}
+\details{
+If you don't have any private modules,
+\code{monkeylearn_classifiers(private = TRUE)} returns an empty data.frame.
+}
+\examples{
+\dontrun{
+monkeylearn_classifiers(private = FALSE)
+monkeylearn_classifiers(private = TRUE)
+}
+
 }
 

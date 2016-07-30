@@ -45,3 +45,8 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
   })
+
+test_that("monkeylearn_classifiers returns a data frame",{
+  expect_is(monkeylearn_classifiers(), "tbl_df")
+  expect_is(monkeylearn_classifiers(private = TRUE), "tbl_df")
+})

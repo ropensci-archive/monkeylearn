@@ -61,9 +61,9 @@ attr(output, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Thu, 28 Jul 2016 15:58:33 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 09:21:21 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48788
+    ## 1 Accept, Cookie               50000                   48620
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -120,9 +120,9 @@ attr(output2, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Thu, 28 Jul 2016 15:58:34 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 09:21:22 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48783
+    ## 1 Accept, Cookie               50000                   48618
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
@@ -227,7 +227,34 @@ monkeylearn_classify(request,
 How to find classifiers?
 ------------------------
 
-You can find classifiers and their IDs at <https://app.monkeylearn.com/main/explore> Here are a few examples:
+You can find classifiers and their IDs at <https://app.monkeylearn.com/main/explore> or you can use the `monkeylearn_classifiers` function, choosing to show all classifiers or only the private ones with `private = TRUE`. The first column of the resulting data.frame is the `classifier_id` to be used in `monkeylearn_classify`.
+
+``` r
+monkeylearn_classifiers(private = FALSE)
+```
+
+    ## # A tibble: 138 x 19
+    ##      hashed_id                                           name
+    ##          <chr>                                          <chr>
+    ## 1  cl_QAgwuuWr                             opinion classifier
+    ## 2  cl_GeMiVB99                               LOE close reason
+    ## 3  cl_5MeFrP2x                            Care Agent feedback
+    ## 4  cl_iiQtSm8p                                        Is Meal
+    ## 5  cl_SS7NMUdx                                      Meal Type
+    ## 6  cl_M6MJw5hS                                       Investor
+    ## 7  cl_GpJbpHtj                          Cyber Security Cat v2
+    ## 8  cl_bux2fvbq Disasters and Emergencies Detection on Twitter
+    ## 9  cl_ozN8WAwB            Sentiment Analysis of Short Phrases
+    ## 10 cl_5ohRusBA                                  Ad Classifier
+    ## # ... with 128 more rows, and 17 more variables: description <chr>,
+    ## #   train_state <chr>, train_job_id <lgl>, language <chr>,
+    ## #   ngram_range <chr>, use_stemmer <lgl>, stop_words <chr>,
+    ## #   max_features <int>, strip_stopwords <lgl>, is_multilabel <lgl>,
+    ## #   is_twitter_data <lgl>, normalize_weights <lgl>, classifier <chr>,
+    ## #   industry <chr>, classifier_type <chr>, text_type <chr>,
+    ## #   permissions <chr>
+
+Here are a few examples:
 
 -   [Language detection](https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab), `classifier_id = "cl_oJNMkt2V"`. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.
 
