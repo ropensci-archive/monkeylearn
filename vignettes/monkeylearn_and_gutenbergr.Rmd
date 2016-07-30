@@ -9,8 +9,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
+  ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+pat <- Sys.getenv("MONKEYLEARN_KEY")
+IS_THERE_KEY <- (pat != "")
+NOT_CRAN <- ifelse(IS_THERE_KEY, NOT_CRAN, FALSE)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -25,7 +28,7 @@ and Monkeylearn public modules to learn a bit about its contents without reading
 
 Note that Monkeylearn modules we use here were not tested on books, so the results are not optimal.
 
-```{r, cache = FALSE}
+```{r}
 library("monkeylearn")
 library("gutenbergr")
 library("dplyr")
@@ -43,7 +46,7 @@ Then we will paste them together to get one string and then split it by the word
 "chapter" in order to get a reasonable number of text fragments, that we hope to be able to send as
 a single text to Monkeylearn API, which we can if each string is smaller than 50kB.
 
-```{r, cache = FALSE}
+```{r}
 
 library("tidytext")
 little_women <- little_women %>%
@@ -71,7 +74,7 @@ A first question we could ask ourselves about the book is who its main character
 and where it takes place.
 
 
-```{r, cache = FALSE}
+```{r}
 
 entities <- monkeylearn_extract(request = little_women_chapters$text,
                               extractor_id = "ex_isnnZRbS",
@@ -86,7 +89,7 @@ entities %>%
 
 # Keywords?
 
-```{r, cache = FALSE}
+```{r}
 
 keywords <- monkeylearn_extract(request = little_women_chapters$text,
                                 extractor_id = "ex_y7BPYzNG",
