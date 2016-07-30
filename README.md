@@ -14,7 +14,7 @@ monkeylearn
 
 [![Build Status](https://travis-ci.org/masalmon/monkeylearn.svg?branch=master)](https://travis-ci.org/masalmon/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/a7bjnb5dpr8qrx58?svg=true)](https://ci.appveyor.com/project/masalmon/monkeylearn) [![codecov](https://codecov.io/gh/masalmon/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/masalmon/monkeylearn)
 
-UNDER DEVELOPMENT!! Feedback and suggestions and pull request welcome. This project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+This project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
 
@@ -61,9 +61,9 @@ attr(output, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 09:21:21 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 09:25:49 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48620
+    ## 1 Accept, Cookie               50000                   48575
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -120,9 +120,9 @@ attr(output2, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 09:21:22 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 09:25:50 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48618
+    ## 1 Accept, Cookie               50000                   48573
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
@@ -233,20 +233,20 @@ You can find classifiers and their IDs at <https://app.monkeylearn.com/main/expl
 monkeylearn_classifiers(private = FALSE)
 ```
 
-    ## # A tibble: 138 x 19
-    ##      hashed_id                                           name
-    ##          <chr>                                          <chr>
-    ## 1  cl_QAgwuuWr                             opinion classifier
-    ## 2  cl_GeMiVB99                               LOE close reason
-    ## 3  cl_5MeFrP2x                            Care Agent feedback
-    ## 4  cl_iiQtSm8p                                        Is Meal
-    ## 5  cl_SS7NMUdx                                      Meal Type
-    ## 6  cl_M6MJw5hS                                       Investor
-    ## 7  cl_GpJbpHtj                          Cyber Security Cat v2
-    ## 8  cl_bux2fvbq Disasters and Emergencies Detection on Twitter
-    ## 9  cl_ozN8WAwB            Sentiment Analysis of Short Phrases
-    ## 10 cl_5ohRusBA                                  Ad Classifier
-    ## # ... with 128 more rows, and 17 more variables: description <chr>,
+    ## # A tibble: 100 x 19
+    ##    classifier_id                                           name
+    ##            <chr>                                          <chr>
+    ## 1    cl_QAgwuuWr                             opinion classifier
+    ## 2    cl_GeMiVB99                               LOE close reason
+    ## 3    cl_5MeFrP2x                            Care Agent feedback
+    ## 4    cl_iiQtSm8p                                        Is Meal
+    ## 5    cl_SS7NMUdx                                      Meal Type
+    ## 6    cl_M6MJw5hS                                       Investor
+    ## 7    cl_GpJbpHtj                          Cyber Security Cat v2
+    ## 8    cl_bux2fvbq Disasters and Emergencies Detection on Twitter
+    ## 9    cl_ozN8WAwB            Sentiment Analysis of Short Phrases
+    ## 10   cl_5ohRusBA                                  Ad Classifier
+    ## # ... with 90 more rows, and 17 more variables: description <chr>,
     ## #   train_state <chr>, train_job_id <lgl>, language <chr>,
     ## #   ngram_range <chr>, use_stemmer <lgl>, stop_words <chr>,
     ## #   max_features <int>, strip_stopwords <lgl>, is_multilabel <lgl>,
@@ -315,4 +315,4 @@ monkeylearn_classify(request,
 Check the number of remaining calls
 ===================================
 
-After each call to a function you can check how many calls to the API you can still make using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit}`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
+After each call to a function you can check how many calls to the API you can still make using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.

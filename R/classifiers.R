@@ -48,7 +48,7 @@ monkeylearn_classifiers <- function(private = FALSE,
     if(class(temp$results) == "data.frame"){
       has_next <- temp$has_next[1]
 
-      names(temp)[1] <- "classifier_id"
+      names(temp$results)[1] <- "classifier_id"
       results <- dplyr::bind_rows(results, temp$results)
 
       page <- page + 1
