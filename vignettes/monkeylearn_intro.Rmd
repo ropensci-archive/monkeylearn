@@ -81,7 +81,11 @@ attr(output2, "headers")
 
 ## How to find extractors?
 
-You can find extractors and their IDs, including extractors for text in Spanish, at https://app.monkeylearn.com/main/explore Here are a few ones for text in English:
+You can find extractors and their IDs, including extractors for text in Spanish, at https://app.monkeylearn.com/main/explore 
+
+There is no endpoint for automatically finding all extractors, but if you find one in the website you particularly like and use a lot in your language and application, you could choose to save its id as an environment variable as explained [here]( http://stat545.com/bit003_api-key-env-var.html). Reading about extractors on the website will give you a good overview of their characteristics and original application.
+
+Here are a few ones for text in English:
 
 * [Entity extractor](https://app.monkeylearn.com/extraction/extractors/ex_isnnZRbS/tab/description-tab), `extractor_id = "ex_isnnZRbS"` (used in the first example). Extract Entities from text using Named Entity Recognition (NER). NER labels sequences of words in a text which are the names of things, such as person and company names. This implementation labels 3 classes: PERSON, ORGANIZATION and LOCATION. This NER tagger is implemented using Conditional Random Field (CRF) sequence models.
 
@@ -127,7 +131,6 @@ monkeylearn_classify(request,
                      classifier_id = "cl_oFKL5wft")
 
 ```
-
 ## How to find classifiers?
 
 You can find classifiers and their IDs at https://app.monkeylearn.com/main/explore or you can use the `monkeylearn_classifiers` function, choosing to show all classifiers or only the private ones with `private = TRUE`. The first column of the resulting data.frame is the `classifier_id` to be used in `monkeylearn_classify`.
@@ -138,7 +141,30 @@ monkeylearn_classifiers(private = FALSE)
 
 ```
 
-Here are a few examples:
+For instance, for doing sentiment analysis in French, one could extract all classifiers and then look at classifiers containing the word "sentiment" in their name and "fr" as language.
+
+```{r}
+
+classifiers <- monkeylearn_classifiers(private = FALSE)
+classifiers_sentiment_french <- dplyr::filter(classifiers,
+                                              grepl("[Ss]entiment", name), language == "fr")
+
+```
+There is only one so let's use it to perform sentiment analysis.
+
+```{r}
+classifier_id <- classifiers_sentiment_french$classifier_id
+classifier_id
+
+text1 <- "Nous avons fait un magnifique voyage et parlé avec des personnes adorables."
+text2 <- "Je déteste ne plus avoir de dentifrice."
+text3 <- "Je pense que cette personne est exécrable et mesquine, je suis en colère."
+request <- c(text1, text2, text3)
+monkeylearn_classify(request,
+                     classifier_id = classifier_id)
+```
+
+Here are a few other examples:
 
 * [Language detection](https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab), `classifier_id = "cl_oJNMkt2V"`. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.
 
@@ -176,4 +202,4 @@ monkeylearn_classify(request,
 
 # Check the number of remaining calls
 
-After each call to a function you can check how many calls to the API you can still make  using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit}`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
+After each call to a function you can check how many calls to the API you can still make  using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.

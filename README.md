@@ -61,9 +61,9 @@ attr(output, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 09:25:49 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 13:03:39 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48575
+    ## 1 Accept, Cookie               50000                   48470
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -120,9 +120,9 @@ attr(output2, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 09:25:50 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 13:03:40 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48573
+    ## 1 Accept, Cookie               50000                   48468
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
@@ -131,7 +131,11 @@ attr(output2, "headers")
 How to find extractors?
 -----------------------
 
-You can find extractors and their IDs, including extractors for text in Spanish, at <https://app.monkeylearn.com/main/explore> Here are a few ones for text in English:
+You can find extractors and their IDs, including extractors for text in Spanish, at <https://app.monkeylearn.com/main/explore>
+
+There is no endpoint for automatically finding all extractors, but if you find one in the website you particularly like and use a lot in your language and application, you could choose to save its id as an environment variable as explained [here](http://stat545.com/bit003_api-key-env-var.html). Reading about extractors on the website will give you a good overview of their characteristics and original application.
+
+Here are a few ones for text in English:
 
 -   [Entity extractor](https://app.monkeylearn.com/extraction/extractors/ex_isnnZRbS/tab/description-tab), `extractor_id = "ex_isnnZRbS"` (used in the first example). Extract Entities from text using Named Entity Recognition (NER). NER labels sequences of words in a text which are the names of things, such as person and company names. This implementation labels 3 classes: PERSON, ORGANIZATION and LOCATION. This NER tagger is implemented using Conditional Random Field (CRF) sequence models.
 
@@ -233,7 +237,7 @@ You can find classifiers and their IDs at <https://app.monkeylearn.com/main/expl
 monkeylearn_classifiers(private = FALSE)
 ```
 
-    ## # A tibble: 100 x 19
+    ## # A tibble: 138 x 19
     ##    classifier_id                                           name
     ##            <chr>                                          <chr>
     ## 1    cl_QAgwuuWr                             opinion classifier
@@ -246,7 +250,7 @@ monkeylearn_classifiers(private = FALSE)
     ## 8    cl_bux2fvbq Disasters and Emergencies Detection on Twitter
     ## 9    cl_ozN8WAwB            Sentiment Analysis of Short Phrases
     ## 10   cl_5ohRusBA                                  Ad Classifier
-    ## # ... with 90 more rows, and 17 more variables: description <chr>,
+    ## # ... with 128 more rows, and 17 more variables: description <chr>,
     ## #   train_state <chr>, train_job_id <lgl>, language <chr>,
     ## #   ngram_range <chr>, use_stemmer <lgl>, stop_words <chr>,
     ## #   max_features <int>, strip_stopwords <lgl>, is_multilabel <lgl>,
@@ -254,7 +258,38 @@ monkeylearn_classifiers(private = FALSE)
     ## #   industry <chr>, classifier_type <chr>, text_type <chr>,
     ## #   permissions <chr>
 
-Here are a few examples:
+For instance, for doing sentiment analysis in French, one could extract all classifiers and then look at classifiers containing the word "sentiment" in their name and "fr" as language.
+
+``` r
+classifiers <- monkeylearn_classifiers(private = FALSE)
+classifiers_sentiment_french <- dplyr::filter(classifiers,
+                                              grepl("[Ss]entiment", name), language == "fr")
+```
+
+There is only one so let's use it to perform sentiment analysis.
+
+``` r
+classifier_id <- classifiers_sentiment_french$classifier_id
+classifier_id
+```
+
+    ## [1] "cl_36FHzFrP"
+
+``` r
+text1 <- "Nous avons fait un magnifique voyage et parlé avec des personnes adorables."
+text2 <- "Je déteste ne plus avoir de dentifrice."
+text3 <- "Je pense que cette personne est exécrable et mesquine, je suis en colère."
+request <- c(text1, text2, text3)
+monkeylearn_classify(request,
+                     classifier_id = classifier_id)
+```
+
+    ##   category_id probability label                         text_md5
+    ## 1      399772       0.898   pos 4be183aca0c66a62dcb5ee245c2d1597
+    ## 2      399771       0.685   neg 7543a88ecc9cc8d4dd8d515cc25f196c
+    ## 3      399771       0.572   neg aa9fde0e6eafcc5c5745611d1f19deb5
+
+Here are a few other examples:
 
 -   [Language detection](https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab), `classifier_id = "cl_oJNMkt2V"`. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.
 
