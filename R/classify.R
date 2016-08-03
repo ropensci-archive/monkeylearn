@@ -72,8 +72,8 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
     # parse output
     output <- monkeylearn_parse(output, request_text = request[[i]])
 
-    results <- rbind(results, output$results)
-    headers <- rbind(headers, output$headers)
+    results <- dplyr::bind_rows(results, output$results)
+    headers <- dplyr::bind_rows(headers, output$headers)
   }
 
   # done!
