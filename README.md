@@ -13,7 +13,7 @@
 monkeylearn
 ===========
 
-[![Build Status](https://travis-ci.org/ropenscilabs/monkeylearn.svg?branch=master)](https://travis-ci.org/ropenscilabs/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/a7bjnb5dpr8qrx58?svg=true)](https://ci.appveyor.com/project/ropenscilabs/monkeylearn) [![codecov](https://codecov.io/gh/ropenscilabs/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/monkeylearn)
+[![Build Status](https://travis-ci.org/ropenscilabs/monkeylearn.svg?branch=master)](https://travis-ci.org/ropenscilabs/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropenscilabs/monkeylearn) [![codecov](https://codecov.io/gh/ropenscilabs/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/monkeylearn)
 
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
 
@@ -60,9 +60,9 @@ attr(output, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:15:40 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:54:21 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48043
+    ## 1 Accept, Cookie               50000                   47307
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -119,9 +119,9 @@ attr(output2, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:15:41 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:44:22 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48041
+    ## 1 Accept, Cookie               50000                   47305
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
