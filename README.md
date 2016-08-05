@@ -8,13 +8,12 @@
     -   [A first example](#a-first-example-1)
     -   [How to find classifiers?](#how-to-find-classifiers)
 -   [Check the number of remaining calls](#check-the-number-of-remaining-calls)
+    -   [Meta](#meta)
 
 monkeylearn
 ===========
 
 [![Build Status](https://travis-ci.org/ropenscilabs/monkeylearn.svg?branch=master)](https://travis-ci.org/ropenscilabs/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/a7bjnb5dpr8qrx58?svg=true)](https://ci.appveyor.com/project/ropenscilabs/monkeylearn) [![codecov](https://codecov.io/gh/ropenscilabs/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/monkeylearn)
-
-This project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
 
@@ -61,9 +60,9 @@ attr(output, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:13:24 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:15:40 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48061
+    ## 1 Accept, Cookie               50000                   48043
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -120,9 +119,9 @@ attr(output2, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:13:25 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:15:41 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48059
+    ## 1 Accept, Cookie               50000                   48041
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
@@ -351,3 +350,13 @@ Check the number of remaining calls
 ===================================
 
 After each call to a function you can check how many calls to the API you can still make using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
+
+Meta
+----
+
+-   Please [report any issues or bugs](https://github.com/ropenscilabs/monkeylearn/issues).
+-   License: GPL
+-   Get citation information for `opencage` in R doing `citation(package = 'monkeylearn')`
+-   Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+[![ropensci\_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
