@@ -61,9 +61,9 @@ attr(output, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 13:03:39 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 13:11:35 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48470
+    ## 1 Accept, Cookie               50000                   48826
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -120,9 +120,9 @@ attr(output2, "headers")
 ```
 
     ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Sat, 30 Jul 2016 13:03:40 GMT nginx/1.8.0
+    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 13:21:35 GMT nginx/1.8.0
     ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   48468
+    ## 1 Accept, Cookie               50000                   48824
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
@@ -237,7 +237,7 @@ You can find classifiers and their IDs at <https://app.monkeylearn.com/main/expl
 monkeylearn_classifiers(private = FALSE)
 ```
 
-    ## # A tibble: 138 x 19
+    ## # A tibble: 137 x 19
     ##    classifier_id                                           name
     ##            <chr>                                          <chr>
     ## 1    cl_QAgwuuWr                             opinion classifier
@@ -250,7 +250,7 @@ monkeylearn_classifiers(private = FALSE)
     ## 8    cl_bux2fvbq Disasters and Emergencies Detection on Twitter
     ## 9    cl_ozN8WAwB            Sentiment Analysis of Short Phrases
     ## 10   cl_5ohRusBA                                  Ad Classifier
-    ## # ... with 128 more rows, and 17 more variables: description <chr>,
+    ## # ... with 127 more rows, and 17 more variables: description <chr>,
     ## #   train_state <chr>, train_job_id <lgl>, language <chr>,
     ## #   ngram_range <chr>, use_stemmer <lgl>, stop_words <chr>,
     ## #   max_features <int>, strip_stopwords <lgl>, is_multilabel <lgl>,
