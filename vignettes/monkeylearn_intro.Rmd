@@ -35,7 +35,7 @@ Both functions of the package will conveniently look for your API key using `Sys
 To install the package, you will need the `devtools` package.
 
 ```{r, eval = FALSE}
-devtools::install_github("masalmon/monkeylearn")
+devtools::install_github("ropenscilabs/monkeylearn")
 
 ```
 

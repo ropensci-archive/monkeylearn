@@ -9,9 +9,9 @@ output:
 ---
 monkeylearn
 =============
-[![Build Status](https://travis-ci.org/masalmon/monkeylearn.svg?branch=master)](https://travis-ci.org/masalmon/monkeylearn)
-[![Build status](https://ci.appveyor.com/api/projects/status/a7bjnb5dpr8qrx58?svg=true)](https://ci.appveyor.com/project/masalmon/monkeylearn)
-[![codecov](https://codecov.io/gh/masalmon/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/masalmon/monkeylearn)
+[![Build Status](https://travis-ci.org/ropenscilabs/monkeylearn.svg?branch=master)](https://travis-ci.org/ropenscilabs/monkeylearn)
+[![Build status](https://ci.appveyor.com/api/projects/status/a7bjnb5dpr8qrx58?svg=true)](https://ci.appveyor.com/project/ropenscilabs/monkeylearn)
+[![codecov](https://codecov.io/gh/ropenscilabs/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/monkeylearn)
 
 This project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
@@ -28,7 +28,7 @@ Both functions of the package will conveniently look for your API key using `Sys
 To install the package, you will need the `devtools` package.
 
 ```{r, eval = FALSE}
-devtools::install_github("masalmon/monkeylearn")
+devtools::install_github("ropenscilabs/monkeylearn")
 
 ```
 
