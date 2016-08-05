@@ -67,7 +67,7 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
   results <- NULL
   headers <- NULL
 
-  for(i in 1:length(request)) {
+  for(i in seq_along(request)) {
     if(verbose) {
       message(paste0("Processing request number ", i, " out of ", length(request)))
     }

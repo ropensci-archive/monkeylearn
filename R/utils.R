@@ -52,7 +52,8 @@ monkeylearn_url_extractor <- function(extractor_id) {
 # check text size
 monkeylearn_text_size <- function(request) {
 
-  if(any(unlist(lapply(request, nchar, type = "bytes")) > 500000)) {
+  if(any(unlist(vapply(request, nchar, type = "bytes",
+                       FUN.VALUE = 0)) > 500000)) {
     stop("Each text in the request should be smaller than 500 kb.",
          call. = FALSE)
   }
@@ -98,7 +99,8 @@ monkeylearn_parse <- function(output, request_text) {
                                               digest::digest, algo = "md5",
                                               simplify = TRUE,
                                               USE.NAMES = FALSE),
-                                  unlist(lapply(temp$result, nrow)),
+                                  unlist(vapply(temp$result, nrow,
+                                                FUN.VALUE = 0)),
                                   SIMPLIFY = FALSE))
   } else{
     results <- as.data.frame(temp$result)
