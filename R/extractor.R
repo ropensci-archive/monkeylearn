@@ -93,8 +93,8 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
     # parse output
     output <- monkeylearn_parse(output, request_text = request[[i]])
 
-    results <- dplyr::bind_rows(results, output$results)
-    headers <- dplyr::bind_rows(headers, output$headers)
+    results <- suppressWarnings(dplyr::bind_rows(results, output$results))
+    headers <- suppressWarnings(dplyr::bind_rows(headers, output$headers))
   }
 
   # done!
