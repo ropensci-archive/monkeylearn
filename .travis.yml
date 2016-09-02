@@ -9,7 +9,7 @@ sudo: false
 cache: packages
 
 r_build_args: "--no-build-vignettes"
-r_check_args: "--no-build-vignettes"
+r_check_args: "--no-build-vignettes --no-vignettes"
 
 r_packages:
   - xml2
