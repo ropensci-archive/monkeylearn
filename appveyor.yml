@@ -59,7 +59,7 @@ notifications:
  - provider: Email
    to:
      - maelle.salmon@yahoo.se
-   subject: 'r-appveyor build {{status}}'                  # optional
+   subject: 'monkeylearn build {{status}}'                  # optional
    message: "https://ci.appveyor.com/project/krlmlr/r-appveyor"    # optional
    on_build_success: true
    on_build_failure: true
