@@ -15,7 +15,7 @@ environment:
   global:
     WARNINGS_ARE_ERRORS: 1
     USE_RTOOLS: true
-    R_QPDF: true
+    _R_CHECK_DOC_SIZES_: false
 
   matrix:
   - R_VERSION: stable
