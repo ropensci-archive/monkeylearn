@@ -1,6 +1,6 @@
 Package: monkeylearn
 Type: Package
-Title: Accesses the Monkeylearn API for text classifiers and extractors
+Title: Accesses the Monkeylearn API for Text Classifiers and Extractors
 Version: 0.1.0
 Authors@R: c(person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre")), person("Thomas", "Leeper", role = c("ctb"), comment = "Thomas Leeper reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/45"))
 Description: Allows using some services of Monkeylearn which is
