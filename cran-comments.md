@@ -10,6 +10,10 @@ R CMD check results
 
 * This is a new release.
 
+## Re-submission
+
+* I added the Monkeylearn URL in DESCRIPTION.
+
 ## Reverse dependencies
 
 This is a new release, so there are no reverse dependencies.
