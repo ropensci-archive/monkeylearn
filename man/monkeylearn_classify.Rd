@@ -17,7 +17,7 @@ monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
 \item{verbose}{whether to output messages about batch requests}
 }
 \value{
-A data.frame with the results whose attribute is a data.frame "headers" including the number of remaining queries as "x.query.limit.remaining".
+A data.frame (tibble) with the results whose attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
 Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 }
 \description{

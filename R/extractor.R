@@ -53,7 +53,7 @@
 #' You can check the number of calls you can still make in the API using \code{attr(output, "headers")$x.query.limit.remaining}
 #' and \code{attr(output, "headers")$x.query.limit.limit}.
 #'
-#' @return A data.frame with the results whose attribute is a data.frame "headers" including the number of remaining queries as "x.query.limit.remaining".
+#' @return A data.frame with the results whose attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
 #' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 #' @export
 monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
@@ -98,7 +98,7 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
   }
 
   # done!
-  attr(results, "headers") <- headers
+  attr(results, "headers") <-  tibble::as_tibble(headers)
   results
 
 }

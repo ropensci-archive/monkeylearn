@@ -29,7 +29,7 @@
 #' output <- monkeylearn_classify(request)
 #' output
 #' attr(output, "headers")}
-#' @return A data.frame with the results whose attribute is a data.frame "headers" including the number of remaining queries as "x.query.limit.remaining".
+#' @return A data.frame (tibble) with the results whose attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
 #' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 #' @export
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),

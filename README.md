@@ -8,7 +8,7 @@
     -   [A first example](#a-first-example-1)
     -   [How to find classifiers?](#how-to-find-classifiers)
 -   [Check the number of remaining calls](#check-the-number-of-remaining-calls)
-    -   [Meta](#meta)
+-   [Meta](#meta)
 
 monkeylearn
 ===========
@@ -61,14 +61,14 @@ output
 attr(output, "headers")
 ```
 
+    ## # A tibble: 1 x 11
     ##           allow     content.type                          date
-    ## 1 POST, OPTIONS application/json Sat, 10 Sep 2016 09:14:13 GMT
-    ##         server           vary x.query.limit.limit x.query.limit.remaining
-    ## 1 nginx/1.10.1 Accept, Cookie             5000000                 4997455
-    ##   x.query.limit.request.queries content.length connection
-    ## 1                             1            406 keep-alive
-    ##                           text_md5
-    ## 1 95132b831aa7a4ba1a666b93490b3c9c
+    ##          <fctr>           <fctr>                        <fctr>
+    ## 1 POST, OPTIONS application/json Sat, 10 Sep 2016 09:56:28 GMT
+    ## # ... with 8 more variables: server <fctr>, vary <fctr>,
+    ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
+    ## #   x.query.limit.request.queries <fctr>, content.length <fctr>,
+    ## #   connection <fctr>, text_md5 <list>
 
 Parameters
 ----------
@@ -120,14 +120,14 @@ output2
 attr(output2, "headers")
 ```
 
+    ## # A tibble: 1 x 11
     ##           allow     content.type                          date
-    ## 1 POST, OPTIONS application/json Sat, 10 Sep 2016 09:14:14 GMT
-    ##         server           vary x.query.limit.limit x.query.limit.remaining
-    ## 1 nginx/1.10.1 Accept, Cookie             5000000                 4997453
-    ##   x.query.limit.request.queries content.length connection
-    ## 1                             1            114 keep-alive
-    ##                           text_md5
-    ## 1 c52e4d898bf4009ba347820c86275973
+    ##          <fctr>           <fctr>                        <fctr>
+    ## 1 POST, OPTIONS application/json Sat, 10 Sep 2016 09:56:33 GMT
+    ## # ... with 8 more variables: server <fctr>, vary <fctr>,
+    ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
+    ## #   x.query.limit.request.queries <fctr>, content.length <fctr>,
+    ## #   connection <fctr>, text_md5 <list>
 
 How to find extractors?
 -----------------------
@@ -214,20 +214,16 @@ monkeylearn_classify(request,
                      classifier_id = "cl_oFKL5wft")
 ```
 
+    ## # A tibble: 6 x 4
     ##   category_id probability                      label
+    ## *       <int>       <dbl>                      <chr>
     ## 1       65976       0.851                       Pets
     ## 2       66008       0.239                       Fish
     ## 3       66013       0.792                  Fish Food
     ## 4       67618       0.702                Cell Phones
     ## 5       67639       0.484              Family Mobile
     ## 6       67641       0.547 Family Mobile Starter Kits
-    ##                           text_md5
-    ## 1 f4837d7e5dfdcd3775b3d890a320dc89
-    ## 2 f4837d7e5dfdcd3775b3d890a320dc89
-    ## 3 f4837d7e5dfdcd3775b3d890a320dc89
-    ## 4 af5c621a49a008f6e6a0d5ad47f2e1f4
-    ## 5 af5c621a49a008f6e6a0d5ad47f2e1f4
-    ## 6 af5c621a49a008f6e6a0d5ad47f2e1f4
+    ## # ... with 1 more variables: text_md5 <chr>
 
 How to find classifiers?
 ------------------------
@@ -303,7 +299,9 @@ monkeylearn_classify(request,
                      classifier_id = classifier_id)
 ```
 
+    ## # A tibble: 3 x 4
     ##   category_id probability label                         text_md5
+    ## *       <int>       <dbl> <chr>                            <chr>
     ## 1      399772       0.898   pos 4be183aca0c66a62dcb5ee245c2d1597
     ## 2      399771       0.685   neg 7543a88ecc9cc8d4dd8d515cc25f196c
     ## 3      399771       0.572   neg aa9fde0e6eafcc5c5745611d1f19deb5
@@ -321,7 +319,9 @@ monkeylearn_classify(request,
                      classifier_id = "cl_oJNMkt2V")
 ```
 
+    ## # A tibble: 6 x 4
     ##   category_id probability      label                         text_md5
+    ## *       <int>       <dbl>      <chr>                            <chr>
     ## 1       64494       0.994     Italic ec3fd6de86b1f2044c7bf7fb47831197
     ## 2       64495       0.993 Catalan-ca ec3fd6de86b1f2044c7bf7fb47831197
     ## 3       64483       0.360   Germanic af5c621a49a008f6e6a0d5ad47f2e1f4
@@ -339,7 +339,9 @@ monkeylearn_classify(request,
                      classifier_id = "cl_KFXhoTdt")
 ```
 
+    ## # A tibble: 2 x 4
     ##   category_id probability     label                         text_md5
+    ## *       <int>       <dbl>     <chr>                            <chr>
     ## 1      103768       0.827     clean 641e443d9485034d30fec6c36d67d4cd
     ## 2      103767       1.000 profanity 2b9e3eb08b256277e4c2b3dfcc8d5c75
 
@@ -353,18 +355,15 @@ monkeylearn_classify(request,
                      classifier_id = "cl_5icAVzKR")
 ```
 
+    ## # A tibble: 5 x 4
     ##   category_id probability                label
+    ## *       <int>       <dbl>                <chr>
     ## 1       64600       0.894              Animals
     ## 2       64608       0.649              Mammals
     ## 3       64611       0.869         Land Mammals
     ## 4       64638       0.240 Computers & Internet
     ## 5       64640       0.252             Internet
-    ##                           text_md5
-    ## 1 309e318e5676605efae126b5191c1028
-    ## 2 309e318e5676605efae126b5191c1028
-    ## 3 309e318e5676605efae126b5191c1028
-    ## 4 ee6bbcd0f530265a50ac49d8ccf0462b
-    ## 5 ee6bbcd0f530265a50ac49d8ccf0462b
+    ## # ... with 1 more variables: text_md5 <chr>
 
 Check the number of remaining calls
 ===================================
@@ -372,7 +371,7 @@ Check the number of remaining calls
 After each call to a function you can check how many calls to the API you can still make using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
 
 Meta
-----
+====
 
 -   Please [report any issues or bugs](https://github.com/ropenscilabs/monkeylearn/issues).
 -   License: GPL
