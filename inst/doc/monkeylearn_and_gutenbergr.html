@@ -12,7 +12,7 @@
 
 <meta name="author" content="M. Salmon" />
 
-<meta name="date" content="2016-09-02" />
+<meta name="date" content="2016-09-10" />
 
 <title>A Short Analysis of Little Women via Gutenbergr and Monkeylearn</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">A Short Analysis of Little Women via Gutenbergr and Monkeylearn</h1>
 <h4 class="author"><em>M. Salmon</em></h4>
-<h4 class="date"><em>2016-09-02</em></h4>
+<h4 class="date"><em>2016-09-10</em></h4>
 
 
 
@@ -79,19 +79,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;monkeylearn&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;gutenbergr&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 
 little_women &lt;-<span class="st"> </span><span class="kw">gutenberg_download</span>(<span class="kw">c</span>(<span class="dv">514</span>),
-                                 <span class="dt">meta_fields =</span> <span class="st">&quot;title&quot;</span>)
-<span class="co">#&gt; Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest</span>
-<span class="co">#&gt; Using mirror http://www.gutenberg.lib.md.us</span></code></pre></div>
+                                 <span class="dt">meta_fields =</span> <span class="st">&quot;title&quot;</span>)</code></pre></div>
 <p>We will now use the tidytext package for getting whole paragraphs.</p>
 <p>Then we will paste them together to get one string and then split it by the word “chapter” in order to get a reasonable number of text fragments, that we hope to be able to send as a single text to Monkeylearn API, which we can if each string is smaller than 50kB.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
@@ -107,8 +97,7 @@ little_women_chapters &lt;-<span class="st"> </span>tibble::<span class="kw">tib
   <span class="dt">text =</span> chapters
 )
 
-<span class="kw">all</span>(<span class="kw">nchar</span>(little_women_chapters$text, <span class="dt">type =</span> <span class="st">&quot;bytes&quot;</span>) &lt;<span class="st"> </span><span class="dv">50000</span>)
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<span class="kw">all</span>(<span class="kw">nchar</span>(little_women_chapters$text, <span class="dt">type =</span> <span class="st">&quot;bytes&quot;</span>) &lt;<span class="st"> </span><span class="dv">50000</span>)</code></pre></div>
 <p>All chapters have the right size to be sent to the API. The API accepts 20 texts per call, but <code>monkeylearn</code> functions can split a vector of text automatically so we can submit the whole vector <code>little_women_chapters$text</code> without further ado.</p>
 <div id="entity-extractor" class="section level1">
 <h1>Entity extractor</h1>
@@ -117,71 +106,12 @@ little_women_chapters &lt;-<span class="st"> </span>tibble::<span class="kw">tib
 entities &lt;-<span class="st"> </span><span class="kw">monkeylearn_extract</span>(<span class="dt">request =</span> little_women_chapters$text,
                               <span class="dt">extractor_id =</span> <span class="st">&quot;ex_isnnZRbS&quot;</span>,
                               <span class="dt">verbose =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; Processing request number 1 out of 3</span>
-<span class="co">#&gt; Processing request number 2 out of 3</span>
-<span class="co">#&gt; Processing request number 3 out of 3</span>
 entities %&gt;%
 <span class="st"> </span><span class="kw">group_by</span>(entity, tag) %&gt;%
 <span class="st"> </span><span class="kw">summarize</span>(<span class="dt">n_occurences =</span> <span class="kw">n</span>()) %&gt;%
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n_occurences)) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(n_occurences &gt;<span class="st"> </span><span class="dv">5</span>) %&gt;%
 <span class="st">  </span>knitr::<span class="kw">kable</span>()</code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">entity</th>
-<th align="left">tag</th>
-<th align="right">n_occurences</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">amy</td>
-<td align="left">PERSON</td>
-<td align="right">40</td>
-</tr>
-<tr class="even">
-<td align="left">laurie</td>
-<td align="left">PERSON</td>
-<td align="right">32</td>
-</tr>
-<tr class="odd">
-<td align="left">mr. laurence</td>
-<td align="left">PERSON</td>
-<td align="right">14</td>
-</tr>
-<tr class="even">
-<td align="left">mr. brooke</td>
-<td align="left">PERSON</td>
-<td align="right">13</td>
-</tr>
-<tr class="odd">
-<td align="left">meg</td>
-<td align="left">PERSON</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left">paris</td>
-<td align="left">LOCATION</td>
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="left">american</td>
-<td align="left">LOCATION</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">washington</td>
-<td align="left">LOCATION</td>
-<td align="right">7</td>
-</tr>
-<tr class="odd">
-<td align="left">john</td>
-<td align="left">PERSON</td>
-<td align="right">6</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div id="keywords" class="section level1">
 <h1>Keywords?</h1>
@@ -195,132 +125,6 @@ keywords %&gt;%
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n_occurences)) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(n_occurences &gt;<span class="st"> </span><span class="dv">10</span>) %&gt;%
 <span class="st">  </span>knitr::<span class="kw">kable</span>()</code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">keyword</th>
-<th align="right">n_occurences</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">meg</td>
-<td align="right">627</td>
-</tr>
-<tr class="even">
-<td align="left">amy</td>
-<td align="right">468</td>
-</tr>
-<tr class="odd">
-<td align="left">laurie</td>
-<td align="right">460</td>
-</tr>
-<tr class="even">
-<td align="left">beth</td>
-<td align="right">309</td>
-</tr>
-<tr class="odd">
-<td align="left">john</td>
-<td align="right">103</td>
-</tr>
-<tr class="even">
-<td align="left">mr. bhaer</td>
-<td align="right">62</td>
-</tr>
-<tr class="odd">
-<td align="left">aunt march</td>
-<td align="right">54</td>
-</tr>
-<tr class="even">
-<td align="left">demi</td>
-<td align="right">43</td>
-</tr>
-<tr class="odd">
-<td align="left">mr. brooke</td>
-<td align="right">43</td>
-</tr>
-<tr class="even">
-<td align="left">mother</td>
-<td align="right">38</td>
-</tr>
-<tr class="odd">
-<td align="left">mrs. march</td>
-<td align="right">35</td>
-</tr>
-<tr class="even">
-<td align="left">boys</td>
-<td align="right">33</td>
-</tr>
-<tr class="odd">
-<td align="left">table</td>
-<td align="right">31</td>
-</tr>
-<tr class="even">
-<td align="left">old gentleman</td>
-<td align="right">23</td>
-</tr>
-<tr class="odd">
-<td align="left">mr. laurence</td>
-<td align="right">20</td>
-</tr>
-<tr class="even">
-<td align="left">mr. dashwood</td>
-<td align="right">18</td>
-</tr>
-<tr class="odd">
-<td align="left">letters</td>
-<td align="right">17</td>
-</tr>
-<tr class="even">
-<td align="left">professor</td>
-<td align="right">17</td>
-</tr>
-<tr class="odd">
-<td align="left">heart</td>
-<td align="right">16</td>
-</tr>
-<tr class="even">
-<td align="left">limes</td>
-<td align="right">15</td>
-</tr>
-<tr class="odd">
-<td align="left">story</td>
-<td align="right">14</td>
-</tr>
-<tr class="even">
-<td align="left">flo</td>
-<td align="right">13</td>
-</tr>
-<tr class="odd">
-<td align="left">hand</td>
-<td align="right">13</td>
-</tr>
-<tr class="even">
-<td align="left">mr. davis</td>
-<td align="right">13</td>
-</tr>
-<tr class="odd">
-<td align="left">thing</td>
-<td align="right">12</td>
-</tr>
-<tr class="even">
-<td align="left">young ladies</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left">gloves</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left">snodgrass</td>
-<td align="right">11</td>
-</tr>
-<tr class="odd">
-<td align="left">uncle</td>
-<td align="right">11</td>
-</tr>
-</tbody>
-</table>
 <p>Interestingly here the keyword extraction is better at finding who the main characters are (yes, I have read the book).</p>
 <p>In this table the number of occurences is the total count for the keyword in the book.</p>
 </div>
@@ -329,41 +133,12 @@ keywords %&gt;%
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 topics &lt;-<span class="st"> </span><span class="kw">monkeylearn_classify</span>(little_women_chapters$text,
                      <span class="dt">classifier_id =</span> <span class="st">&quot;cl_5icAVzKR&quot;</span>)
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; [1] 3</span>
 topics %&gt;%
 <span class="st">  </span><span class="kw">group_by</span>(label) %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n_occurences =</span> <span class="kw">n</span>()) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(n_occurences &gt;<span class="st"> </span><span class="dv">1</span>) %&gt;%
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n_occurences)) %&gt;%
 <span class="st">  </span>knitr::<span class="kw">kable</span>()</code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">label</th>
-<th align="right">n_occurences</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Society</td>
-<td align="right">48</td>
-</tr>
-<tr class="even">
-<td align="left">Special Occasions</td>
-<td align="right">46</td>
-</tr>
-<tr class="odd">
-<td align="left">Entertainment &amp; Recreation</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">Jokes</td>
-<td align="right">2</td>
-</tr>
-</tbody>
-</table>
 <p>Here, occurences means number of times the topic was found in the table.</p>
 <p>As a summary, using these three modules I was reminded of the book and of the movie, but I am less sure I could have been able to talk about the book using only these results while not having read it.</p>
 </div>

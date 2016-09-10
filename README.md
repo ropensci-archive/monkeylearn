@@ -23,6 +23,8 @@ To get an API key for MonkeyLearn, register at <http://monkeylearn.com/>. Note t
 
 Both functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN\_KEY" you don't need to input it manually.
 
+You can see an example of the package in action in this blog post ["Analyzing \#first7jobs tweets with MonkeyLearn and R"](https://blog.monkeylearn.com/analyzing-first7jobs-tweets-monkeylearn-r/).
+
 Installation
 ============
 
@@ -59,10 +61,10 @@ output
 attr(output, "headers")
 ```
 
-    ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:54:21 GMT nginx/1.8.0
-    ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   47307
+    ##           allow     content.type                          date
+    ## 1 POST, OPTIONS application/json Sat, 10 Sep 2016 09:14:13 GMT
+    ##         server           vary x.query.limit.limit x.query.limit.remaining
+    ## 1 nginx/1.10.1 Accept, Cookie             5000000                 4997455
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            406 keep-alive
     ##                           text_md5
@@ -118,10 +120,10 @@ output2
 attr(output2, "headers")
 ```
 
-    ##           allow     content.type                          date      server
-    ## 1 POST, OPTIONS application/json Fri, 05 Aug 2016 15:44:22 GMT nginx/1.8.0
-    ##             vary x.query.limit.limit x.query.limit.remaining
-    ## 1 Accept, Cookie               50000                   47305
+    ##           allow     content.type                          date
+    ## 1 POST, OPTIONS application/json Sat, 10 Sep 2016 09:14:14 GMT
+    ##         server           vary x.query.limit.limit x.query.limit.remaining
+    ## 1 nginx/1.10.1 Accept, Cookie             5000000                 4997453
     ##   x.query.limit.request.queries content.length connection
     ## 1                             1            114 keep-alive
     ##                           text_md5
@@ -236,20 +238,20 @@ You can find classifiers and their IDs at <https://app.monkeylearn.com/main/expl
 monkeylearn_classifiers(private = FALSE)
 ```
 
-    ## # A tibble: 137 x 19
-    ##    classifier_id                                           name
-    ##            <chr>                                          <chr>
-    ## 1    cl_QAgwuuWr                             opinion classifier
-    ## 2    cl_GeMiVB99                               LOE close reason
-    ## 3    cl_5MeFrP2x                            Care Agent feedback
-    ## 4    cl_iiQtSm8p                                        Is Meal
-    ## 5    cl_SS7NMUdx                                      Meal Type
-    ## 6    cl_M6MJw5hS                                       Investor
-    ## 7    cl_GpJbpHtj                          Cyber Security Cat v2
-    ## 8    cl_bux2fvbq Disasters and Emergencies Detection on Twitter
-    ## 9    cl_ozN8WAwB            Sentiment Analysis of Short Phrases
-    ## 10   cl_5ohRusBA                                  Ad Classifier
-    ## # ... with 127 more rows, and 17 more variables: description <chr>,
+    ## # A tibble: 152 x 19
+    ##    classifier_id                                                   name
+    ##            <chr>                                                  <chr>
+    ## 1    cl_cq6e5oEq Tweets - Offensive and hate speech detection - English
+    ## 2    cl_YygsUUkN                                        Founder Names 2
+    ## 3    cl_UXdsVBzj           Smart Restaurant Reviews Sentiments Analysis
+    ## 4    cl_bwxdJMHE                                               Spam Ham
+    ## 5    cl_xG46wHyZ                                     Good News (German)
+    ## 6    cl_2MXugh99                             GMS-Hotel-Reviews-Analysis
+    ## 7    cl_mEcCuEcG                                     Emotions in Tweets
+    ## 8    cl_MUsRyHwV        Bownty - EN NATIONAL category classifier (v2.1)
+    ## 9    cl_5pzHfLSv           Bownty - EN LOCAL category classifier (v2.1)
+    ## 10   cl_ZRfE9AUu                               Settore comunale dal PEG
+    ## # ... with 142 more rows, and 17 more variables: description <chr>,
     ## #   train_state <chr>, train_job_id <lgl>, language <chr>,
     ## #   ngram_range <chr>, use_stemmer <lgl>, stop_words <chr>,
     ## #   max_features <int>, strip_stopwords <lgl>, is_multilabel <lgl>,
@@ -261,14 +263,32 @@ For instance, for doing sentiment analysis in French, one could extract all clas
 
 ``` r
 classifiers <- monkeylearn_classifiers(private = FALSE)
-classifiers_sentiment_french <- dplyr::filter(classifiers,
-                                              grepl("[Ss]entiment", name), language == "fr")
+
+classifiers_sentiment_french <- classifiers[!is.na(classifiers$name),]
+
+classifiers_sentiment_french <- classifiers_sentiment_french[!is.na(classifiers_sentiment_french$language),]
+
+classifiers_sentiment_french <- classifiers_sentiment_french[grepl("[Ss]entiment", classifiers_sentiment_french$name)& classifiers_sentiment_french$language == "fr",]
+
+classifiers_sentiment_french
 ```
 
-There is only one so let's use it to perform sentiment analysis.
+    ## # A tibble: 2 x 19
+    ##   classifier_id                                         name
+    ##           <chr>                                        <chr>
+    ## 1   cl_UXdsVBzj Smart Restaurant Reviews Sentiments Analysis
+    ## 2   cl_36FHzFrP                          Sentiment - general
+    ## # ... with 17 more variables: description <chr>, train_state <chr>,
+    ## #   train_job_id <lgl>, language <chr>, ngram_range <chr>,
+    ## #   use_stemmer <lgl>, stop_words <chr>, max_features <int>,
+    ## #   strip_stopwords <lgl>, is_multilabel <lgl>, is_twitter_data <lgl>,
+    ## #   normalize_weights <lgl>, classifier <chr>, industry <chr>,
+    ## #   classifier_type <chr>, text_type <chr>, permissions <chr>
+
+Let's use the general one to perform sentiment analysis.
 
 ``` r
-classifier_id <- classifiers_sentiment_french$classifier_id
+classifier_id <- classifiers_sentiment_french$classifier_id[classifiers_sentiment_french$name == "Sentiment - general"]
 classifier_id
 ```
 

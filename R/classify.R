@@ -72,8 +72,10 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
     # parse output
     output <- monkeylearn_parse(output, request_text = request[[i]])
 
-    results <- suppressWarnings(dplyr::bind_rows(results, output$results))
-    headers <- suppressWarnings(dplyr::bind_rows(headers, output$headers))
+    results <- suppressWarnings(rbind(results, output$results))
+
+    headers <- suppressWarnings(rbind(headers,
+                                      output$headers[, names(output$headers) %in% names(headers)]))
   }
 
   # done!

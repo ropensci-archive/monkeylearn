@@ -1,5 +1,5 @@
 ---
-title: "monkeylearn, a R Package for Natural Language Processing Using monkeylearn Existing Modules"
+title: "monkeylearn, a R Package for Natural Language Processing Using Monkeylearn Existing Modules"
 author: "M. Salmon"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -30,15 +30,7 @@ To get an API key for MonkeyLearn, register at http://monkeylearn.com/. Note tha
 
 Both functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN_KEY" you don't need to input it manually.
 
-# Installation
-
-To install the package, you will need the `devtools` package.
-
-```{r, eval = FALSE}
-devtools::install_github("ropenscilabs/monkeylearn")
-
-```
-
+You can see an example of the package in action in this blog post ["Analyzing #first7jobs tweets with MonkeyLearn and R"](https://blog.monkeylearn.com/analyzing-first7jobs-tweets-monkeylearn-r/).
 
 # Extract
 
@@ -149,14 +141,20 @@ For instance, for doing sentiment analysis in French, one could extract all clas
 ```{r}
 
 classifiers <- monkeylearn_classifiers(private = FALSE)
-classifiers_sentiment_french <- dplyr::filter(classifiers,
-                                              grepl("[Ss]entiment", name), language == "fr")
+
+classifiers_sentiment_french <- classifiers[!is.na(classifiers$name),]
+
+classifiers_sentiment_french <- classifiers_sentiment_french[!is.na(classifiers_sentiment_french$language),]
+
+classifiers_sentiment_french <- classifiers_sentiment_french[grepl("[Ss]entiment", classifiers_sentiment_french$name)& classifiers_sentiment_french$language == "fr",]
+
+classifiers_sentiment_french
 
 ```
-There is only one so let's use it to perform sentiment analysis.
+Let's use the general one to perform sentiment analysis.
 
 ```{r}
-classifier_id <- classifiers_sentiment_french$classifier_id
+classifier_id <- classifiers_sentiment_french$classifier_id[classifiers_sentiment_french$name == "Sentiment - general"]
 classifier_id
 
 text1 <- "Nous avons fait un magnifique voyage et parlé avec des personnes adorables."
@@ -206,3 +204,13 @@ monkeylearn_classify(request,
 # Check the number of remaining calls
 
 After each call to a function you can check how many calls to the API you can still make  using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
+
+
+# Meta
+
+* Please [report any issues or bugs](https://github.com/ropenscilabs/monkeylearn/issues).
+* License: GPL
+* Get citation information for `opencage` in R doing `citation(package = 'monkeylearn')`
+* Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+[![ropensci_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)

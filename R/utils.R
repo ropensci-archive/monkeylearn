@@ -1,5 +1,4 @@
 #' @importFrom jsonlite toJSON fromJSON
-#' @importFrom dplyr tbl_df
 #' @importFrom methods is
 #' @importFrom httr content POST add_headers headers
 
