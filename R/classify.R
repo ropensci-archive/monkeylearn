@@ -79,6 +79,7 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
   }
 
   # done!
-  attr(results, "headers") <- headers
+  results <- tibble::as_tibble(results)
+  attr(results, "headers") <-  tibble::as_tibble(headers)
   results
 }
