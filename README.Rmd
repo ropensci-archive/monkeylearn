@@ -9,6 +9,7 @@ output:
 ---
 monkeylearn
 =============
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/monkeylearn)](http://cran.r-project.org/package=monkeylearn)
 [![Build Status](https://travis-ci.org/ropenscilabs/monkeylearn.svg?branch=master)](https://travis-ci.org/ropenscilabs/monkeylearn)
 [![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropenscilabs/monkeylearn)
 [![codecov](https://codecov.io/gh/ropenscilabs/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/monkeylearn)
@@ -26,7 +27,13 @@ You can see an example of the package in action in this blog post ["Analyzing #f
 
 # Installation
 
-To install the package, you will need the `devtools` package.
+Install the package with this command:
+
+```{r eval = FALSE}
+install.packages("monkeylearn")
+```
+
+Or install the development version using [devtools](https://github.com/hadley/devtools):
 
 ```{r, eval = FALSE}
 devtools::install_github("ropenscilabs/monkeylearn")

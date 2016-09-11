@@ -13,7 +13,7 @@
 monkeylearn
 ===========
 
-[![Build Status](https://travis-ci.org/ropenscilabs/monkeylearn.svg?branch=master)](https://travis-ci.org/ropenscilabs/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropenscilabs/monkeylearn) [![codecov](https://codecov.io/gh/ropenscilabs/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/monkeylearn)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/monkeylearn)](http://cran.r-project.org/package=monkeylearn) [![Build Status](https://travis-ci.org/ropenscilabs/monkeylearn.svg?branch=master)](https://travis-ci.org/ropenscilabs/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropenscilabs/monkeylearn) [![codecov](https://codecov.io/gh/ropenscilabs/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/monkeylearn)
 
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
 
@@ -28,7 +28,13 @@ You can see an example of the package in action in this blog post ["Analyzing \#
 Installation
 ============
 
-To install the package, you will need the `devtools` package.
+Install the package with this command:
+
+``` r
+install.packages("monkeylearn")
+```
+
+Or install the development version using [devtools](https://github.com/hadley/devtools):
 
 ``` r
 devtools::install_github("ropenscilabs/monkeylearn")
@@ -64,7 +70,7 @@ attr(output, "headers")
     ## # A tibble: 1 x 11
     ##           allow     content.type                          date
     ##          <fctr>           <fctr>                        <fctr>
-    ## 1 POST, OPTIONS application/json Sat, 10 Sep 2016 09:56:28 GMT
+    ## 1 POST, OPTIONS application/json Sun, 11 Sep 2016 07:31:23 GMT
     ## # ... with 8 more variables: server <fctr>, vary <fctr>,
     ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
     ## #   x.query.limit.request.queries <fctr>, content.length <fctr>,
@@ -123,7 +129,7 @@ attr(output2, "headers")
     ## # A tibble: 1 x 11
     ##           allow     content.type                          date
     ##          <fctr>           <fctr>                        <fctr>
-    ## 1 POST, OPTIONS application/json Sat, 10 Sep 2016 09:56:33 GMT
+    ## 1 POST, OPTIONS application/json Sun, 11 Sep 2016 07:31:26 GMT
     ## # ... with 8 more variables: server <fctr>, vary <fctr>,
     ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
     ## #   x.query.limit.request.queries <fctr>, content.length <fctr>,
