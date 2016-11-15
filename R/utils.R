@@ -92,16 +92,23 @@ monkeylearn_parse <- function(output, request_text) {
   text <- content(output, as = "text",
                         encoding = "UTF-8")
   temp <- fromJSON(text)
+
   if(is(temp$result, "list")) {
-    results <-  do.call("rbind", temp$result)
-    results$text_md5 <- unlist(mapply(rep, vapply(X=request_text,
-                                                  FUN=digest::digest,
-                                                  FUN.VALUE=character(1),
-                                                  USE.NAMES=FALSE,
-                                                  algo = "md5"),
-                                  unlist(vapply(temp$result, nrow,
-                                                FUN.VALUE = 0)),
-                                  SIMPLIFY = FALSE))
+    if(length(temp$result[[1]]) != 0){
+      results <-  do.call("rbind", temp$result)
+      results$text_md5 <- unlist(mapply(rep, vapply(X=request_text,
+                                                    FUN=digest::digest,
+                                                    FUN.VALUE=character(1),
+                                                    USE.NAMES=FALSE,
+                                                    algo = "md5"),
+                                        unlist(vapply(temp$result, nrow,
+                                                      FUN.VALUE = 0)),
+                                        SIMPLIFY = FALSE))
+
+    }else{
+      message("No results for this extractor call")
+      return(NULL)
+    }
   } else{
     results <- as.data.frame(temp$result)
     results$text_md5 <- vapply(X=request_text,
