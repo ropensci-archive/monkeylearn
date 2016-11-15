@@ -50,3 +50,9 @@ test_that("monkeylearn_classifiers returns a data frame",{
   expect_is(monkeylearn_classifiers(), "tbl_df")
   expect_is(monkeylearn_classifiers(private = TRUE), "tbl_df")
 })
+
+test_that("No error if no results from the extractor call",{
+  expect_is(monkeylearn_extract(request = "hello", extractor_id = "ex_y7BPYzNG"), "tbl_df")
+  expect_message(monkeylearn_extract(request = "hello", extractor_id = "ex_y7BPYzNG"),
+                  "No results for this extractor call")
+})
