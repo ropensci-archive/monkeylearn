@@ -1,6 +1,6 @@
 #' @importFrom jsonlite toJSON fromJSON
 #' @importFrom methods is
-#' @importFrom httr content POST add_headers headers
+#' @importFrom httr content POST add_headers headers config
 
 # status check
 monkeylearn_check <- function(req) {
@@ -61,6 +61,7 @@ monkeylearn_text_size <- function(request) {
 # get results classify
 monkeylearn_get_classify <- function(request, key, classifier_id) {
   POST(monkeylearn_url_classify(classifier_id),
+       config(http_version = 0),
        add_headers(
          "Accept" = "application/json",
          "Authorization" = paste("Token ", key),
@@ -75,6 +76,7 @@ monkeylearn_get_classify <- function(request, key, classifier_id) {
 # get results extract
 monkeylearn_get_extractor <- function(request, key, extractor_id) {
   POST(monkeylearn_url_extractor(extractor_id),
+       config(http_version = 0),
        add_headers(
          "Accept" = "application/json",
          "Authorization" = paste("Token ", key),
