@@ -9,10 +9,9 @@ output:
 ---
 monkeylearn
 =============
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/monkeylearn)](http://cran.r-project.org/package=monkeylearn)
-[![Build Status](https://travis-ci.org/ropenscilabs/monkeylearn.svg?branch=master)](https://travis-ci.org/ropenscilabs/monkeylearn)
-[![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropenscilabs/monkeylearn)
-[![codecov](https://codecov.io/gh/ropenscilabs/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/monkeylearn)
+[![Build Status](https://travis-ci.org/ropensci/monkeylearn.svg?branch=master)](https://travis-ci.org/ropensci/monkeylearn)
+[![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropensci/monkeylearn)
+[![codecov](https://codecov.io/gh/ropensci/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/monkeylearn)
 
 
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
@@ -23,20 +22,12 @@ To get an API key for MonkeyLearn, register at http://monkeylearn.com/. Note tha
 
 Both functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN_KEY" you don't need to input it manually.
 
-You can see an example of the package in action in this blog post ["Analyzing #first7jobs tweets with MonkeyLearn and R"](https://blog.monkeylearn.com/analyzing-first7jobs-tweets-monkeylearn-r/).
-
 # Installation
 
-Install the package with this command:
-
-```{r eval = FALSE}
-install.packages("monkeylearn")
-```
-
-Or install the development version using [devtools](https://github.com/hadley/devtools):
+To install the package, you will need the `devtools` package.
 
 ```{r, eval = FALSE}
-devtools::install_github("ropenscilabs/monkeylearn")
+devtools::install_github("ropensci/monkeylearn")
 
 ```
 
@@ -174,6 +165,7 @@ monkeylearn_classify(request,
                      classifier_id = classifier_id)
 ```
 
+
 Here are a few other examples:
 
 * [Language detection](https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab), `classifier_id = "cl_oJNMkt2V"`. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.
@@ -215,9 +207,9 @@ monkeylearn_classify(request,
 After each call to a function you can check how many calls to the API you can still make  using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
 
 
-# Meta
+## Meta
 
-* Please [report any issues or bugs](https://github.com/ropenscilabs/monkeylearn/issues).
+* Please [report any issues or bugs](https://github.com/ropensci/monkeylearn/issues).
 * License: GPL
 * Get citation information for `opencage` in R doing `citation(package = 'monkeylearn')`
 * Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

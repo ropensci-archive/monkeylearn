@@ -8,12 +8,12 @@
     -   [A first example](#a-first-example-1)
     -   [How to find classifiers?](#how-to-find-classifiers)
 -   [Check the number of remaining calls](#check-the-number-of-remaining-calls)
--   [Meta](#meta)
+    -   [Meta](#meta)
 
 monkeylearn
 ===========
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/monkeylearn)](http://cran.r-project.org/package=monkeylearn) [![Build Status](https://travis-ci.org/ropenscilabs/monkeylearn.svg?branch=master)](https://travis-ci.org/ropenscilabs/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropenscilabs/monkeylearn) [![codecov](https://codecov.io/gh/ropenscilabs/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/monkeylearn)
+[![Build Status](https://travis-ci.org/ropensci/monkeylearn.svg?branch=master)](https://travis-ci.org/ropensci/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropensci/monkeylearn) [![codecov](https://codecov.io/gh/ropensci/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/monkeylearn)
 
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
 
@@ -23,21 +23,13 @@ To get an API key for MonkeyLearn, register at <http://monkeylearn.com/>. Note t
 
 Both functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN\_KEY" you don't need to input it manually.
 
-You can see an example of the package in action in this blog post ["Analyzing \#first7jobs tweets with MonkeyLearn and R"](https://blog.monkeylearn.com/analyzing-first7jobs-tweets-monkeylearn-r/).
-
 Installation
 ============
 
-Install the package with this command:
+To install the package, you will need the `devtools` package.
 
 ``` r
-install.packages("monkeylearn")
-```
-
-Or install the development version using [devtools](https://github.com/hadley/devtools):
-
-``` r
-devtools::install_github("ropenscilabs/monkeylearn")
+devtools::install_github("ropensci/monkeylearn")
 ```
 
 Extract
@@ -67,14 +59,14 @@ output
 attr(output, "headers")
 ```
 
-    ## # A tibble: 1 x 11
-    ##           allow     content.type                          date
-    ##          <fctr>           <fctr>                        <fctr>
-    ## 1 POST, OPTIONS application/json Sun, 11 Sep 2016 07:31:23 GMT
-    ## # ... with 8 more variables: server <fctr>, vary <fctr>,
-    ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
-    ## #   x.query.limit.request.queries <fctr>, content.length <fctr>,
-    ## #   connection <fctr>, text_md5 <list>
+    ## # A tibble: 1 × 11
+    ##         server                          date     content.type
+    ##         <fctr>                        <fctr>           <fctr>
+    ## 1 nginx/1.10.1 Fri, 02 Dec 2016 09:18:17 GMT application/json
+    ## # ... with 8 more variables: transfer.encoding <fctr>, connection <fctr>,
+    ## #   x.query.limit.remaining <fctr>, vary <fctr>,
+    ## #   x.query.limit.request.queries <fctr>, allow <fctr>,
+    ## #   x.query.limit.limit <fctr>, text_md5 <list>
 
 Parameters
 ----------
@@ -126,14 +118,14 @@ output2
 attr(output2, "headers")
 ```
 
-    ## # A tibble: 1 x 11
-    ##           allow     content.type                          date
-    ##          <fctr>           <fctr>                        <fctr>
-    ## 1 POST, OPTIONS application/json Sun, 11 Sep 2016 07:31:26 GMT
-    ## # ... with 8 more variables: server <fctr>, vary <fctr>,
-    ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
-    ## #   x.query.limit.request.queries <fctr>, content.length <fctr>,
-    ## #   connection <fctr>, text_md5 <list>
+    ## # A tibble: 1 × 11
+    ##         server                          date     content.type
+    ##         <fctr>                        <fctr>           <fctr>
+    ## 1 nginx/1.10.1 Fri, 02 Dec 2016 09:18:19 GMT application/json
+    ## # ... with 8 more variables: transfer.encoding <fctr>, connection <fctr>,
+    ## #   x.query.limit.remaining <fctr>, vary <fctr>,
+    ## #   x.query.limit.request.queries <fctr>, allow <fctr>,
+    ## #   x.query.limit.limit <fctr>, text_md5 <list>
 
 How to find extractors?
 -----------------------
@@ -220,15 +212,15 @@ monkeylearn_classify(request,
                      classifier_id = "cl_oFKL5wft")
 ```
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##   category_id probability                      label
     ## *       <int>       <dbl>                      <chr>
-    ## 1       65976       0.851                       Pets
-    ## 2       66008       0.239                       Fish
-    ## 3       66013       0.792                  Fish Food
-    ## 4       67618       0.702                Cell Phones
-    ## 5       67639       0.484              Family Mobile
-    ## 6       67641       0.547 Family Mobile Starter Kits
+    ## 1     3599201       0.851                       Pets
+    ## 2     3599233       0.239                       Fish
+    ## 3     3599238       0.792                  Fish Food
+    ## 4     3600883       0.702                Cell Phones
+    ## 5     3600904       0.484              Family Mobile
+    ## 6     3600906       0.546 Family Mobile Starter Kits
     ## # ... with 1 more variables: text_md5 <chr>
 
 How to find classifiers?
@@ -240,20 +232,20 @@ You can find classifiers and their IDs at <https://app.monkeylearn.com/main/expl
 monkeylearn_classifiers(private = FALSE)
 ```
 
-    ## # A tibble: 152 x 19
+    ## # A tibble: 154 × 19
     ##    classifier_id                                                   name
     ##            <chr>                                                  <chr>
-    ## 1    cl_cq6e5oEq Tweets - Offensive and hate speech detection - English
-    ## 2    cl_YygsUUkN                                        Founder Names 2
-    ## 3    cl_UXdsVBzj           Smart Restaurant Reviews Sentiments Analysis
-    ## 4    cl_bwxdJMHE                                               Spam Ham
-    ## 5    cl_xG46wHyZ                                     Good News (German)
-    ## 6    cl_2MXugh99                             GMS-Hotel-Reviews-Analysis
-    ## 7    cl_mEcCuEcG                                     Emotions in Tweets
-    ## 8    cl_MUsRyHwV        Bownty - EN NATIONAL category classifier (v2.1)
-    ## 9    cl_5pzHfLSv           Bownty - EN LOCAL category classifier (v2.1)
-    ## 10   cl_ZRfE9AUu                               Settore comunale dal PEG
-    ## # ... with 142 more rows, and 17 more variables: description <chr>,
+    ## 1    cl_dsKm8Q8m                         App Reviews Sentiment Analysis
+    ## 2    cl_VCykxryo                              News classifier (spanish)
+    ## 3    cl_SDLTu88J                                     Tech Business News
+    ## 4    cl_cq6e5oEq Tweets - Offensive and hate speech detection - English
+    ## 5    cl_YygsUUkN                                        Founder Names 2
+    ## 6    cl_UXdsVBzj           Smart Restaurant Reviews Sentiments Analysis
+    ## 7    cl_bwxdJMHE                                               Spam Ham
+    ## 8    cl_xG46wHyZ                                     Good News (German)
+    ## 9    cl_2MXugh99                             GMS-Hotel-Reviews-Analysis
+    ## 10   cl_mEcCuEcG                       Emotions and sentiment in Tweets
+    ## # ... with 144 more rows, and 17 more variables: description <chr>,
     ## #   train_state <chr>, train_job_id <lgl>, language <chr>,
     ## #   ngram_range <chr>, use_stemmer <lgl>, stop_words <chr>,
     ## #   max_features <int>, strip_stopwords <lgl>, is_multilabel <lgl>,
@@ -275,7 +267,7 @@ classifiers_sentiment_french <- classifiers_sentiment_french[grepl("[Ss]entiment
 classifiers_sentiment_french
 ```
 
-    ## # A tibble: 2 x 19
+    ## # A tibble: 2 × 19
     ##   classifier_id                                         name
     ##           <chr>                                        <chr>
     ## 1   cl_UXdsVBzj Smart Restaurant Reviews Sentiments Analysis
@@ -305,7 +297,7 @@ monkeylearn_classify(request,
                      classifier_id = classifier_id)
 ```
 
-    ## # A tibble: 3 x 4
+    ## # A tibble: 3 × 4
     ##   category_id probability label                         text_md5
     ## *       <int>       <dbl> <chr>                            <chr>
     ## 1      399772       0.898   pos 4be183aca0c66a62dcb5ee245c2d1597
@@ -325,15 +317,14 @@ monkeylearn_classify(request,
                      classifier_id = "cl_oJNMkt2V")
 ```
 
-    ## # A tibble: 6 x 4
-    ##   category_id probability      label                         text_md5
-    ## *       <int>       <dbl>      <chr>                            <chr>
-    ## 1       64494       0.994     Italic ec3fd6de86b1f2044c7bf7fb47831197
-    ## 2       64495       0.993 Catalan-ca ec3fd6de86b1f2044c7bf7fb47831197
-    ## 3       64483       0.360   Germanic af5c621a49a008f6e6a0d5ad47f2e1f4
-    ## 4       64486       0.759 English-en af5c621a49a008f6e6a0d5ad47f2e1f4
-    ## 5       64494       0.562     Italic 7543a88ecc9cc8d4dd8d515cc25f196c
-    ## 6       64496       0.994  French-fr 7543a88ecc9cc8d4dd8d515cc25f196c
+    ## # A tibble: 5 × 4
+    ##   category_id probability         label                         text_md5
+    ## *       <int>       <dbl>         <chr>                            <chr>
+    ## 1     2324978       1.000        Italic ec3fd6de86b1f2044c7bf7fb47831197
+    ## 2     2324979       1.000    Catalan-ca ec3fd6de86b1f2044c7bf7fb47831197
+    ## 3     2325016       0.686 Vietnamese-vi af5c621a49a008f6e6a0d5ad47f2e1f4
+    ## 4     2324978       1.000        Italic 7543a88ecc9cc8d4dd8d515cc25f196c
+    ## 5     2324980       1.000     French-fr 7543a88ecc9cc8d4dd8d515cc25f196c
 
 -   [Profanity and abuse detection](https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab), `classifier_id = "cl_KFXhoTdt"`.
 
@@ -345,7 +336,7 @@ monkeylearn_classify(request,
                      classifier_id = "cl_KFXhoTdt")
 ```
 
-    ## # A tibble: 2 x 4
+    ## # A tibble: 2 × 4
     ##   category_id probability     label                         text_md5
     ## *       <int>       <dbl>     <chr>                            <chr>
     ## 1      103768       0.827     clean 641e443d9485034d30fec6c36d67d4cd
@@ -361,7 +352,7 @@ monkeylearn_classify(request,
                      classifier_id = "cl_5icAVzKR")
 ```
 
-    ## # A tibble: 5 x 4
+    ## # A tibble: 5 × 4
     ##   category_id probability                label
     ## *       <int>       <dbl>                <chr>
     ## 1       64600       0.894              Animals
@@ -377,9 +368,9 @@ Check the number of remaining calls
 After each call to a function you can check how many calls to the API you can still make using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
 
 Meta
-====
+----
 
--   Please [report any issues or bugs](https://github.com/ropenscilabs/monkeylearn/issues).
+-   Please [report any issues or bugs](https://github.com/ropensci/monkeylearn/issues).
 -   License: GPL
 -   Get citation information for `opencage` in R doing `citation(package = 'monkeylearn')`
 -   Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
