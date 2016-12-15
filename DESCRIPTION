@@ -17,5 +17,9 @@ Suggests: testthat,
     tidytext,
     gutenbergr,
     dplyr
-Imports: jsonlite, httr, methods, digest, tibble
+Imports: jsonlite,
+    httr,
+    methods,
+    digest, 
+    tibble (>= 1.2)
 VignetteBuilder: knitr
