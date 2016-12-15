@@ -20,6 +20,6 @@ Suggests: testthat,
 Imports: jsonlite,
     httr,
     methods,
-    digest, 
-    tibble (>= 1.2)
+    digest,
+    tibble (>= 1.2.0)
 VignetteBuilder: knitr
