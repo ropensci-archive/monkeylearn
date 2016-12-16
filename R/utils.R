@@ -40,12 +40,21 @@ monkeylearn_url_classify <- function(classifier_id) {
          "/classify/")
 }
 
+
+
 # URL for extractor
 monkeylearn_url_extractor <- function(extractor_id) {
   paste0(monkeylearn_url(),
          "extractors/",
          extractor_id,
          "/extract/")
+}
+
+# no blank request
+monkeylearn_filter_blank <- function(request){
+  request <- request[gsub(" ", "", request) != ""]
+
+  request
 }
 
 # check text size

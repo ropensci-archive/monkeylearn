@@ -35,51 +35,61 @@
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
                                  verbose = FALSE) {
-
-  # 20 texts per request
-  request <- split(request, ceiling(seq_along(request)/20))
-
-  results <- NULL
-  headers <- NULL
-
-  for(i in seq_along(request)) {
-
-    if(verbose) {
-      message(paste0("Processing request number ", i, " out of ", length(request)))
+  # filter the blank requests
+  length1 <- length(request)
+  request <- monkeylearn_filter_blank(request)
+  if(length(request) == 0){
+    warning("You only entered blank text in the request.", call. = FALSE)
+    return(tibble::tibble())
+  }else{
+    if(length1 != length(request)){
+      message("The parts of your request that are only blank are not sent to the API.")
     }
+    # 20 texts per request
+    request <- split(request, ceiling(seq_along(request)/20))
 
-    monkeylearn_text_size(request[[i]])
-    request_part <- monkeylearn_prep(request[[i]],
-                                     params = NULL)
-    output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
-    # for the case when the server returns nothing
-    # try 5 times, not more
-    try_number <- 1
-    while(class(output) == "try-error" && try_number < 6) {
-      message(paste0("Server returned nothing, trying again, try number", i))
-      Sys.sleep(2^try_number)
+    results <- NULL
+    headers <- NULL
+
+    for(i in seq_along(request)) {
+
+      if(verbose) {
+        message(paste0("Processing request number ", i, " out of ", length(request)))
+      }
+
+      monkeylearn_text_size(request[[i]])
+      request_part <- monkeylearn_prep(request[[i]],
+                                       params = NULL)
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
-      try_number <- try_number + 1
+      # for the case when the server returns nothing
+      # try 5 times, not more
+      try_number <- 1
+      while(class(output) == "try-error" && try_number < 6) {
+        message(paste0("Server returned nothing, trying again, try number", i))
+        Sys.sleep(2^try_number)
+        output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
+        try_number <- try_number + 1
+      }
+
+      # check the output -- if it is 429 try again (throttle limit)
+      # try 5 times, not more
+      try_number <- 1
+      while(!monkeylearn_check(output) && try_number < 6) {
+        output <- monkeylearn_get_classify(request_part, key, classifier_id)
+        try_number <- try_number + 1
+      }
+      # parse output
+      output <- monkeylearn_parse(output, request_text = request[[i]])
+
+      results <- suppressWarnings(rbind(results, output$results))
+
+      headers <- suppressWarnings(rbind(headers,
+                                        output$headers[, names(output$headers) %in% names(headers)]))
     }
 
-    # check the output -- if it is 429 try again (throttle limit)
-    # try 5 times, not more
-    try_number <- 1
-    while(!monkeylearn_check(output) && try_number < 6) {
-      output <- monkeylearn_get_classify(request_part, key, classifier_id)
-      try_number <- try_number + 1
-    }
-    # parse output
-    output <- monkeylearn_parse(output, request_text = request[[i]])
-
-    results <- suppressWarnings(rbind(results, output$results))
-
-    headers <- suppressWarnings(rbind(headers,
-                                      output$headers[, names(output$headers) %in% names(headers)]))
+    # done!
+    results <- tibble::as_tibble(results)
+    attr(results, "headers") <-  tibble::as_tibble(headers)
+    results
   }
-
-  # done!
-  results <- tibble::as_tibble(results)
-  attr(results, "headers") <-  tibble::as_tibble(headers)
-  results
 }
