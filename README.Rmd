@@ -9,6 +9,7 @@ output:
 ---
 monkeylearn
 =============
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/monkeylearn)](http://cran.r-project.org/package=monkeylearn)
 [![Build Status](https://travis-ci.org/ropensci/monkeylearn.svg?branch=master)](https://travis-ci.org/ropensci/monkeylearn)
 [![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropensci/monkeylearn)
 [![codecov](https://codecov.io/gh/ropensci/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/monkeylearn)
@@ -135,36 +136,6 @@ You can find classifiers and their IDs at https://app.monkeylearn.com/main/explo
 monkeylearn_classifiers(private = FALSE)
 
 ```
-
-For instance, for doing sentiment analysis in French, one could extract all classifiers and then look at classifiers containing the word "sentiment" in their name and "fr" as language.
-
-```{r}
-
-classifiers <- monkeylearn_classifiers(private = FALSE)
-
-classifiers_sentiment_french <- classifiers[!is.na(classifiers$name),]
-
-classifiers_sentiment_french <- classifiers_sentiment_french[!is.na(classifiers_sentiment_french$language),]
-
-classifiers_sentiment_french <- classifiers_sentiment_french[grepl("[Ss]entiment", classifiers_sentiment_french$name)& classifiers_sentiment_french$language == "fr",]
-
-classifiers_sentiment_french
-
-```
-Let's use the general one to perform sentiment analysis.
-
-```{r}
-classifier_id <- classifiers_sentiment_french$classifier_id[classifiers_sentiment_french$name == "Sentiment - general"]
-classifier_id
-
-text1 <- "Nous avons fait un magnifique voyage et parlé avec des personnes adorables."
-text2 <- "Je déteste ne plus avoir de dentifrice."
-text3 <- "Je pense que cette personne est exécrable et mesquine, je suis en colère."
-request <- c(text1, text2, text3)
-monkeylearn_classify(request,
-                     classifier_id = classifier_id)
-```
-
 
 Here are a few other examples:
 

@@ -13,7 +13,7 @@
 monkeylearn
 ===========
 
-[![Build Status](https://travis-ci.org/ropensci/monkeylearn.svg?branch=master)](https://travis-ci.org/ropensci/monkeylearn)[![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropensci/monkeylearn) [![codecov](https://codecov.io/gh/ropensci/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/monkeylearn)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/monkeylearn)](http://cran.r-project.org/package=monkeylearn) [![Build Status](https://travis-ci.org/ropensci/monkeylearn.svg?branch=master)](https://travis-ci.org/ropensci/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropensci/monkeylearn) [![codecov](https://codecov.io/gh/ropensci/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/monkeylearn)
 
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
 
@@ -62,11 +62,11 @@ attr(output, "headers")
     ## # A tibble: 1 × 11
     ##         server                          date     content.type
     ##         <fctr>                        <fctr>           <fctr>
-    ## 1 nginx/1.10.1 Fri, 02 Dec 2016 09:18:17 GMT application/json
+    ## 1 nginx/1.11.5 Tue, 16 May 2017 09:26:05 GMT application/json
     ## # ... with 8 more variables: transfer.encoding <fctr>, connection <fctr>,
-    ## #   x.query.limit.remaining <fctr>, vary <fctr>,
+    ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
     ## #   x.query.limit.request.queries <fctr>, allow <fctr>,
-    ## #   x.query.limit.limit <fctr>, text_md5 <list>
+    ## #   content.encoding <fctr>, text_md5 <list>
 
 Parameters
 ----------
@@ -121,11 +121,11 @@ attr(output2, "headers")
     ## # A tibble: 1 × 11
     ##         server                          date     content.type
     ##         <fctr>                        <fctr>           <fctr>
-    ## 1 nginx/1.10.1 Fri, 02 Dec 2016 09:18:19 GMT application/json
+    ## 1 nginx/1.11.5 Tue, 16 May 2017 09:26:06 GMT application/json
     ## # ... with 8 more variables: transfer.encoding <fctr>, connection <fctr>,
-    ## #   x.query.limit.remaining <fctr>, vary <fctr>,
+    ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
     ## #   x.query.limit.request.queries <fctr>, allow <fctr>,
-    ## #   x.query.limit.limit <fctr>, text_md5 <list>
+    ## #   content.encoding <fctr>, text_md5 <list>
 
 How to find extractors?
 -----------------------
@@ -213,14 +213,14 @@ monkeylearn_classify(request,
 ```
 
     ## # A tibble: 6 × 4
-    ##   category_id probability                      label
-    ## *       <int>       <dbl>                      <chr>
-    ## 1     3599201       0.851                       Pets
-    ## 2     3599233       0.239                       Fish
-    ## 3     3599238       0.792                  Fish Food
-    ## 4     3600883       0.702                Cell Phones
-    ## 5     3600904       0.484              Family Mobile
-    ## 6     3600906       0.546 Family Mobile Starter Kits
+    ##   category_id probability              label
+    ## *       <int>       <dbl>              <chr>
+    ## 1    18313097       0.130               Pets
+    ## 2    18313108       0.239               Dogs
+    ## 3    18313113       0.082           Dog Food
+    ## 4    18314739       0.113        Cell Phones
+    ## 5    18314740       0.186        Accessories
+    ## 6    18314741       0.094 Cases & Protectors
     ## # ... with 1 more variables: text_md5 <chr>
 
 How to find classifiers?
@@ -232,77 +232,26 @@ You can find classifiers and their IDs at <https://app.monkeylearn.com/main/expl
 monkeylearn_classifiers(private = FALSE)
 ```
 
-    ## # A tibble: 154 × 19
+    ## # A tibble: 150 × 19
     ##    classifier_id                                                   name
     ##            <chr>                                                  <chr>
-    ## 1    cl_dsKm8Q8m                         App Reviews Sentiment Analysis
-    ## 2    cl_VCykxryo                              News classifier (spanish)
-    ## 3    cl_SDLTu88J                                     Tech Business News
-    ## 4    cl_cq6e5oEq Tweets - Offensive and hate speech detection - English
-    ## 5    cl_YygsUUkN                                        Founder Names 2
-    ## 6    cl_UXdsVBzj           Smart Restaurant Reviews Sentiments Analysis
-    ## 7    cl_bwxdJMHE                                               Spam Ham
-    ## 8    cl_xG46wHyZ                                     Good News (German)
-    ## 9    cl_2MXugh99                             GMS-Hotel-Reviews-Analysis
-    ## 10   cl_mEcCuEcG                       Emotions and sentiment in Tweets
-    ## # ... with 144 more rows, and 17 more variables: description <chr>,
+    ##  1   cl_Qf2JYWCR           Ecommerce Customer Support Ticket Classifier
+    ##  2   cl_3QyCbWEE            Triage Assistant: Issue severity classifier
+    ##  3   cl_eFn7NjZv                              Bug or Feature classifier
+    ##  4   cl_dsKm8Q8m                         App Reviews Sentiment Analysis
+    ##  5   cl_VCykxryo                              News classifier (spanish)
+    ##  6   cl_SDLTu88J                                     Tech Business News
+    ##  7   cl_cq6e5oEq Tweets - Offensive and hate speech detection - English
+    ##  8   cl_YygsUUkN                                        Founder Names 2
+    ##  9   cl_UXdsVBzj           Smart Restaurant Reviews Sentiments Analysis
+    ## 10   cl_bwxdJMHE                                               Spam Ham
+    ## # ... with 140 more rows, and 17 more variables: description <chr>,
     ## #   train_state <chr>, train_job_id <lgl>, language <chr>,
     ## #   ngram_range <chr>, use_stemmer <lgl>, stop_words <chr>,
     ## #   max_features <int>, strip_stopwords <lgl>, is_multilabel <lgl>,
     ## #   is_twitter_data <lgl>, normalize_weights <lgl>, classifier <chr>,
     ## #   industry <chr>, classifier_type <chr>, text_type <chr>,
     ## #   permissions <chr>
-
-For instance, for doing sentiment analysis in French, one could extract all classifiers and then look at classifiers containing the word "sentiment" in their name and "fr" as language.
-
-``` r
-classifiers <- monkeylearn_classifiers(private = FALSE)
-
-classifiers_sentiment_french <- classifiers[!is.na(classifiers$name),]
-
-classifiers_sentiment_french <- classifiers_sentiment_french[!is.na(classifiers_sentiment_french$language),]
-
-classifiers_sentiment_french <- classifiers_sentiment_french[grepl("[Ss]entiment", classifiers_sentiment_french$name)& classifiers_sentiment_french$language == "fr",]
-
-classifiers_sentiment_french
-```
-
-    ## # A tibble: 2 × 19
-    ##   classifier_id                                         name
-    ##           <chr>                                        <chr>
-    ## 1   cl_UXdsVBzj Smart Restaurant Reviews Sentiments Analysis
-    ## 2   cl_36FHzFrP                          Sentiment - general
-    ## # ... with 17 more variables: description <chr>, train_state <chr>,
-    ## #   train_job_id <lgl>, language <chr>, ngram_range <chr>,
-    ## #   use_stemmer <lgl>, stop_words <chr>, max_features <int>,
-    ## #   strip_stopwords <lgl>, is_multilabel <lgl>, is_twitter_data <lgl>,
-    ## #   normalize_weights <lgl>, classifier <chr>, industry <chr>,
-    ## #   classifier_type <chr>, text_type <chr>, permissions <chr>
-
-Let's use the general one to perform sentiment analysis.
-
-``` r
-classifier_id <- classifiers_sentiment_french$classifier_id[classifiers_sentiment_french$name == "Sentiment - general"]
-classifier_id
-```
-
-    ## [1] "cl_36FHzFrP"
-
-``` r
-text1 <- "Nous avons fait un magnifique voyage et parlé avec des personnes adorables."
-text2 <- "Je déteste ne plus avoir de dentifrice."
-text3 <- "Je pense que cette personne est exécrable et mesquine, je suis en colère."
-request <- c(text1, text2, text3)
-monkeylearn_classify(request,
-                     classifier_id = classifier_id)
-```
-
-    ## # A tibble: 3 × 4
-    ##   category_id probability label                         text_md5
-    ## *       <int>       <dbl> <chr>                            <chr>
-    ## 1      399772       0.898   pos 4be183aca0c66a62dcb5ee245c2d1597
-    ## 2      399771       0.685   neg 7543a88ecc9cc8d4dd8d515cc25f196c
-    ## 3      399771       0.572   neg aa9fde0e6eafcc5c5745611d1f19deb5
 
 Here are a few other examples:
 
@@ -339,8 +288,8 @@ monkeylearn_classify(request,
     ## # A tibble: 2 × 4
     ##   category_id probability     label                         text_md5
     ## *       <int>       <dbl>     <chr>                            <chr>
-    ## 1      103768       0.827     clean 641e443d9485034d30fec6c36d67d4cd
-    ## 2      103767       1.000 profanity 2b9e3eb08b256277e4c2b3dfcc8d5c75
+    ## 1      103768       0.839     clean 641e443d9485034d30fec6c36d67d4cd
+    ## 2      103767       0.998 profanity 2b9e3eb08b256277e4c2b3dfcc8d5c75
 
 -   [General topic classifier](https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/), `classifier_id = "cl_5icAVzKR"`.
 
