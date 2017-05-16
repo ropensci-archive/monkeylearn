@@ -16,4 +16,3 @@ Retrieve Monkeylearn API key
 Looks in env var \code{MONKEYLEARN_KEY}
 }
 \keyword{internal}
-

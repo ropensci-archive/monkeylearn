@@ -71,4 +71,3 @@ output <- monkeylearn_extract(text,
                                             use_company_names = 1))
 attr(output, "headers")}
 }
-

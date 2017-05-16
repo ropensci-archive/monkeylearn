@@ -46,4 +46,3 @@ output <- monkeylearn_classify(request)
 output
 attr(output, "headers")}
 }
-

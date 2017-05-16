@@ -31,4 +31,3 @@ monkeylearn_classifiers(private = TRUE)
 }
 
 }
-
