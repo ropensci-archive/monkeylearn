@@ -9,6 +9,8 @@
 
 ## Release summary
 
+* Removed the broken link to the logo that created a Pandoc warning.
+
 * Better states the dependency on tibble, it is tibble >= 1.2.
 
 * Better handles blank text in input, outputs an empty tibble and a warning if the request is only blank, and a message if only parts of the request are blank.
