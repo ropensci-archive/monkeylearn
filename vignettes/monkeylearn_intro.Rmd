@@ -136,35 +136,6 @@ monkeylearn_classifiers(private = FALSE)
 
 ```
 
-For instance, for doing sentiment analysis in French, one could extract all classifiers and then look at classifiers containing the word "sentiment" in their name and "fr" as language.
-
-```{r}
-
-classifiers <- monkeylearn_classifiers(private = FALSE)
-
-classifiers_sentiment_french <- classifiers[!is.na(classifiers$name),]
-
-classifiers_sentiment_french <- classifiers_sentiment_french[!is.na(classifiers_sentiment_french$language),]
-
-classifiers_sentiment_french <- classifiers_sentiment_french[grepl("[Ss]entiment", classifiers_sentiment_french$name)& classifiers_sentiment_french$language == "fr",]
-
-classifiers_sentiment_french
-
-```
-Let's use the general one to perform sentiment analysis.
-
-```{r}
-classifier_id <- classifiers_sentiment_french$classifier_id[classifiers_sentiment_french$name == "Sentiment - general"]
-classifier_id
-
-text1 <- "Nous avons fait un magnifique voyage et parlé avec des personnes adorables."
-text2 <- "Je déteste ne plus avoir de dentifrice."
-text3 <- "Je pense que cette personne est exécrable et mesquine, je suis en colère."
-request <- c(text1, text2, text3)
-monkeylearn_classify(request,
-                     classifier_id = classifier_id)
-```
-
 Here are a few other examples:
 
 * [Language detection](https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab), `classifier_id = "cl_oJNMkt2V"`. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.
