@@ -59,14 +59,13 @@ output
 attr(output, "headers")
 ```
 
-    ## # A tibble: 1 × 11
+    ## # A tibble: 1 × 9
     ##         server                          date     content.type
     ##         <fctr>                        <fctr>           <fctr>
-    ## 1 nginx/1.11.5 Tue, 16 May 2017 09:26:05 GMT application/json
-    ## # ... with 8 more variables: transfer.encoding <fctr>, connection <fctr>,
-    ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
-    ## #   x.query.limit.request.queries <fctr>, allow <fctr>,
-    ## #   content.encoding <fctr>, text_md5 <list>
+    ## 1 nginx/1.11.5 Tue, 16 May 2017 09:50:20 GMT application/json
+    ## # ... with 6 more variables: x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   allow <fctr>, content.encoding <fctr>, text_md5 <list>
 
 Parameters
 ----------
@@ -118,14 +117,13 @@ output2
 attr(output2, "headers")
 ```
 
-    ## # A tibble: 1 × 11
+    ## # A tibble: 1 × 9
     ##         server                          date     content.type
     ##         <fctr>                        <fctr>           <fctr>
-    ## 1 nginx/1.11.5 Tue, 16 May 2017 09:26:06 GMT application/json
-    ## # ... with 8 more variables: transfer.encoding <fctr>, connection <fctr>,
-    ## #   x.query.limit.limit <fctr>, x.query.limit.remaining <fctr>,
-    ## #   x.query.limit.request.queries <fctr>, allow <fctr>,
-    ## #   content.encoding <fctr>, text_md5 <list>
+    ## 1 nginx/1.11.5 Tue, 16 May 2017 09:51:22 GMT application/json
+    ## # ... with 6 more variables: x.query.limit.limit <fctr>,
+    ## #   x.query.limit.remaining <fctr>, x.query.limit.request.queries <fctr>,
+    ## #   allow <fctr>, content.encoding <fctr>, text_md5 <list>
 
 How to find extractors?
 -----------------------
@@ -324,4 +322,4 @@ Meta
 -   Get citation information for `opencage` in R doing `citation(package = 'monkeylearn')`
 -   Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
-[![ropensci\_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
+[![ropensci\_footer](https://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
