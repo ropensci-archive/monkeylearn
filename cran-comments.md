@@ -1,21 +1,19 @@
 ## Test environments
-* local Windows install, R 3.2.4
-* ubuntu 12.04 (on travis-ci, oldrel, devel and release)
-* Windows (on appveyor-ci, stable, patch, oldrel and devel)
+* local x86_64-w64-mingw32/x64 install, R 3.3.1
+* Ubuntu 12.04 (on Travis CI), R devel, release and oldrel
+* Windows on Appveyor CI (stable, patched and oldrel)
 
 ## R CMD check results
 
-R CMD check results
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 0 note
 
-* This is a new release.
+## Release summary
 
-## Re-submission
+* Better states the dependency on tibble, it is tibble >= 1.2.
 
-* I added the Monkeylearn URL in DESCRIPTION.
+* Better handles blank text in input, outputs an empty tibble and a warning if the request is only blank, and a message if only parts of the request are blank.
 
-## Reverse dependencies
+* Disables HTTP2 for now because of a bug for Windows users. Fix by Jeroen Ooms.
 
-This is a new release, so there are no reverse dependencies.
 
 ---
