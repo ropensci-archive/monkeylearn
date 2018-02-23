@@ -5,7 +5,7 @@
 \title{monkeylearn_classify}
 \usage{
 monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
-  classifier_id = "cl_oFKL5wft", verbose = FALSE)
+  classifier_id = "cl_oFKL5wft", texts_per_req = 20, verbose = FALSE)
 }
 \arguments{
 \item{request}{A vector of characters (each text smaller than 50kB)}
@@ -13,6 +13,8 @@ monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
 \item{key}{The API key}
 
 \item{classifier_id}{The ID of the classifier}
+
+\item{texts_per_req}{Number of texts to be fed through per request. Does not affect output, but may affect speed of processing.}
 
 \item{verbose}{whether to output messages about batch requests}
 }
