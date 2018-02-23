@@ -115,7 +115,7 @@ monkeylearn_parse <- function(output, request_text) {
                                         SIMPLIFY = FALSE))
 
     }else{
-      message("No results for this extractor call")
+      message("No results for this call")
       return(NULL)
     }
   } else{
@@ -138,6 +138,41 @@ monkeylearn_parse <- function(output, request_text) {
        headers = headers)
 
 }
+
+
+monkeylearn_parse_each <- function(output, request_text) {
+
+
+  text <- content(output, as = "text",
+                  encoding = "UTF-8")
+  temp <- fromJSON(text)
+
+  if(is(temp$result, "list")) {
+    if(length(temp$result[[1]]) == 0){
+
+      message("No results for this call")
+      return(NULL)
+    } else {
+      results <- temp
+    }
+  } else {   # Not sure what other type of output we'd get
+    results <- temp
+    # results$text_md5 <- map(temp$result, digest::digest)
+  }
+
+  headers <- as.data.frame(headers(output))
+  headers$text_md5 <- list(vapply(X=request_text,
+                                  FUN=digest::digest,
+                                  FUN.VALUE=character(1),
+                                  USE.NAMES=FALSE,
+                                  algo = "md5"))
+
+  headers <- list(headers = headers)
+  out <- append(results, headers)
+  return(out)
+
+}
+
 
 
 
