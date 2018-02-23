@@ -23,6 +23,8 @@
 #' and \code{attr(output, "headers")$x.query.limit.limit}.
 #'
 #' @importFrom jsonlite toJSON
+#' @importFrom dplyr bind_cols
+#' @importFrom dplyr bind_rows
 #' @examples \dontrun{
 #' text1 <- "my dog is an avid rice eater"
 #' text2 <- "i want to buy an iphone"
@@ -67,8 +69,8 @@ monkeylearn_classify_df <- function(request_df, col,
         message("Processing request")
       }
 
-      monkeylearn_text_size(request)
-      request_part <- monkeylearn_prep(request,
+      monkeylearn_text_size(request[[i]])
+      request_part <- monkeylearn_prep(request[[i]],
                                        params)
 
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
@@ -93,14 +95,14 @@ monkeylearn_classify_df <- function(request_df, col,
       # ----------------
 
       # parse output
-      output <- monkeylearn_parse_each(output, request_text = request)
+      output <- monkeylearn_parse_each(output, request_text = request[[i]])
 
       # Set up the two columns
-      request_reconstructed <- tibble::as_tibble(list(req = request))
+      request_reconstructed <- tibble::as_tibble(list(req = request[[i]]))  # TODO: reconstruct from df[[col]] to preserve empty string rows
       output_nested <- tibble::as_tibble(list(out = output$result))
 
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
-      this_headers <- output$headers
+      this_headers <- tibble::as_tibble(output$headers)
 
       results <- dplyr::bind_rows(results, this_result)
       header <- dplyr::bind_rows(headers, this_headers)
@@ -115,7 +117,7 @@ monkeylearn_classify_df <- function(request_df, col,
 
 
 req <- list(txt = janeaustenr::emma[50:54]) %>% as_tibble()
-out <- monkeylearn_classify_df(req, "txt")
+out <- monkeylearn_classify_df(req, "txt", texts_per_req = 3)
 
 
 
