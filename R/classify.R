@@ -6,6 +6,7 @@
 #'
 #' @param key The API key
 #' @param classifier_id The ID of the classifier
+#' @param texts_per_req Number of texts to be fed through per request. Does not affect output, but may affect speed of processing.
 #' @param verbose whether to output messages about batch requests
 #'
 #' @details Find IDs of classifiers using \url{https://app.monkeylearn.com/main/explore}.
@@ -34,6 +35,7 @@
 #' @export
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
+                                 texts_per_req = 20,
                                  verbose = FALSE) {
   # filter the blank requests
   length1 <- length(request)
