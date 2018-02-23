@@ -1,23 +1,26 @@
-#' monkeylearn_classify
+#' monkeylearn_classify_df
 #'
-#' Access to Monkeylearn classifiers modules
+#' Independent classifications for each row of a dataframe using the Monkeylearn classifiers modules
 #'
 #' @param request_df A dataframe of texts (each text smaller than 50kB)
 #'
-#' @param col The quoted name of the character column containing text to classify
+#' @param col The unquoted name of the character column containing text to classify
 #' @param key The API key
 #' @param classifier_id The ID of the classifier
+#' @param params Parameters for the module as a named list.
+#' @param texts_per_req Number of texts to be fed through per request. Does not affect output, but may affect speed of processing.
+#' @param unnest Should the output column be unnested?
 #' @param verbose whether to output messages about batch requests
 #'
 #' @details Find IDs of classifiers using \url{https://app.monkeylearn.com/main/explore}.
 #'
-#'  You can use batch to send up to 200 texts to be analyzed within the API
-#'  (classification or extraction) with each request.
-#' So for example, if you need to analyze 6000 tweets,
-#' instead of doing 6000 requests to the API, you can use batch to send 30 requests,
-#' each request with 200 tweets.
-#' The function automatically makes these batch calls and waits if there is a throttle limit error,
-#' but you might want to control the process yourself using several calls to the function.
+#' Each row of the dataframe is classified separately from all of the others, but the number of classifications a particular input row
+#' is assigned may vary (unless you specify a fixed number of outputs in \code{params}).
+#' This function relates the rows in your original dataframe to a classification particular to that row.
+#' This allows you to know which row of your original dataframe is associated with which classification.
+#'
+#' The \code{texts_per_req} parameter simply specifies the number of rows to feed the API at a time; it does not lump these together
+#' for classification as a group.
 #'
 #' You can check the number of calls you can still make in the API using \code{attr(output, "headers")$x.query.limit.remaining}
 #' and \code{attr(output, "headers")$x.query.limit.limit}.
@@ -25,30 +28,41 @@
 #' @importFrom jsonlite toJSON
 #' @importFrom dplyr bind_cols
 #' @importFrom dplyr bind_rows
+#' @importFrom tidyr unnest
+#'
 #' @examples \dontrun{
-#' text1 <- "my dog is an avid rice eater"
+#' text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
 #' text2 <- "i want to buy an iphone"
-#' request <- c(text1, text2)
-#' output <- monkeylearn_classify(request)
-#' output
+#' text3 <- "Je déteste ne plus avoir de dentifrice."
+#' text_4 <- "I hate not having any toothpaste."
+#' request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
+#' monkeylearn_classify_df(request_df, txt, texts_per_req = 2, unnest = TRUE
 #' attr(output, "headers")}
-#' @return A data.frame (tibble) with the results whose attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
-#' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
+#'
+#' @return A data.frame (tibble) with the cleaned input (empty strings removed) and a new column, nested by default, containing the classification for that particular row.
+#' Attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
+#'
 #' @export
+
 monkeylearn_classify_df <- function(request_df, col,
                                  key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
                                  params = NULL,
-                                 texts_per_req = 2,  # TODO: replace w 200 post-testing
+                                 texts_per_req = 200,
+                                 unnest = FALSE,
                                  verbose = FALSE) {
-  if (texts_per_req > 200) {
-    warning("Maximum 200 texts recommended per rquests.")
-  }
 
-  request <- request_df[[col]]
+  if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
+  if (texts_per_req > 200) { warning("Maximum 200 texts recommended per rquests.") }
+
+  request <- request_df[[deparse(substitute(col))]]
 
   # filter the blank requests
   length1 <- length(request)
+  if (!is.integer(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
+    stop("Error: texts_per_req must be a whole positive number less than the number of texts.")
+  }
+
   request <- monkeylearn_filter_blank(request)
 
   if (length(request) == 0) {
@@ -99,8 +113,9 @@ monkeylearn_classify_df <- function(request_df, col,
 
       # Set up the two columns
       request_reconstructed <- tibble::as_tibble(list(req = request[[i]]))  # TODO: reconstruct from df[[col]] to preserve empty string rows
-      output_nested <- tibble::as_tibble(list(out = output$result))
+      output_nested <- tibble::as_tibble(list(resp = output$result))
 
+      # Get our result and headers for this batch
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
       this_headers <- tibble::as_tibble(output$headers)
 
@@ -108,17 +123,15 @@ monkeylearn_classify_df <- function(request_df, col,
       header <- dplyr::bind_rows(headers, this_headers)
     }
 
+    if (unnest == TRUE) {
+      results <- results
+      results <- tidyr::unnest(results)
+    }
+
     # done!
-    # results <- tibble::as_tibble(results)
     attr(results, "headers") <- tibble::as_tibble(headers)
     return(results)
   }
 }
-
-
-req <- list(txt = janeaustenr::emma[50:54]) %>% as_tibble()
-out <- monkeylearn_classify_df(req, "txt", texts_per_req = 3)
-
-
 
 
