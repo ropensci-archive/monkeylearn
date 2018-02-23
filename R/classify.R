@@ -34,7 +34,6 @@
 #' @export
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
-                                 texts_per_req = 20,
                                  verbose = FALSE) {
   # filter the blank requests
   length1 <- length(request)
@@ -60,7 +59,7 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
 
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(request[[i]],
-                                       params)   # Removed restriction on setting params
+                                       params = NULL)
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
       # for the case when the server returns nothing
       # try 5 times, not more

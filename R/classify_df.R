@@ -59,8 +59,8 @@ monkeylearn_classify_df <- function(request_df, col,
 
   # filter the blank requests
   length1 <- length(request)
-  if (!is.integer(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
-    stop("Error: texts_per_req must be a whole positive number less than the number of texts.")
+  if (!is.numeric(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
+    stop("Error: texts_per_req must be a whole positive number less than or equal to the number of texts.")
   }
 
   request <- monkeylearn_filter_blank(request)

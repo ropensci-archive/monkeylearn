@@ -13,10 +13,11 @@ Encoding: UTF-8
 RoxygenNote: 6.0.1.9000
 Suggests: testthat,
     knitr,
-    rmarkdown,
-    dplyr
+    rmarkdown
 Imports: jsonlite,
     httr,
+    dplyr,
+    tidyr,
     methods,
     digest,
     tibble (>= 1.2)
