@@ -37,12 +37,18 @@ monkeylearn_classify_df <- function(request_df, col,
                                  key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
                                  params = NULL,
-                                 # texts_per_req = 1,
+                                 texts_per_req = 2,  # TODO: replace w 200 post-testing
                                  verbose = FALSE) {
+  if (texts_per_req > 200) {
+    warning("Maximum 200 texts recommended per rquests.")
+  }
+
   request <- request_df[[col]]
+
   # filter the blank requests
   length1 <- length(request)
   request <- monkeylearn_filter_blank(request)
+
   if (length(request) == 0) {
     warning("You only entered blank text in the request.", call. = FALSE)
     return(tibble::tibble())
@@ -50,50 +56,55 @@ monkeylearn_classify_df <- function(request_df, col,
     if (length1 != length(request)) {
       message("The parts of your request that are only blank are not sent to the API.")
     }
-    # 20 texts per request
-    # request <- split(request, ceiling(seq_along(request)/texts_per_req))
+    # texts_per_req texts per request
+    request <- split(request, ceiling(seq_along(request)/texts_per_req))
 
-    results <- NULL
-    headers <- NULL
+      results <- NULL
+      headers <- NULL
 
+    for(i in seq_along(request)) {
+      if (verbose) {
+        message("Processing request")
+      }
 
-    if (verbose) {
-      message("Processing request")
-    }
+      monkeylearn_text_size(request)
+      request_part <- monkeylearn_prep(request,
+                                       params)
 
-    monkeylearn_text_size(request)
-    request_part <- monkeylearn_prep(request,
-                                     params)
-    output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
-    # for the case when the server returns nothing
-    # try 5 times, not more
-    try_number <- 1
-    while (class(output) == "try-error" && try_number < 6) {
-      message(paste0("Server returned nothing, trying again, try number", try_number))
-      Sys.sleep(2^try_number)
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
-      try_number <- try_number + 1
+
+      # ---- Checks ----
+      # for the case when the server returns nothing try 5 times, not more
+      try_number <- 1
+      while (class(output) == "try-error" && try_number < 6) {
+        message(paste0("Server returned nothing, trying again, try number", try_number))
+        Sys.sleep(2^try_number)
+        output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
+        try_number <- try_number + 1
+      }
+
+      # check the output -- if it is 429 try again (throttle limit) try 5 times, not more
+      try_number <- 1
+      while(!monkeylearn_check(output) && try_number < 6) {
+        if (verbose) { message(paste0("Received 429, trying again, try number", try_number)) }
+        output <- monkeylearn_get_classify(request_part, key, classifier_id)
+        try_number <- try_number + 1
+      }
+      # ----------------
+
+      # parse output
+      output <- monkeylearn_parse_each(output, request_text = request)
+
+      # Set up the two columns
+      request_reconstructed <- tibble::as_tibble(list(req = request))
+      output_nested <- tibble::as_tibble(list(out = output$result))
+
+      this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
+      this_headers <- output$headers
+
+      results <- dplyr::bind_rows(results, this_result)
+      header <- dplyr::bind_rows(headers, this_headers)
     }
-
-    # check the output -- if it is 429 try again (throttle limit)
-    # try 5 times, not more
-    try_number <- 1
-    while(!monkeylearn_check(output) && try_number < 6) {
-      if (verbose) { message(paste0("Received 429, trying again, try number", try_number)) }
-      output <- monkeylearn_get_classify(request_part, key, classifier_id)
-      try_number <- try_number + 1
-    }
-
-    # parse output
-    output <- monkeylearn_parse_each(output, request_text = request)
-
-    # Set up the two columns
-    request_reconstructed <- list(req = request) %>% as_tibble()
-    output_nested <- list(out = output$result) %>% as_tibble()
-
-    results <- bind_cols(request_reconstructed, output_nested)
-
-    headers <- output$headers
 
     # done!
     # results <- tibble::as_tibble(results)

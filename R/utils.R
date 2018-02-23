@@ -142,7 +142,6 @@ monkeylearn_parse <- function(output, request_text) {
 
 monkeylearn_parse_each <- function(output, request_text) {
 
-
   text <- content(output, as = "text",
                   encoding = "UTF-8")
   temp <- fromJSON(text)
