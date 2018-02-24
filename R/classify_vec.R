@@ -2,9 +2,8 @@
 #'
 #' Independent classifications for each row of a dataframe using the Monkeylearn classifiers modules
 #'
-#' @param request_df A dataframe of texts (each text smaller than 50kB)
+#' @param request_vec A character vector of texts (each text smaller than 50kB)
 #'
-#' @param col The unquoted name of the character column containing text to classify
 #' @param key The API key
 #' @param classifier_id The ID of the classifier
 #' @param params Parameters for the module as a named list.
@@ -44,27 +43,18 @@
 #'
 #' @export
 
-monkeylearn_classify_df <- function(request_df = NULL, col = NULL,
-                                    vec = NULL,
-                                 key = monkeylearn_key(quiet = TRUE),
-                                 classifier_id = "cl_oFKL5wft",
-                                 params = NULL,
-                                 texts_per_req = 200,
-                                 unnest = FALSE,
-                                 verbose = FALSE) {
+monkeylearn_classify_vec <- function(vec,
+                                    key = monkeylearn_key(quiet = TRUE),
+                                    classifier_id = "cl_oFKL5wft",
+                                    params = NULL,
+                                    texts_per_req = 200,
+                                    unnest = FALSE,
+                                    verbose = FALSE) {
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
   if (texts_per_req > 200) { warning("Maximum 200 texts recommended per rquests.") }
 
-  # We're either taking a request_df or a vec; not both, not neither
-  if (is.null(vec)) {
-    if (is.null(request_df)) {
-      stop("One of vec or request_df$col must be non-null")
-    }
-    request <- request_df[[deparse(substitute(col))]]
-  } else {
-    request <- vec
-  }
+  request <- vec
 
   # filter the blank requests
   length1 <- length(request)
@@ -84,13 +74,12 @@ monkeylearn_classify_df <- function(request_df = NULL, col = NULL,
     # texts_per_req texts per request
     request <- split(request, ceiling(seq_along(request)/texts_per_req))
 
-      results <- NULL
-      headers <- NULL
+    results <- NULL
+    headers <- NULL
 
     for(i in seq_along(request)) {
       min_text <- ifelse((i - 1)*texts_per_req == 0, 1, (i - 1)*texts_per_req)
       max_text <- i*texts_per_req
-
       if (verbose) {
         message(paste0("Processing batch ", i, " of ", length(request), " batches; texts ", min_text, " to ", max_text))
       }

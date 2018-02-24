@@ -148,6 +148,7 @@ monkeylearn_parse_each <- function(output, request_text) {
 
   if(is(temp$result, "list")) {
     if(length(temp$result[[1]]) == 0){
+      results <- "no_tags_available"
 
       message("No results for this call")
       return(NULL)
