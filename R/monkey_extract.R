@@ -180,8 +180,6 @@ monkey_extract <- function(input, col = NULL,
       }
       output_nested <- tibble::as_tibble(list(resp = res))
 
-
-
       # Get our result and headers for this batch
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
       this_headers <- tibble::as_tibble(output$headers)
