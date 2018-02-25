@@ -1,10 +1,10 @@
-#' monkeylearn_classify_df
+#' monkey_classify
 #'
 #' Independent classifications for each row of a dataframe using the Monkeylearn classifiers modules
 #'
-#' @param request_df A dataframe of texts (each text smaller than 50kB)
+#' @param input A dataframe or vector of texts (each text smaller than 50kB)
 #'
-#' @param col The unquoted name of the character column containing text to classify
+#' @param col If input is a dataframe, the unquoted name of the character column containing text to classify
 #' @param key The API key
 #' @param classifier_id The ID of the classifier
 #' @param params Parameters for the module as a named list.
@@ -16,7 +16,7 @@
 #'
 #' Each row of the dataframe is classified separately from all of the others, but the number of classifications a particular input row
 #' is assigned may vary (unless you specify a fixed number of outputs in \code{params}).
-#' This function relates the rows in your original dataframe to a classification particular to that row.
+#' This function relates the rows in your original dataframe or elements in your vector to a classification particular to that row.
 #' This allows you to know which row of your original dataframe is associated with which classification.
 #'
 #' The \code{texts_per_req} parameter simply specifies the number of rows to feed the API at a time; it does not lump these together
@@ -25,10 +25,6 @@
 #' You can check the number of calls you can still make in the API using \code{attr(output, "headers")$x.query.limit.remaining}
 #' and \code{attr(output, "headers")$x.query.limit.limit}.
 #'
-#' @importFrom jsonlite toJSON
-#' @importFrom dplyr bind_cols
-#' @importFrom dplyr bind_rows
-#' @importFrom tidyr unnest
 #'
 #' @examples \dontrun{
 #' text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
@@ -44,8 +40,8 @@
 #'
 #' @export
 
-monkeylearn_classify_df <- function(request_df = NULL, col = NULL,
-                                    vec = NULL,
+monkey_classify <- function(input, col = NULL,
+                                 vec = NULL,
                                  key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
                                  params = NULL,
@@ -53,17 +49,22 @@ monkeylearn_classify_df <- function(request_df = NULL, col = NULL,
                                  unnest = FALSE,
                                  verbose = FALSE) {
 
+
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
   if (texts_per_req > 200) { warning("Maximum 200 texts recommended per rquests.") }
 
-  # We're either taking a request_df or a vec; not both, not neither
-  if (is.null(vec)) {
-    if (is.null(request_df)) {
-      stop("One of vec or request_df$col must be non-null")
+  if (is.null(input)) { stop("input must be non-NULL") }
+
+  # We're either taking a dataframe or a vector; not both, not neither
+  if (inherits(input, "data.frame")) {
+    if (is.null(col)) {
+      stop("If input is a dataframe, col must be non-null")
     }
     request <- request_df[[deparse(substitute(col))]]
-  } else {
+  } else if (is.vector()) {
     request <- vec
+  } else {
+    stop("input must be a dataframe or a vector")
   }
 
   # filter the blank requests
