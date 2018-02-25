@@ -57,7 +57,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
 test_that("No error if no results from the extractor call",{
   expect_is(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG"), "tbl_df")
-  expect_message(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG"),
+  expect_message(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", verbose = TRUE),
                  "No results for this call")
 })
 
@@ -68,10 +68,16 @@ test_that("We can use different texts_per_req in classify_df and get the same ou
   text_4 <- "I hate not having any toothpaste."
   request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
 
+  # Different numbers of texts_per_req give same output
   expect_equal(tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 2)),
                tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 3)))
 
+  # Unnesting parameter unnests
   expect_equal(tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 2)),
                (monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)))
+
+  # Dataframe or vector as input produce same result
+  expect_equal(monkey_classify(request_df$txt, texts_per_req = 2),
+               (monkey_classify(request_df, txt, texts_per_req = 1)))
 })
 

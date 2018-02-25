@@ -6,8 +6,6 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
   request <- c(text1, text2)
   output <- monkeylearn_classify(request,
                                  classifier_id = "cl_oFKL5wft")
-  monkey_output <- monkey_classify(request,
-                                 classifier_id = "cl_oFKL5wft")
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
@@ -15,8 +13,6 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
   output <- monkeylearn_extract(request = text,
-                                extractor_id = "ex_isnnZRbS")
-  monkey_output <- monkey_extract(request,
                                 extractor_id = "ex_isnnZRbS")
 
   expect_is(output, "data.frame")
@@ -27,9 +23,6 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
   text2 <- "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"
   output <- monkeylearn_extract(request = c(text, text2),
                                 extractor_id = "ex_dqRio5sG")
-  monkey_output <- monkey_extract(request = c(text, text2),
-                                extractor_id = "ex_dqRio5sG")
-
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
@@ -41,8 +34,6 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
   request <- c(text1, text2, text3)
   output <- monkeylearn_classify(request,
                        classifier_id = "cl_oJNMkt2V")
-  monkey_output <- monkey_extract(request,
-                                 classifier_id = "cl_oJNMkt2V")
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")

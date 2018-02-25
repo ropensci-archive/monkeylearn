@@ -86,7 +86,7 @@ monkey_extract <- function(input, col = NULL,
                           params = NULL,
                           texts_per_req = NULL,
                           unnest = FALSE,
-                          verbose = FALSE) {
+                          verbose = TRUE) {
 
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
@@ -94,10 +94,10 @@ monkey_extract <- function(input, col = NULL,
 
   # We're either taking a dataframe or a vector; not both, not neither
   if (inherits(input, "data.frame")) {
-    if (is.null(col)) {
+    if (is.null(deparse(substitute(col)))) {
       stop("If input is a dataframe, col must be non-null")
     }
-    request <- request_df[[deparse(substitute(col))]]
+    request <- input[[deparse(substitute(col))]]
   } else if (is.vector(input)) {
     request <- input
   } else {
@@ -169,7 +169,7 @@ monkey_extract <- function(input, col = NULL,
       # ----------------
 
       # parse output
-      output <- monkeylearn_parse_each(output, request_text = request[[i]])
+      output <- monkeylearn_parse_each(output, request_text = request[[i]], verbose = verbose)
 
       # Set up the two columns
       request_reconstructed <- tibble::as_tibble(list(req = request[[i]]))

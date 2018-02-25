@@ -138,7 +138,7 @@ monkeylearn_parse <- function(output, request_text) {
 }
 
 
-monkeylearn_parse_each <- function(output, request_text) {
+monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
 
   text <- content(output, as = "text",
                   encoding = "UTF-8")
@@ -149,7 +149,7 @@ monkeylearn_parse_each <- function(output, request_text) {
     if(length(temp$result[[1]]) == 0){
       results$result[[1]] <- "no_results"
 
-      message("No results for this call; returning NA")
+      if (verbose) { message("No results for this call; returning NA.") }
 
     } else {
       results <- temp
