@@ -81,17 +81,15 @@
 #' @export
 
 monkey_extract <- function(input, col = NULL,
-                                    vec = NULL,
                                     key = monkeylearn_key(quiet = TRUE),
                                     extractor_id = "cl_oFKL5wft",
                                     params = NULL,
-                                    texts_per_req = 200,
+                                    texts_per_req = NULL,
                                     unnest = FALSE,
                                     verbose = FALSE) {
 
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
-  if (texts_per_req > 200) { warning("Maximum 200 texts recommended per rquests.") }
 
   if (is.null(input)) { stop("input must be non-NULL") }
 
@@ -101,16 +99,26 @@ monkey_extract <- function(input, col = NULL,
       stop("If input is a dataframe, col must be non-null")
     }
     request <- request_df[[deparse(substitute(col))]]
-  } else if (is.vector()) {
-    request <- vec
+  } else if (is.vector(input)) {
+    request <- input
   } else {
     stop("input must be a dataframe or a vector")
   }
 
   # filter the blank requests
   length1 <- length(request)
-  if (!is.numeric(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
+
+  # Default texts_per_req to 200, or to the length of the input if fewer than 200 texts
+  if (is.null(texts_per_req)) {
+    if (length1 < 200) {
+      texts_per_req <- length1
+    } else {
+      texts_per_req <- 200
+    }
+  } else if (!is.numeric(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
     stop("Error: texts_per_req must be a whole positive number less than or equal to the number of texts.")
+  } else if (texts_per_req > 200) {
+    warning("Maximum 200 texts recommended per rquests.")
   }
 
   request <- monkeylearn_filter_blank(request)

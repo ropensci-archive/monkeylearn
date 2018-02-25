@@ -6,6 +6,8 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
   request <- c(text1, text2)
   output <- monkeylearn_classify(request,
                                  classifier_id = "cl_oFKL5wft")
+  monkey_output <- monkey_classify(request,
+                                 classifier_id = "cl_oFKL5wft")
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
