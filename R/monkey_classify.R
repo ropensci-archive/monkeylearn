@@ -9,7 +9,7 @@
 #' @param classifier_id The ID of the classifier
 #' @param params Parameters for the module as a named list.
 #' @param texts_per_req Number of texts to be processed per requests. Minimum value is the number of texts in input; max is 200, as per
-#' [Monkeylearn documentation](docs.monkeylearn.com/article/api-reference/).
+#' [Monkeylearn documentation](docs.monkeylearn.com/article/api-reference/). If NULL, we default to 200, or, if there are fewer than 200 texts, the length of the input.
 #' @param unnest Should the output column be unnested?
 #' @param verbose whether to output messages about batch requests
 #'
