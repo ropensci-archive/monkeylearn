@@ -6,7 +6,7 @@
 #'
 #' @param key The API key
 #' @param classifier_id The ID of the classifier
-#' @param texts_per_req Number of texts to be fed through per request. Does not affect output, but may affect speed of processing.
+#' @param texts_per_req Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.
 #' @param verbose whether to output messages about batch requests
 #'
 #' @details Find IDs of classifiers using \url{https://app.monkeylearn.com/main/explore}.
@@ -92,7 +92,7 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
 
     # done!
     results <- tibble::as_tibble(results)
-    attr(results, "headers") <-  tibble::as_tibble(headers)
+    attr(results, "headers") <- tibble::as_tibble(headers)
     results
   }
 }

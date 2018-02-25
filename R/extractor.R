@@ -6,6 +6,7 @@
 #'
 #' @param key The API key
 #' @param extractor_id The ID of the extractor
+#' @param texts_per_req Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.
 #' @param verbose whether to output messages about batch requests
 #' @param params parameters for the module as a named list. See the second example.
 #'
@@ -42,8 +43,8 @@
 #' @details Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 #' Within the free plan, you can make up to 20 requests per minute.
 #'
-#'   You can use batch to send up to 200 texts to be analyzed within the API
-#'  (classification or extraction) with each request.
+#' You can use batch to send up to 200 texts to be analyzed within the API
+#' (classification or extraction) with each request.
 #' So for example, if you need to analyze 6000 tweets,
 #' instead of doing 6000 requests to the API, you can use batch to send 30 requests,
 #' each request with 200 tweets.
@@ -73,7 +74,7 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
     }
 
     # 20 texts per request
-    request <- split(request, ceiling(seq_along(request)/20))
+    request <- split(request, ceiling(seq_along(request)/texts_per_req))
 
     results <- NULL
     headers <- NULL
@@ -91,7 +92,7 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
       # try 5 times, not more
       try_number <- 1
       while(class(output) == "try-error" && try_number < 6) {
-        message(paste0("Server returned nothing, trying again, try number", i))
+        message(paste0("Server returned nothing, trying again, try number", try_number))
         Sys.sleep(2^try_number)
         output <- tryCatch(monkeylearn_get_extractor(request_part, key, extractor_id))
         try_number <- try_number + 1
@@ -109,7 +110,7 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
     }
 
     # done!
-    attr(results, "headers") <-  tibble::as_tibble(headers)
+    attr(results, "headers") <- tibble::as_tibble(headers)
     results
   }
 

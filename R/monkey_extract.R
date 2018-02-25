@@ -8,19 +8,24 @@
 #' @param key The API key
 #' @param extractor_id The ID of the extractor
 #' @param params Parameters for the module as a named list.
-#' @param texts_per_req Number of texts to be fed through per request. Does not affect output, but may affect speed of processing.
+#' @param texts_per_req Number of texts to be processed per requests. Minimum value is the number of texts in input; max is 200, as per
+#' [Monkeylearn documentation](docs.monkeylearn.com/article/api-reference/).
 #' @param unnest Should the output column be unnested?
 #' @param verbose whether to output messages about batch requests
 #'
 #' @details Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 #'
-#' Each row of the dataframe is extracted separately from all of the others, but the number of extractions a particular input row
-#' is assigned may vary (unless you specify a fixed number of outputs in \code{params}).
 #' This function relates the rows in your original dataframe or elements in your vector to an extraction particular to that row.
 #' This allows you to know which row of your original dataframe is associated with which extraction.
+#' Each row of the dataframe is extracted separately from all of the others, but the number of extractions a particular input row
+#' is assigned may vary (unless you specify a fixed number of outputs in \code{params}).
 #'
 #' The \code{texts_per_req} parameter simply specifies the number of rows to feed the API at a time; it does not lump these together
-#' for extraction as a group.
+#' for extraction as a group. Varying this parameter does not affect the final output, but does affect speed: one batched request of
+#' x texts is faster than x single-text requests:
+#' \url{http://help.monkeylearn.com/frequently-asked-questions/queries/can-i-classify-or-extract-more-than-one-text-with-one-api-request}.
+#' Even if batched, each text still counts as one query, so batching does not save you on hits to the API.
+#' See the [Monkeylearn API docs](docs.monkeylearn.com/article/api-reference/) for more details.
 #'
 #' You can check the number of calls you can still make in the API using \code{attr(output, "headers")$x.query.limit.remaining}
 #' and \code{attr(output, "headers")$x.query.limit.limit}.
