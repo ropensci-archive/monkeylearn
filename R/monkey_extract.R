@@ -11,7 +11,7 @@
 #' @param texts_per_req Number of texts to be processed per requests. Minimum value is the number of texts in input; max is 200, as per
 #' [Monkeylearn documentation](docs.monkeylearn.com/article/api-reference/). If NULL, we default to 200, or, if there are fewer than 200 texts, the length of the input.
 #' @param unnest Should the output column be unnested?
-#' @param verbose whether to output messages about batch requests
+#' @param verbose Whether to output messages about batch requests and progress of processing.
 #'
 #' @details Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 #'
@@ -90,7 +90,6 @@ monkey_extract <- function(input, col = NULL,
 
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
-
   if (is.null(input)) { stop("input must be non-NULL") }
 
   # We're either taking a dataframe or a vector; not both, not neither
@@ -105,7 +104,6 @@ monkey_extract <- function(input, col = NULL,
     stop("input must be a dataframe or a vector")
   }
 
-  # filter the blank requests
   length1 <- length(request)
 
   # Default texts_per_req to 200, or to the length of the input if fewer than 200 texts
@@ -121,6 +119,7 @@ monkey_extract <- function(input, col = NULL,
     warning("Maximum 200 texts recommended per rquests.")
   }
 
+  # filter the blank requests
   request <- monkeylearn_filter_blank(request)
 
   if (length(request) == 0) {
@@ -130,7 +129,7 @@ monkey_extract <- function(input, col = NULL,
     if (length1 != length(request)) {
       message("The parts of your request that are only blank are not sent to the API.")
     }
-    # texts_per_req texts per request
+    # Split request into texts_per_req texts per request
     request <- split(request, ceiling(seq_along(request)/texts_per_req))
 
     results <- NULL
@@ -173,7 +172,7 @@ monkey_extract <- function(input, col = NULL,
       output <- monkeylearn_parse_each(output, request_text = request[[i]])
 
       # Set up the two columns
-      request_reconstructed <- tibble::as_tibble(list(req = request[[i]]))  # TODO: reconstruct from df[[col]] to preserve empty string rows
+      request_reconstructed <- tibble::as_tibble(list(req = request[[i]]))
       output_nested <- tibble::as_tibble(list(resp = output$result))
 
       # Get our result and headers for this batch

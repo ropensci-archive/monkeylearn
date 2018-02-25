@@ -97,7 +97,6 @@ monkeylearn_get_extractor <- function(request, key, extractor_id) {
 # parse results
 monkeylearn_parse <- function(output, request_text) {
 
-
   text <- content(output, as = "text",
                         encoding = "UTF-8")
   temp <- fromJSON(text)
@@ -114,11 +113,11 @@ monkeylearn_parse <- function(output, request_text) {
                                                       FUN.VALUE = 0)),
                                         SIMPLIFY = FALSE))
 
-    }else{
+    } else{
       message("No results for this call")
       return(NULL)
     }
-  } else{
+  } else {
     results <- as.data.frame(temp$result)
     results$text_md5 <- vapply(X=request_text,
                                FUN=digest::digest,
@@ -136,7 +135,6 @@ monkeylearn_parse <- function(output, request_text) {
 
   list(results = results,
        headers = headers)
-
 }
 
 
@@ -145,13 +143,14 @@ monkeylearn_parse_each <- function(output, request_text) {
   text <- content(output, as = "text",
                   encoding = "UTF-8")
   temp <- fromJSON(text)
+  results <- NULL
 
   if(is(temp$result, "list")) {
     if(length(temp$result[[1]]) == 0){
-      results <- "no_tags_available"
+      results$result[[1]] <- "no_results"
 
-      message("No results for this call")
-      return(NULL)
+      message("No results for this call; returning NA")
+
     } else {
       results <- temp
     }
