@@ -173,7 +173,14 @@ monkey_extract <- function(input, col = NULL,
 
       # Set up the two columns
       request_reconstructed <- tibble::as_tibble(list(req = request[[i]]))
-      output_nested <- tibble::as_tibble(list(resp = output$result))
+
+      res <- output$result
+      if (length(res) == 1 && is.na(res)) {
+        res <- rep(res, nrow(request_reconstructed))
+      }
+      output_nested <- tibble::as_tibble(list(resp = res))
+
+
 
       # Get our result and headers for this batch
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)

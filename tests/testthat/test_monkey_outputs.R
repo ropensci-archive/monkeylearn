@@ -5,7 +5,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
   text2 <- "i want to buy an iphone"
   request <- c(text1, text2)
   output <- monkey_classify(request,
-                                   classifier_id = "cl_oFKL5wft")
+                            classifier_id = "cl_oFKL5wft")
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
@@ -13,7 +13,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
   output <- monkey_extract(request,
-                                  extractor_id = "ex_isnnZRbS")
+                           extractor_id = "ex_isnnZRbS")
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
@@ -77,7 +77,7 @@ test_that("We can use different texts_per_req in classify_df and get the same ou
                (monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)))
 
   # Dataframe or vector as input produce same result
-  expect_equal(monkey_classify(request_df$txt, texts_per_req = 2),
-               (monkey_classify(request_df, txt, texts_per_req = 1)))
+  expect_equal(monkey_classify(request_df$txt, texts_per_req = 2, unnest = TRUE),
+               (monkey_classify(request_df, txt, texts_per_req = 1, unnest = TRUE)))
 })
 

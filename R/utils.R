@@ -147,7 +147,7 @@ monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
 
   if(is(temp$result, "list")) {
     if(length(temp$result[[1]]) == 0){
-      results$result[[1]] <- "no_results"
+      results$result[[1]] <- NA_character_
 
       if (verbose) { message("No results for this call; returning NA.") }
 
