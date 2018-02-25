@@ -5,7 +5,8 @@
 \title{monkeylearn_extract}
 \usage{
 monkeylearn_extract(request, key = monkeylearn_key(quiet = TRUE),
-  extractor_id = "ex_isnnZRbS", verbose = FALSE, params = NULL)
+  extractor_id = "ex_isnnZRbS", texts_per_req = 200, verbose = FALSE,
+  params = NULL)
 }
 \arguments{
 \item{request}{A vector of characters (each text smaller than 50kB)}
@@ -13,6 +14,8 @@ monkeylearn_extract(request, key = monkeylearn_key(quiet = TRUE),
 \item{key}{The API key}
 
 \item{extractor_id}{The ID of the extractor}
+
+\item{texts_per_req}{Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.}
 
 \item{verbose}{whether to output messages about batch requests}
 
@@ -29,8 +32,8 @@ Access to Monkeylearn extractors modules
 Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 Within the free plan, you can make up to 20 requests per minute.
 
-  You can use batch to send up to 200 texts to be analyzed within the API
- (classification or extraction) with each request.
+You can use batch to send up to 200 texts to be analyzed within the API
+(classification or extraction) with each request.
 So for example, if you need to analyze 6000 tweets,
 instead of doing 6000 requests to the API, you can use batch to send 30 requests,
 each request with 200 tweets.

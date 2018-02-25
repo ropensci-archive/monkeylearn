@@ -14,7 +14,7 @@ monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
 
 \item{classifier_id}{The ID of the classifier}
 
-\item{texts_per_req}{Number of texts to be fed through per request. Does not affect output, but may affect speed of processing.}
+\item{texts_per_req}{Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.}
 
 \item{verbose}{whether to output messages about batch requests}
 }

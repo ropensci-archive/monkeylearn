@@ -29,7 +29,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
-  expect_gte(nrow(attr(output, "headers")), 1)
+  # expect_gte(nrow(attr(output, "headers")), 1)
 
   text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
   text2 <- "i want to buy an iphone"

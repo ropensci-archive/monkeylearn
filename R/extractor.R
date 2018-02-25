@@ -57,8 +57,10 @@
 #' @return A data.frame with the results whose attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
 #' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 #' @export
+
 monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
                                 extractor_id = "ex_isnnZRbS",
+                                texts_per_req = 200,
                                 verbose = FALSE,
                                 params = NULL) {
 
