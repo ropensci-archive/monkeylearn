@@ -11,14 +11,14 @@ URL: http://github.com/ropensci/monkeylearn
 BugReports: http://github.com/ropensci/monkeylearn/issues
 Encoding: UTF-8
 RoxygenNote: 6.0.1.9000
-Suggests: testthat,
-    knitr,
-    rmarkdown
-Imports: jsonlite,
-    httr,
+Suggests: knitr,
+    rmarkdown,
+    testthat
+Imports: digest,
     dplyr,
-    tidyr,
+    httr,
+    jsonlite,
     methods,
-    digest,
-    tibble (>= 1.2)
+    tibble (>= 1.2),
+    tidyr
 VignetteBuilder: knitr

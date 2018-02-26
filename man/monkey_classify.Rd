@@ -2,7 +2,7 @@
 % Please edit documentation in R/monkey_classify.R
 \name{monkey_classify}
 \alias{monkey_classify}
-\title{monkey_classify}
+\title{Monkeylearn classify from a dataframe column or vector of texts}
 \usage{
 monkey_classify(input, col = NULL, key = monkeylearn_key(quiet = TRUE),
   classifier_id = "cl_oFKL5wft", params = NULL, texts_per_req = NULL,

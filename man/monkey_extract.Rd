@@ -2,7 +2,7 @@
 % Please edit documentation in R/monkey_extract.R
 \name{monkey_extract}
 \alias{monkey_extract}
-\title{monkey_extract}
+\title{Monkeylearn extract from a dataframe column or vector of texts}
 \usage{
 monkey_extract(input, col = NULL, key = monkeylearn_key(quiet = TRUE),
   extractor_id = "cl_oFKL5wft", params = NULL, texts_per_req = NULL,

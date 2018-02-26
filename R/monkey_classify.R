@@ -1,4 +1,4 @@
-#' monkey_classify
+#' Monkeylearn classify from a dataframe column or vector of texts
 #'
 #' Independent classifications for each row of a dataframe using the Monkeylearn classifiers modules
 #'
@@ -70,7 +70,6 @@ monkey_classify <- function(input, col = NULL,
     stop("input must be a dataframe or a vector")
   }
 
-  # filter the blank requests
   length1 <- length(request)
 
   # Default texts_per_req to 200, or to the length of the input if fewer than 200 texts

@@ -1,4 +1,4 @@
-#' monkey_extract
+#' Monkeylearn extract from a dataframe column or vector of texts
 #'
 #' Independent extractions for each row of a dataframe using the Monkeylearn extractor modules
 #'
