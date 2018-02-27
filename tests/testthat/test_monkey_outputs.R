@@ -65,15 +65,19 @@ test_that("We can use different texts_per_req in classify_df and get the same ou
   text_4 <- "I hate not having any toothpaste."
   request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
 
+  output_unnested <- monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)
+  output_nested <- monkey_classify(request_df, txt, texts_per_req = 2, unnest = FALSE)
+  output_2_texts <- tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 2))
+  output_3_texts <- tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 3))
+
   # Different numbers of texts_per_req give same output
-  expect_equal(tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 2)),
-               tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 3)))
+  expect_equal(output_2_texts, output_3_texts)
 
   # Unnesting parameter unnests
-  output <- monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)
-  expect_equal(tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 2),
-               output))
-  test_headers(output)
+  expect_equal(tidyr::unnest(output_nested),
+                             output_unnested)
+  test_headers(output_nested)
+  test_headers(output_unnested)
 
   # Dataframe or vector as input produce same result
   vec_output <- monkey_classify(request_df$txt, texts_per_req = 2, unnest = TRUE)
