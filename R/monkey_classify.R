@@ -164,7 +164,6 @@ monkey_classify <- function(input, col = NULL,
       request_orig_df <- tibble::tibble(req_orig = request_orig,
                                         row_name = as.numeric(names(request_orig)))
 
-
       # Unnest what we can now
       if (unnest == TRUE) {
         results <- tidyr::unnest(results)
