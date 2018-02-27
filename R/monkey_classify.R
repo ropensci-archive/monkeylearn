@@ -141,7 +141,8 @@ monkey_classify <- function(input, col = NULL,
       output <- monkeylearn_parse_each(output, request_text = request[[i]], verbose = verbose)
 
       # Set up the two columns
-      request_reconstructed <- tibble::as_tibble(list(req = request[[i]]))
+      request_reconstructed <- tibble::tibble(req = request[[i]],
+                                              row_name = as.numeric(names(request[[i]])))
 
       res <- output$result
       if (length(res) == 1 && is.na(res)) {
@@ -160,29 +161,29 @@ monkey_classify <- function(input, col = NULL,
 
     # If we had empty strings in the input, get them back into the result in the right spots
     if (length(request_orig) > nrow(results)) {
-      request_orig_df <- tibble::tibble(req_orig = request_orig)
+      request_orig_df <- tibble::tibble(req_orig = request_orig,
+                                        row_name = as.numeric(names(request_orig)))
 
-      if (length(unique(request_orig)) != length(request_orig)) {
-        stop("Input contains empty strings and non-unique texts; cannot disambiguate.
-             Please unique texts or remove empty strings.")
-      }
 
       # Unnest what we can now
       if (unnest == TRUE) {
         results <- tidyr::unnest(results)
         results <- dplyr::left_join(request_orig_df, results,
-                                    by = c("req_orig" = "req"))
+                                    by = "row_name")
       } else {
         results <- dplyr::left_join(request_orig_df, results,
-                                    by = c("req_orig" = "req"))
+                                    by = "row_name")
         results$resp <- lapply(results$resp, replace_nulls)
       }
 
+      results <- results[ , -which(names(results) == "req")]
       names(results)[which(names(results) == "req_orig")] <- "req"
+      results <- results[ , -which(names(results) == "row_name")]
 
     } else {
       if (unnest == TRUE) {
         results <- tidyr::unnest(results)
+        results <- results[ , -which(names(results) == "row_name")]
       }
     }
 
