@@ -178,14 +178,14 @@ monkey_classify <- function(input, col = NULL,
 
       results <- results[ , -which(names(results) == "req")]
       names(results)[which(names(results) == "req_orig")] <- "req"
-      results <- results[ , -which(names(results) == "row_name")]
 
     } else {
       if (unnest == TRUE) {
         results <- tidyr::unnest(results)
-        results <- results[ , -which(names(results) == "row_name")]
       }
     }
+
+    results <- results[ , -which(names(results) == "row_name")]
 
     # done!
     attr(results, "headers") <- tibble::as_tibble(headers)
