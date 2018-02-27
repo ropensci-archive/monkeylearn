@@ -9,7 +9,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
-  # expect_gte(nrow(attr(output, "headers")), 1)  # ---- See issue 40 re: empty headers
+  expect_gte(nrow(attr(output, "headers")), 1)
 
   text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
   output <- monkey_extract(request,
@@ -17,7 +17,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
-  # expect_gte(nrow(attr(output, "headers")), 1)
+  expect_gte(nrow(attr(output, "headers")), 1)
 
   text <- "Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am"
   text2 <- "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"
@@ -29,7 +29,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
-  # expect_gte(nrow(attr(output, "headers")), 1)
+  expect_gte(nrow(attr(output, "headers")), 1)
 
   text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
   text2 <- "i want to buy an iphone"
@@ -40,7 +40,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
-  # expect_gte(nrow(attr(output, "headers")), 1)
+  expect_gte(nrow(attr(output, "headers")), 1)
 
 
   text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.\n\n The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.\n\n Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide, Afsheen Afshar, a managing director at Goldman Sachs, told the students."
@@ -51,7 +51,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   expect_is(output, "data.frame")
   expect_is(attr(output, "headers"), "data.frame")
-  # expect_gte(nrow(attr(output, "headers")), 1)
+  expect_gte(nrow(attr(output, "headers")), 1)
 
 })
 
@@ -97,6 +97,10 @@ test_that("We can reconstruct the same length vector as we had in our input, ret
   expect_equal(length(which(empties_result_unnested$req %in% c("", " "))),
               length(which(text_w_empties %in% c("", " "))))
   expect_equal(empties_result_nested$req[4], text_w_empties[4])
+
+  expect_is(empties_result_unnested, "data.frame")
+  expect_is(attr(empties_result_unnested, "headers"), "data.frame")
+  expect_gte(nrow(attr(empties_result_unnested, "headers")), 1)
 
 })
 

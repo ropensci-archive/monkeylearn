@@ -185,7 +185,7 @@ monkey_extract <- function(input, col = NULL,
       this_headers <- tibble::as_tibble(output$headers)
 
       results <- dplyr::bind_rows(results, this_result)
-      header <- dplyr::bind_rows(headers, this_headers)
+      headers <- dplyr::bind_rows(headers, this_headers)
     }
 
     if (unnest == TRUE) {
