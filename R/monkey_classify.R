@@ -162,8 +162,11 @@ monkey_classify <- function(input, col = NULL,
     # If we had empty strings in the input, get them back into the result in the right spots
     if (length(request_orig) > nrow(results)) {
       request_orig_df <- tibble::tibble(req_orig = request_orig)
-      # request_orig_df$row_name <- as.numeric(names(request_orig))
-      # results$row_name <- as.numeric(rownames(results))
+
+      if (length(unique(request_orig)) != length(request_orig)) {
+        stop("Input contains empty strings and non-unique texts; cannot disambiguate.
+             Please unique texts or remove empty strings.")
+      }
 
       # Unnest what we can now
       if (unnest == TRUE) {
