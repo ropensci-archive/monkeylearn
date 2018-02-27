@@ -187,8 +187,8 @@ monkey_classify <- function(input, col = NULL,
     }
 
     # done!
-    return(results)
     attr(results, "headers") <- tibble::as_tibble(headers)
+    return(results)
   }
 }
 
