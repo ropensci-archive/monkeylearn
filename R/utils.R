@@ -188,6 +188,13 @@ replace_nulls <- function(x) {
   }
 }
 
+test_headers <- function(df) {
+  testthat::test_that("headers are a dataframe of > 0 rows", {
+    testthat::expect_is(attr(df, "headers"), "data.frame")
+    testthat::expect_gte(nrow(attr(df, "headers")), 1)
+  })
+}
+
 
 #' Retrieve Monkeylearn API key
 #'

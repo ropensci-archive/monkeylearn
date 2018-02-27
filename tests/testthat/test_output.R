@@ -8,8 +8,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
                                  classifier_id = "cl_oFKL5wft")
 
   expect_is(output, "data.frame")
-  expect_is(attr(output, "headers"), "data.frame")
-  expect_gte(nrow(attr(output, "headers")), 1)
+  test_headers(output)
 
   text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
   output <- monkeylearn_extract(request = text,
@@ -25,8 +24,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
                                 extractor_id = "ex_dqRio5sG")
 
   expect_is(output, "data.frame")
-  expect_is(attr(output, "headers"), "data.frame")
-  expect_gte(nrow(attr(output, "headers")), 1)
+  test_headers(output)
 
   text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
   text2 <- "i want to buy an iphone"
@@ -36,9 +34,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
                        classifier_id = "cl_oJNMkt2V")
 
   expect_is(output, "data.frame")
-  expect_is(attr(output, "headers"), "data.frame")
-  expect_gte(nrow(attr(output, "headers")), 1)
-
+  test_headers(output)
 
   text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.\n\n The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.\n\n Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide, Afsheen Afshar, a managing director at Goldman Sachs, told the students."
   output <- monkeylearn_extract(text,
@@ -47,8 +43,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
                                               use_company_names = 1))
 
   expect_is(output, "data.frame")
-  expect_is(attr(output, "headers"), "data.frame")
-  expect_gte(nrow(attr(output, "headers")), 1)
+  test_headers(output)
 
   })
 
@@ -75,5 +70,6 @@ test_that("We can use different texts_per_req in classify_df and get the same ou
 
   expect_equal(tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 2)),
                (monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)))
+
 })
 
