@@ -158,7 +158,6 @@ monkey_classify <- function(input, col = NULL,
       header <- dplyr::bind_rows(headers, this_headers)
     }
 
-
     # If we had empty strings in the input, get them back into the result in the right spots
     if (length(request_orig) > nrow(results)) {
       request_orig_df <- tibble::tibble(req_orig = request_orig)
@@ -171,14 +170,15 @@ monkey_classify <- function(input, col = NULL,
       # Unnest what we can now
       if (unnest == TRUE) {
         results <- tidyr::unnest(results)
+        results <- dplyr::left_join(request_orig_df, results,
+                                    by = c("req_orig" = "req"))
+      } else {
+        results <- dplyr::left_join(request_orig_df, results,
+                                    by = c("req_orig" = "req"))
+        results$resp <- lapply(results$resp, replace_nulls)
       }
 
-      results <- dplyr::left_join(request_orig_df, results,
-                                  by = c("req_orig" = "req"))  # by = "row_name"
-
       names(results)[which(names(results) == "req_orig")] <- "req"
-
-      results$resp <- lapply(results$resp, replace_nulls)
 
     } else {
       if (unnest == TRUE) {
