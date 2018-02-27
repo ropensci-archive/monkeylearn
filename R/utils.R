@@ -50,6 +50,13 @@ monkeylearn_url_extractor <- function(extractor_id) {
          "/extract/")
 }
 
+# # find which indices in original vector are blank
+# monkeylearn_find_blanks <- function(request){
+#   inds <- which(request %in% c("", " "))
+#
+#   return(inds)
+# }
+
 # no blank request
 monkeylearn_filter_blank <- function(request){
   request <- request[gsub(" ", "", request) != ""]
@@ -173,6 +180,13 @@ monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
 }
 
 
+replace_nulls <- function(x) {
+  if(is.null(x)) {
+    NA
+  } else {
+    x
+  }
+}
 
 
 #' Retrieve Monkeylearn API key

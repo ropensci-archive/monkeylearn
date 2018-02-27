@@ -63,14 +63,17 @@ monkey_classify <- function(input, col = NULL,
     if (is.null(deparse(substitute(col)))) {
       stop("If input is a dataframe, col must be non-null")
     }
-    request <- input[[deparse(substitute(col))]]
+    request_orig <- input[[deparse(substitute(col))]]
   } else if (is.vector(input)) {
-    request <- input
+    request_orig <- input
   } else {
     stop("input must be a dataframe or a vector")
   }
 
-  length1 <- length(request)
+  # Add names to vector
+  names(request_orig) <- 1:length(request_orig)
+
+  length1 <- length(request_orig)
 
   # Default texts_per_req to 200, or to the length of the input if fewer than 200 texts
   if (is.null(texts_per_req)) {
@@ -86,7 +89,7 @@ monkey_classify <- function(input, col = NULL,
   }
 
   # filter the blank requests
-  request <- monkeylearn_filter_blank(request)
+  request <- monkeylearn_filter_blank(request_orig)
 
   if (length(request) == 0) {
     warning("You only entered blank text in the request.", call. = FALSE)
@@ -144,7 +147,8 @@ monkey_classify <- function(input, col = NULL,
       if (length(res) == 1 && is.na(res)) {
         res <- rep(res, nrow(request_reconstructed))
       }
-      output_nested <- tibble::as_tibble(list(resp = res))
+      output_nested <- tibble::tibble(resp = res)
+
 
       # Get our result and headers for this batch
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
@@ -154,13 +158,35 @@ monkey_classify <- function(input, col = NULL,
       header <- dplyr::bind_rows(headers, this_headers)
     }
 
-    if (unnest == TRUE) {
-      results <- results
-      results <- tidyr::unnest(results)
+    attr(results, "headers") <- tibble::as_tibble(headers)
+
+      # If we had blanks in the input, get them back into the result
+    if (length(request_orig) > nrow(results)) {
+      request_orig_df <- tibble::tibble(req_orig = request_orig)
+      # request_orig_df$row_name <- as.numeric(names(request_orig))
+      # results$row_name <- as.numeric(rownames(results))
+
+      # Unnest what we can now
+      if (unnest == TRUE) {
+        results <- tidyr::unnest(results)
+      } else {
+        results$resp <- lapply(results$resp, replace_nulls)
+      }
+
+      results <- dplyr::left_join(request_orig_df, results,
+                                  by = c("req_orig" = "req"))  # by = "row_name"
+
+
+      results <-
+        results[!(names(results) %in% c("req_orig"))]  #  "row_name"
+
+
+    } else {
+      if (unnest == TRUE) {
+        results <- tidyr::unnest(results)
+      }
     }
 
-    # done!
-    attr(results, "headers") <- tibble::as_tibble(headers)
     return(results)
   }
 }

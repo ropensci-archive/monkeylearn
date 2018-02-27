@@ -81,3 +81,20 @@ test_that("We can use different texts_per_req in classify_df and get the same ou
                (monkey_classify(request_df, txt, texts_per_req = 1, unnest = TRUE)))
 })
 
+
+test_that("We can reconstruct the same length vector as we had in our input, retaining empty strings", {
+  text_w_empties <- c(
+    "In a hole in the ground there lived a hobbit.",
+    "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
+    "",
+    "When Mr. Bilbo Baggins of Bag End announced that he would shortly be celebrating his eleventy-first birthday with a party of special magnificence, there was much talk and excitement in Hobbiton.",
+    " ")
+
+  empties_result <- monkey_classify(text_w_empties, texts_per_req = 2, unnest = TRUE)
+
+})
+
+
+
+
+
