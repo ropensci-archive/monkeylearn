@@ -90,7 +90,13 @@ test_that("We can reconstruct the same length vector as we had in our input, ret
     "When Mr. Bilbo Baggins of Bag End announced that he would shortly be celebrating his eleventy-first birthday with a party of special magnificence, there was much talk and excitement in Hobbiton.",
     " ")
 
-  empties_result <- monkey_classify(text_w_empties, texts_per_req = 2, unnest = TRUE)
+  empties_result_unnested <- monkey_classify(text_w_empties, texts_per_req = 2, unnest = TRUE)
+  empties_result_nested <- monkey_classify(text_w_empties, texts_per_req = 2, unnest = FALSE)
+
+  # We should have the same empty strings in outputs as we had in inputs
+  expect_equal(length(which(empties_result_unnested$req %in% c("", " "))),
+              length(which(text_w_empties %in% c("", " "))))
+  expect_equal(empties_result_nested$req[4], text_w_empties[4])
 
 })
 
