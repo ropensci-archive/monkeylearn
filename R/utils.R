@@ -178,13 +178,44 @@ monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
 }
 
 
-replace_nulls <- function(x) {
-  if(is.null(x)) {
-    NA
+replace_x <- function(x, replacement = NA_character_) {
+  if(is.null(x) || is.na(x)) {
+    replacement
   } else {
     x
   }
 }
+
+# replace_nulls_df <- function(df) {
+#   null_results <- df[which(is.null(df$resp)), ]
+#
+#   replacement <- df[which(!df %in% null_results)][1, ]$resp[[1]][1, ]
+#
+#   for (i in seq_along(replacement)) {
+#     replacement[, i] <- NA
+#   }
+#
+#   df$resp <- lapply(df$resp, replace_x,
+#     replacement = replacement)
+#
+#   return(df)
+# }
+
+replace_nulls_vec <- function(v) {
+  v <- lapply(v, replace_x)
+
+  replacement <- v[which(!is.na(v))][[1]][1, ]
+
+  for (i in seq_along(replacement)) {
+    replacement[, i] <- NA
+  }
+
+  v <- lapply(v, replace_x,
+              replacement = replacement)
+
+  return(v)
+}
+
 
 test_headers <- function(df) {
   testthat::test_that("headers are a dataframe of > 0 rows", {
