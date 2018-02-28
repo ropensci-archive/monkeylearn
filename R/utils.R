@@ -1,6 +1,4 @@
-#' @importFrom jsonlite toJSON fromJSON
-#' @importFrom methods is
-#' @importFrom httr content POST add_headers headers
+
 
 # status check
 monkeylearn_check <- function(req) {
@@ -17,12 +15,12 @@ monkeylearn_check <- function(req) {
     return(FALSE)
   }
 
-  stop("HTTP failure: ", req$status_code, "\n", content(req)$detail, call. = FALSE)
+  stop("HTTP failure: ", req$status_code, "\n", httr::content(req)$detail, call. = FALSE)
 }
 
 # format request
 monkeylearn_prep <- function(text, params) {
-  toJSON(c(list(text_list = I(text)),
+  jsonlite::toJSON(c(list(text_list = I(text)),
            params),
          auto_unbox = TRUE)
 }
@@ -76,8 +74,8 @@ monkeylearn_text_size <- function(request) {
 
 # get results classify
 monkeylearn_get_classify <- function(request, key, classifier_id) {
-  POST(monkeylearn_url_classify(classifier_id),
-       add_headers(
+  httr::POST(monkeylearn_url_classify(classifier_id),
+       httr::add_headers(
          "Accept" = "application/json",
          "Authorization" = paste("Token ", key),
          "Content-Type" =
@@ -90,8 +88,8 @@ monkeylearn_get_classify <- function(request, key, classifier_id) {
 
 # get results extract
 monkeylearn_get_extractor <- function(request, key, extractor_id) {
-  POST(monkeylearn_url_extractor(extractor_id),
-       add_headers(
+  httr::POST(monkeylearn_url_extractor(extractor_id),
+       httr::add_headers(
          "Accept" = "application/json",
          "Authorization" = paste("Token ", key),
          "Content-Type" =
@@ -104,11 +102,11 @@ monkeylearn_get_extractor <- function(request, key, extractor_id) {
 # parse results
 monkeylearn_parse <- function(output, request_text) {
 
-  text <- content(output, as = "text",
+  text <- httr::content(output, as = "text",
                         encoding = "UTF-8")
-  temp <- fromJSON(text)
+  temp <- jsonlite::fromJSON(text)
 
-  if(is(temp$result, "list")) {
+  if(methods::is(temp$result, "list")) {
     if(length(temp$result[[1]]) != 0){
       results <-  do.call("rbind", temp$result)
       results$text_md5 <- unlist(mapply(rep, vapply(X=request_text,
@@ -133,7 +131,7 @@ monkeylearn_parse <- function(output, request_text) {
                                algo = "md5")
   }
 
-  headers <- as.data.frame(headers(output))
+  headers <- as.data.frame(httr::headers(output))
   headers$text_md5 <- list(vapply(X=request_text,
                                   FUN=digest::digest,
                                   FUN.VALUE=character(1),
@@ -147,12 +145,12 @@ monkeylearn_parse <- function(output, request_text) {
 
 monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
 
-  text <- content(output, as = "text",
+  text <- httr::content(output, as = "text",
                   encoding = "UTF-8")
-  temp <- fromJSON(text)
+  temp <- jsonlite::fromJSON(text)
   results <- NULL
 
-  if(is(temp$result, "list")) {
+  if(methods::is(temp$result, "list")) {
     if(length(temp$result[[1]]) == 0){
       results$result[[1]] <- NA_character_
 
@@ -166,7 +164,7 @@ monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
     # results$text_md5 <- map(temp$result, digest::digest)
   }
 
-  headers <- as.data.frame(headers(output))
+  headers <- as.data.frame(httr::headers(output))
   headers$text_md5 <- list(vapply(X=request_text,
                                   FUN=digest::digest,
                                   FUN.VALUE=character(1),
