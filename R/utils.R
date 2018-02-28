@@ -190,6 +190,11 @@ replace_x <- function(x, replacement = NA_character_) {
 replace_nulls_vec <- function(v) {
   v <- lapply(v, replace_x)
 
+  if (all(is.na(v))) {
+    warning("No responses for any inputs.")
+    return(v)
+  }
+
   replacement <- v[which(!is.na(v))][[1]][1, ]
 
   for (i in seq_along(replacement)) {
