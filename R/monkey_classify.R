@@ -96,7 +96,7 @@ monkey_classify <- function(input, col = NULL,
     return(tibble::tibble())
   } else {
     if (length1 != length(request)) {
-      message("The parts of your request that are only blank are not sent to the API.")
+      if(verbose) { message("The parts of your request that are only blank are not sent to the API.") }
     }
     # Split request into texts_per_req texts per request
     request <- split(request, ceiling(seq_along(request)/texts_per_req))
