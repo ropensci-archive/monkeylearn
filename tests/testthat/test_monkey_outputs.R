@@ -19,7 +19,7 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   text <- "Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am"
   text2 <- "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"
-  # output <- monkeylearn_extract(input = c(text, text2),
+  # output <- monkey_extract(input = c(text, text2),
   #                               extractor_id = "ex_dqRio5sG")     # ----- See issue #39: trouble creating `output_nested`  from `output$result` in `monkey_extract()` with this particular extractor
   # output <- monkey_extract(input = c(text, text2),
   #                                 extractor_id = "ex_dqRio5sG")

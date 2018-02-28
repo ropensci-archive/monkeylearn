@@ -172,9 +172,44 @@ monkeylearn_classify(request,
 
 ```
 
+
 # Check the number of remaining calls
 
 After each call to a function you can check how many calls to the API you can still make  using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
+
+
+
+# Newer Functions
+The main motivation behind these updates is to make the output of your call to MonkeyLearn resemble your input as closely as possible. To that end:
+
+**New features**
+* Send vector of texts *or* a dataframe and a named column
+* Be able to relate each input text to its (usually) multiple classifications/extractions
+* Retain a record of inputs that could not be classified/extracted (e.g., empty strings)
+* Output either a nested or unnested dataframe
+    * Nested = 1 row per input; unnested = 1 row per output
+
+**You can still**
+* Batch requests
+* Do everything else!
+
+
+### In a bit more detail
+
+You can now classify or extract a vector or dataframe of texts while relating the original input text to its classifications. This is important, because the input:output relationship may not always (and in fact, is not usually) 1:1. These functions retain the tie between each input elements and all of its output elements.
+
+This doesn't mean you'll need to send requests one-by-one. **Batching** requests is possible by setting the `texts_per_req` value which governs the number of texts that are sent per request. Per the [MonkeyLearn documentation](http://help.monkeylearn.com/frequently-asked-questions/queries/can-i-classify-or-extract-more-than-one-text-with-one-api-request), the maximum we recommend sending at once is 200 requests. (If NULL, the default, we try to optimize the response time from the API. We set `texts_per_req` to 200 when your input has more than 200 texts and the length of the input if you've got fewer.) You'll see a significant speedup by batching your requests this way. However, batching doesn't save you on queries; a batch of 150 texts still uses up 150 queries. 
+
+Further, empty string input elements -- which are not sent to the API for classification/extraction -- and elements that returned no classifications/extractions are included in the resulting dataframe. This way you'll know which inputs could not be processed.
+
+The default output is a nested dataframe with the same number of rows as your input dataframe or the same length as your input vector, depending on which one you sent in. You can easily unnest that by setting the `unnest` flag to TRUE to get one row per classification/extraction.
+
+Finally, these functions include some more verbose progress monitoring, letting you know what batch you're on out of the total, and which texts are set to be processed in that batch.
+
+## `monkey_classify`
+
+
+
 
 
 # Meta
