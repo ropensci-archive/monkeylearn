@@ -111,7 +111,7 @@ test_that("We can reconstruct the same length vector as we had in our input, ret
 
 
   # We should be able to post hoc unnest a nested dataframe with empties
-  empties_result_nested_posthoc <- unnest(empties_result_nested)
+  empties_result_nested_posthoc <- tidyr::unnest(empties_result_nested)
   expect_equal(empties_result_nested_posthoc, empties_result_unnested)
 
 })
