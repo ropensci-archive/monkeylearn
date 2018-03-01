@@ -131,7 +131,13 @@ monkey_extract <- function(input, col = NULL,
     return(tibble::tibble())
   } else {
     if (length1 != length(request)) {
-      if(verbose) { message("The parts of your request that are only blank are not sent to the API.") }
+      if(verbose) {
+        # Indices in request_orig that are not in request
+        message(paste0("The following indices were empty strings and could not be sent to the API: ",
+                       setdiff(seq_along(request), which(request_orig %in% request)),
+                       "
+                       They will still be included in the output. \n"))
+      }
     }
     # Split request into texts_per_req texts per request
     request <- split(request, ceiling(seq_along(request)/texts_per_req))
