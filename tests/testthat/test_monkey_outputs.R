@@ -109,11 +109,14 @@ test_that("We can reconstruct the same length vector as we had in our input, ret
   expect_is(attr(empties_result_unnested, "headers"), "data.frame")
   expect_gte(nrow(attr(empties_result_unnested, "headers")), 1)
 
-
   # We should be able to post hoc unnest a nested dataframe with empties
   empties_result_nested_posthoc <- tidyr::unnest(empties_result_nested)
   expect_equal(empties_result_nested_posthoc, empties_result_unnested)
 
+  # Same behavior with extractors
+  empties_extracted_nested <- monkey_extract(text_w_empties, extractor_id = "ex_y7BPYzNG")
+  empties_extracted_unnested <- monkey_extract(text_w_empties, extractor_id = "ex_y7BPYzNG", unnest = TRUE)
+  testthat::expect_equal(dim(tidyr::unnest(empties_extracted_nested)), dim(empties_extracted_unnested))
 })
 
 

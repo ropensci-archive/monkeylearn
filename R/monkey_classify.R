@@ -171,14 +171,12 @@ monkey_classify <- function(input, col = NULL,
         results <- dplyr::left_join(request_orig_df, results,
                                     by = "row_name")
 
-
-
-
       } else {
         results <- dplyr::left_join(request_orig_df, results,
                                     by = "row_name")
-        results$resp <- replace_nulls_vec(results$resp)
 
+        # Replace null rows with single-row NA tibbles that have the same colnames as the others in results$resp
+        results$resp <- replace_nulls_vec(results$resp)
       }
 
       results <- results[ , -which(names(results) == "req")]
