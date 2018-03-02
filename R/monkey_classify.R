@@ -55,7 +55,6 @@ monkey_classify <- function(input, col = NULL,
 
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
-
   if (is.null(input)) { stop("input must be non-NULL") }
 
   # We're either taking a dataframe or a vector; not both, not neither
@@ -76,19 +75,10 @@ monkey_classify <- function(input, col = NULL,
   length1 <- length(request_orig)
 
   # Default texts_per_req to 200, or to the length of the input if fewer than 200 texts
-  if (is.null(texts_per_req)) {
-    if (length1 < 200) {
-      texts_per_req <- length1
-    } else {
-      texts_per_req <- 200
-    }
-  } else if (!is.numeric(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
-    stop("Error: texts_per_req must be a whole positive number less than or equal to the number of texts.")
-  } else if (texts_per_req > 200) {
-    warning("Maximum 200 texts recommended per rquests.")
-  }
+      # If more than 200 texts sent, proceed with a warning
+  texts_per_req <- determine_texts_per_req(length1, texts_per_req)
 
-  # filter the blank requests
+  # Filter the blank requests
   request <- monkeylearn_filter_blank(request_orig)
 
   if (length(request) == 0) {
@@ -104,13 +94,14 @@ monkey_classify <- function(input, col = NULL,
         They will still be included in the output. \n"))
         }
     }
+
     # Split request into texts_per_req texts per request
     request <- split(request, ceiling(seq_along(request)/texts_per_req))
 
     results <- NULL
     headers <- NULL
 
-    for(i in seq_along(request)) {
+    for (i in seq_along(request)) {
       min_text <- ifelse((i - 1)*texts_per_req == 0, 1, (i - 1)*texts_per_req)
       max_text <- i*texts_per_req
 
@@ -124,8 +115,8 @@ monkey_classify <- function(input, col = NULL,
 
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
 
-      # ---- Checks ----
-      # for the case when the server returns nothing try 5 times, not more
+      # ---- Try send to API ----
+      # For the case when the server returns nothing try 5 times, not more
       try_number <- 1
       while (class(output) == "try-error" && try_number < 6) {
         message(paste0("Server returned nothing, trying again, try number", try_number))
@@ -134,16 +125,16 @@ monkey_classify <- function(input, col = NULL,
         try_number <- try_number + 1
       }
 
-      # check the output -- if it is 429 try again (throttle limit) try 5 times, not more
+      # Check the output -- if it is 429 (throttle limit) try again. Try 5 times, not more
       try_number <- 1
       while(!monkeylearn_check(output) && try_number < 6) {
         if (verbose) { message(paste0("Received 429, trying again, try number", try_number)) }
         output <- monkeylearn_get_classify(request_part, key, classifier_id)
         try_number <- try_number + 1
       }
-      # ----------------
+      # --------------------------
 
-      # parse output
+      # Parse output
       output <- monkeylearn_parse_each(output, request_text = request[[i]], verbose = verbose)
 
       # Set up the two columns
@@ -170,33 +161,22 @@ monkey_classify <- function(input, col = NULL,
       request_orig_df <- tibble::tibble(req_orig = request_orig,
                                         row_name = as.numeric(names(request_orig)))
 
-      # Unnest what we can now
-      if (unnest == TRUE) {
-        results <- tidyr::unnest(results)
+      results <- dplyr::left_join(request_orig_df, results,
+                                  by = "row_name")
 
-        results <- dplyr::left_join(request_orig_df, results,
-                                    by = "row_name")
-
-      } else {
-        results <- dplyr::left_join(request_orig_df, results,
-                                    by = "row_name")
-
-        # Replace null rows with single-row NA tibbles that have the same colnames as the others in results$resp
-        results$resp <- replace_nulls_vec(results$resp)
-      }
+      results$resp <- replace_nulls_vec(results$resp)
 
       results <- results[ , -which(names(results) == "req")]
       names(results)[which(names(results) == "req_orig")] <- "req"
+    }
 
-    } else {
-      if (unnest == TRUE) {
-        results <- tidyr::unnest(results)
-      }
+    if (unnest == TRUE) {
+      results <- tidyr::unnest(results)
     }
 
     results <- results[ , -which(names(results) == "row_name")]
 
-    # done!
+    # Done!
     attr(results, "headers") <- tibble::as_tibble(headers)
     return(results)
   }

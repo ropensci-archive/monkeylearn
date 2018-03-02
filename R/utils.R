@@ -48,13 +48,6 @@ monkeylearn_url_extractor <- function(extractor_id) {
          "/extract/")
 }
 
-# # find which indices in original vector are blank
-# monkeylearn_find_blanks <- function(request){
-#   inds <- which(request %in% c("", " "))
-#
-#   return(inds)
-# }
-
 # no blank request
 monkeylearn_filter_blank <- function(request){
   request <- request[gsub(" ", "", request) != ""]
@@ -72,32 +65,44 @@ monkeylearn_text_size <- function(request) {
   }
 }
 
-# get results classify
-monkeylearn_get_classify <- function(request, key, classifier_id) {
-  httr::POST(monkeylearn_url_classify(classifier_id),
-       httr::add_headers(
-         "Accept" = "application/json",
-         "Authorization" = paste("Token ", key),
-         "Content-Type" =
-           "application/json"
-       ),
-       body = request
-  )
-}
-
-
-# get results extract
+# get results classify or extract
 monkeylearn_get_extractor <- function(request, key, extractor_id) {
   httr::POST(monkeylearn_url_extractor(extractor_id),
-       httr::add_headers(
-         "Accept" = "application/json",
-         "Authorization" = paste("Token ", key),
-         "Content-Type" =
-           "application/json"
-       ),
-       body = request
+             httr::add_headers(
+               "Accept" = "application/json",
+               "Authorization" = paste("Token ", key),
+               "Content-Type" =
+                 "application/json"
+             ),
+             body = request
   )
 }
+
+monkeylearn_get_classify <- function(request, key, classifier_id) {
+  httr::POST(monkeylearn_url_classify(classifier_id),
+             httr::add_headers(
+               "Accept" = "application/json",
+               "Authorization" = paste("Token ", key),
+               "Content-Type" =
+                 "application/json"
+             ),
+             body = request
+  )
+}
+
+monkeylearn_post <- function(request, key, classifier_id) {
+  httr::POST(monkeylearn_url_classify(classifier_id),
+             httr::add_headers(
+               "Accept" = "application/json",
+               "Authorization" = paste("Token ", key),
+               "Content-Type" =
+                 "application/json"
+             ),
+             body = request
+  )
+}
+
+
 
 # parse results
 monkeylearn_parse <- function(output, request_text) {
@@ -213,6 +218,37 @@ test_headers <- function(df) {
     testthat::expect_is(attr(df, "headers"), "data.frame")
     testthat::expect_gte(nrow(attr(df, "headers")), 1)
   })
+}
+
+
+determine_texts_per_req <- function(length1, texts_per_req) {
+  if (is.null(texts_per_req)) {
+    if (length1 < 200) {
+      texts_per_req <- length1
+    } else {
+      texts_per_req <- 200
+    }
+  } else if (!is.numeric(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
+    stop("Error: texts_per_req must be a whole positive number less than or equal to the number of texts.")
+  } else if (texts_per_req > 200) {
+    warning("Maximum 200 texts recommended per requests.")
+    texts_per_req <- texts_per_req   # Go ahead with the attempt to send more than 200 texts
+  }
+  return(texts_per_req)
+}
+
+get_request_orig <- function(input) {
+  # We're either taking a dataframe or a vector; not both, not neither
+  if (inherits(input, "data.frame")) {
+    if (is.null(deparse(substitute(col)))) {
+      stop("If input is a dataframe, col must be non-null")
+    }
+    request_orig <- input[[deparse(substitute(col))]]
+  } else if (is.vector(input)) {
+    request_orig <- input
+  } else {
+    stop("input must be a dataframe or a vector")
+  }
 }
 
 
