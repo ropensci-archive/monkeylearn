@@ -58,7 +58,16 @@ monkey_classify <- function(input, col = NULL,
   if (is.null(input)) { stop("input must be non-NULL") }
 
   # We're either taking a dataframe or a vector; not both, not neither
-  request_orig <- get_request_orig(input)
+  if (inherits(input, "data.frame")) {
+    if (is.null(deparse(substitute(col)))) {
+      stop("If input is a dataframe, col must be non-null")
+    }
+    request_orig <- input[[deparse(substitute(col))]]
+  } else if (is.vector(input)) {
+    request_orig <- input
+  } else {
+    stop("input must be a dataframe or a vector")
+  }
 
   # Add names to vector
   names(request_orig) <- 1:length(request_orig)
@@ -104,7 +113,7 @@ monkey_classify <- function(input, col = NULL,
       request_part <- monkeylearn_prep(request[[i]],
                                        params)
 
-      output <- tryCatch(monkeylearn_post(request_part, key, classifier_id))
+      output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
 
       # ---- Try send to API ----
       # For the case when the server returns nothing try 5 times, not more

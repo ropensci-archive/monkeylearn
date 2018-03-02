@@ -66,6 +66,30 @@ monkeylearn_text_size <- function(request) {
 }
 
 # get results classify or extract
+monkeylearn_get_extractor <- function(request, key, extractor_id) {
+  httr::POST(monkeylearn_url_extractor(extractor_id),
+             httr::add_headers(
+               "Accept" = "application/json",
+               "Authorization" = paste("Token ", key),
+               "Content-Type" =
+                 "application/json"
+             ),
+             body = request
+  )
+}
+
+monkeylearn_get_classify <- function(request, key, classifier_id) {
+  httr::POST(monkeylearn_url_classify(classifier_id),
+             httr::add_headers(
+               "Accept" = "application/json",
+               "Authorization" = paste("Token ", key),
+               "Content-Type" =
+                 "application/json"
+             ),
+             body = request
+  )
+}
+
 monkeylearn_post <- function(request, key, classifier_id) {
   httr::POST(monkeylearn_url_classify(classifier_id),
              httr::add_headers(
@@ -77,6 +101,8 @@ monkeylearn_post <- function(request, key, classifier_id) {
              body = request
   )
 }
+
+
 
 # parse results
 monkeylearn_parse <- function(output, request_text) {

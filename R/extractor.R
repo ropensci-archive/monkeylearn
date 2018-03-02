@@ -89,7 +89,7 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(request[[i]],
                                        params)
-      output <- tryCatch(monkeylearn_post(request_part, key, extractor_id))
+      output <- tryCatch(monkeylearn_get_extractor(request_part, key, extractor_id))
       # for the case when the server returns nothing
       # try 5 times, not more
       try_number <- 1

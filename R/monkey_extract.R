@@ -93,7 +93,16 @@ monkey_extract <- function(input, col = NULL,
   if (is.null(input)) { stop("input must be non-NULL") }
 
   # We're either taking a dataframe or a vector; not both, not neither
-  request_orig <- get_request_orig(input)
+  if (inherits(input, "data.frame")) {
+    if (is.null(deparse(substitute(col)))) {
+      stop("If input is a dataframe, col must be non-null")
+    }
+    request_orig <- input[[deparse(substitute(col))]]
+  } else if (is.vector(input)) {
+    request_orig <- input
+  } else {
+    stop("input must be a dataframe or a vector")
+  }
 
   # Add names to vector
   names(request_orig) <- 1:length(request_orig)
@@ -119,7 +128,7 @@ monkey_extract <- function(input, col = NULL,
                        "
                        They will still be included in the output. \n"))
       }
-      }
+    }
 
     # Split request into texts_per_req texts per request
     request <- split(request, ceiling(seq_along(request)/texts_per_req))
@@ -139,7 +148,7 @@ monkey_extract <- function(input, col = NULL,
       request_part <- monkeylearn_prep(request[[i]],
                                        params)
 
-      output <- tryCatch(monkeylearn_post(request_part, key, classifier_id))
+      output <- tryCatch(monkeylearn_get_extractor(request_part, key, extractor_id))
 
       # ---- Try send to API ----
       # For the case when the server returns nothing try 5 times, not more
@@ -147,7 +156,7 @@ monkey_extract <- function(input, col = NULL,
       while (class(output) == "try-error" && try_number < 6) {
         message(paste0("Server returned nothing, trying again, try number", try_number))
         Sys.sleep(2^try_number)
-        output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
+        output <- tryCatch(monkeylearn_get_extractor(request_part, key, extractor_id))
         try_number <- try_number + 1
       }
 
@@ -155,7 +164,7 @@ monkey_extract <- function(input, col = NULL,
       try_number <- 1
       while(!monkeylearn_check(output) && try_number < 6) {
         if (verbose) { message(paste0("Received 429, trying again, try number", try_number)) }
-        output <- monkeylearn_get_classify(request_part, key, classifier_id)
+        output <- monkeylearn_get_extractor(request_part, key, extractor_id)
         try_number <- try_number + 1
       }
       # --------------------------
