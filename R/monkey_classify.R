@@ -55,20 +55,10 @@ monkey_classify <- function(input, col = NULL,
 
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
-
   if (is.null(input)) { stop("input must be non-NULL") }
 
   # We're either taking a dataframe or a vector; not both, not neither
-  if (inherits(input, "data.frame")) {
-    if (is.null(deparse(substitute(col)))) {
-      stop("If input is a dataframe, col must be non-null")
-    }
-    request_orig <- input[[deparse(substitute(col))]]
-  } else if (is.vector(input)) {
-    request_orig <- input
-  } else {
-    stop("input must be a dataframe or a vector")
-  }
+  request_orig <- get_request_orig(input)
 
   # Add names to vector
   names(request_orig) <- 1:length(request_orig)
@@ -79,7 +69,7 @@ monkey_classify <- function(input, col = NULL,
       # If more than 200 texts sent, proceed with a warning
   texts_per_req <- determine_texts_per_req(length1, texts_per_req)
 
-  # filter the blank requests
+  # Filter the blank requests
   request <- monkeylearn_filter_blank(request_orig)
 
   if (length(request) == 0) {
@@ -95,13 +85,14 @@ monkey_classify <- function(input, col = NULL,
         They will still be included in the output. \n"))
         }
     }
+
     # Split request into texts_per_req texts per request
     request <- split(request, ceiling(seq_along(request)/texts_per_req))
 
     results <- NULL
     headers <- NULL
 
-    for(i in seq_along(request)) {
+    for (i in seq_along(request)) {
       min_text <- ifelse((i - 1)*texts_per_req == 0, 1, (i - 1)*texts_per_req)
       max_text <- i*texts_per_req
 
@@ -113,10 +104,10 @@ monkey_classify <- function(input, col = NULL,
       request_part <- monkeylearn_prep(request[[i]],
                                        params)
 
-      output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
+      output <- tryCatch(monkeylearn_post(request_part, key, classifier_id))
 
-      # ---- Checks ----
-      # for the case when the server returns nothing try 5 times, not more
+      # ---- Try send to API ----
+      # For the case when the server returns nothing try 5 times, not more
       try_number <- 1
       while (class(output) == "try-error" && try_number < 6) {
         message(paste0("Server returned nothing, trying again, try number", try_number))
@@ -125,14 +116,14 @@ monkey_classify <- function(input, col = NULL,
         try_number <- try_number + 1
       }
 
-      # check the output -- if it is 429 try again (throttle limit) try 5 times, not more
+      # Check the output -- if it is 429 (throttle limit) try again. Try 5 times, not more
       try_number <- 1
       while(!monkeylearn_check(output) && try_number < 6) {
         if (verbose) { message(paste0("Received 429, trying again, try number", try_number)) }
         output <- monkeylearn_get_classify(request_part, key, classifier_id)
         try_number <- try_number + 1
       }
-      # ----------------
+      # --------------------------
 
       # Parse output
       output <- monkeylearn_parse_each(output, request_text = request[[i]], verbose = verbose)

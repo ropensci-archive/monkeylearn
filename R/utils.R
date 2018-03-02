@@ -65,30 +65,16 @@ monkeylearn_text_size <- function(request) {
   }
 }
 
-# get results classify
-monkeylearn_get_classify <- function(request, key, classifier_id) {
+# get results classify or extract
+monkeylearn_post <- function(request, key, classifier_id) {
   httr::POST(monkeylearn_url_classify(classifier_id),
-       httr::add_headers(
-         "Accept" = "application/json",
-         "Authorization" = paste("Token ", key),
-         "Content-Type" =
-           "application/json"
-       ),
-       body = request
-  )
-}
-
-
-# get results extract
-monkeylearn_get_extractor <- function(request, key, extractor_id) {
-  httr::POST(monkeylearn_url_extractor(extractor_id),
-       httr::add_headers(
-         "Accept" = "application/json",
-         "Authorization" = paste("Token ", key),
-         "Content-Type" =
-           "application/json"
-       ),
-       body = request
+             httr::add_headers(
+               "Accept" = "application/json",
+               "Authorization" = paste("Token ", key),
+               "Content-Type" =
+                 "application/json"
+             ),
+             body = request
   )
 }
 
@@ -223,6 +209,20 @@ determine_texts_per_req <- function(length1, texts_per_req) {
     texts_per_req <- texts_per_req   # Go ahead with the attempt to send more than 200 texts
   }
   return(texts_per_req)
+}
+
+get_request_orig <- function(input) {
+  # We're either taking a dataframe or a vector; not both, not neither
+  if (inherits(input, "data.frame")) {
+    if (is.null(deparse(substitute(col)))) {
+      stop("If input is a dataframe, col must be non-null")
+    }
+    request_orig <- input[[deparse(substitute(col))]]
+  } else if (is.vector(input)) {
+    request_orig <- input
+  } else {
+    stop("input must be a dataframe or a vector")
+  }
 }
 
 
