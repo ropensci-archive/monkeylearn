@@ -48,13 +48,6 @@ monkeylearn_url_extractor <- function(extractor_id) {
          "/extract/")
 }
 
-# # find which indices in original vector are blank
-# monkeylearn_find_blanks <- function(request){
-#   inds <- which(request %in% c("", " "))
-#
-#   return(inds)
-# }
-
 # no blank request
 monkeylearn_filter_blank <- function(request){
   request <- request[gsub(" ", "", request) != ""]
@@ -213,6 +206,23 @@ test_headers <- function(df) {
     testthat::expect_is(attr(df, "headers"), "data.frame")
     testthat::expect_gte(nrow(attr(df, "headers")), 1)
   })
+}
+
+
+determine_texts_per_req <- function(length1, texts_per_req) {
+  if (is.null(texts_per_req)) {
+    if (length1 < 200) {
+      texts_per_req <- length1
+    } else {
+      texts_per_req <- 200
+    }
+  } else if (!is.numeric(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
+    stop("Error: texts_per_req must be a whole positive number less than or equal to the number of texts.")
+  } else if (texts_per_req > 200) {
+    warning("Maximum 200 texts recommended per requests.")
+    texts_per_req <- texts_per_req   # Go ahead with the attempt to send more than 200 texts
+  }
+  return(texts_per_req)
 }
 
 
