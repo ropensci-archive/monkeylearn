@@ -10,7 +10,6 @@
 #' @param verbose whether to output messages about batch requests
 #' @param params parameters for the module as a named list. See the second example.
 #'
-#' @importFrom jsonlite toJSON
 #' @examples \dontrun{
 #' text <- "In the 19th century, the major European powers had gone to great lengths
 #' to maintain a balance of power throughout Europe, resulting in the existence of

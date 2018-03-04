@@ -22,7 +22,6 @@
 #' You can check the number of calls you can still make in the API using \code{attr(output, "headers")$x.query.limit.remaining}
 #' and \code{attr(output, "headers")$x.query.limit.limit}.
 #'
-#' @importFrom jsonlite toJSON
 #' @examples \dontrun{
 #' text1 <- "my dog is an avid rice eater"
 #' text2 <- "i want to buy an iphone"
