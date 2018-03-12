@@ -82,7 +82,7 @@
 
 monkey_extract <- function(input, col = NULL,
                             key = monkeylearn_key(quiet = TRUE),
-                            extractor_id = "cl_oFKL5wft",
+                            extractor_id = "ex_isnnZRbS",
                             params = NULL,
                             texts_per_req = NULL,
                             unnest = FALSE,
