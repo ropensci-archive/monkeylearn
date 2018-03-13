@@ -109,11 +109,21 @@ monkey_classify <- function(input, col = NULL,
     for (i in seq_along(request)) {
       min_text <- ifelse((i - 1)*texts_per_req == 0, 1, (i - 1)*texts_per_req)
       max_text <- ifelse(i == length(request), filtered_len, i*texts_per_req)
-      # max_text <- i*texts_per_req
 
       if (verbose) {
         message(paste0("Processing batch ", i, " of ", length(request), " batches: texts ", min_text, " to ", max_text))
+
+        if (i %% 10 == 0) {
+          message("
+                   /~\\
+                  C oo
+                  _( ^)
+                 /  ~  \\
+              Still working!
+          ")
+        }
       }
+
 
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(request[[i]],
@@ -156,7 +166,7 @@ monkey_classify <- function(input, col = NULL,
 
       # Get our result and headers for this batch
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
-      this_headers <- tibble::as_tibble(output$headers)
+      this_headers <- tibble::as_tibble(output$headers) # %>% purrr::map_df(.p = is.factor, .f = as.character)
 
       results <- dplyr::bind_rows(results, this_result)
       headers <- dplyr::bind_rows(headers, this_headers)
