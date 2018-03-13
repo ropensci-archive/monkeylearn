@@ -251,17 +251,9 @@ get_request_orig <- function(input) {
   }
 }
 
-test_texts <- function(input, make_tibble = FALSE, action = "classify",
+test_texts <- function(input, action = "classify",
                        do_test_headers = TRUE, ...) {
   stopifnot(action %in% c("classify", "extract"))
-
-  if (is.vector(input)) {
-    if (make_tibble == TRUE) {
-      req <- tibble::tibble(req = input)
-    } else {
-      req <- input
-    }
-  }
 
   if (action == "classify") {
     if (is.null(id)) {
