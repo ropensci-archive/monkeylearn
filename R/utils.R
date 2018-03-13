@@ -251,26 +251,29 @@ get_request_orig <- function(input) {
   }
 }
 
-test_texts <- function(..., col = NULL, make_tibble = FALSE, action = "classify",
-                       do_test_headers = TRUE, id = NULL) {
+test_texts <- function(input, make_tibble = FALSE, action = "classify",
+                       do_test_headers = TRUE, ...) {
   stopifnot(action %in% c("classify", "extract"))
 
-  req <- c(...)
-  if (make_tibble == TRUE) {
-    req <- tibble::tibble(req = req)
+  if (is.vector(input)) {
+    if (make_tibble == TRUE) {
+      req <- tibble::tibble(req = input)
+    } else {
+      req <- input
+    }
   }
 
   if (action == "classify") {
     if (is.null(id)) {
-      output <- monkey_classify(req)
+      output <- monkey_classify(req, ...)
     } else {
-      output <- monkey_classify(req, classifier_id = id)
+      output <- monkey_classify(req, ...)
     }
   } else if (action == "extract") {
     if (is.null(id)) {
       output <- monkey_extract(req)
     } else {
-      output <- monkey_extract(req, extractor_id = id)
+      output <- monkey_extract(req, ...)
     }
   }
 
@@ -281,6 +284,8 @@ test_texts <- function(..., col = NULL, make_tibble = FALSE, action = "classify"
   }
   return(output)
 }
+
+
 
 
 #' Retrieve Monkeylearn API key
