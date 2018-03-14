@@ -30,6 +30,7 @@
 #' You can check the number of calls you can still make in the API using \code{attr(output, "headers")$x.query.limit.remaining}
 #' and \code{attr(output, "headers")$x.query.limit.limit}.
 #'
+#' @importFrom magrittr %>%
 #'
 #' @examples \dontrun{
 #' text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
@@ -166,7 +167,7 @@ monkey_classify <- function(input, col = NULL,
 
       # Get our result and headers for this batch
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
-      this_headers <- tibble::as_tibble(output$headers) # %>% purrr::map_df(.p = is.factor, .f = as.character)
+      this_headers <- tibble::as_tibble(output$headers) %>% purrr::map_df(.p = is.factor, .f = as.character)
 
       results <- dplyr::bind_rows(results, this_result)
       headers <- dplyr::bind_rows(headers, this_headers)
