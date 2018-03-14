@@ -256,9 +256,9 @@ test_texts <- function(input, action = "classify",
   stopifnot(action %in% c("classify", "extract"))
 
   if (action == "classify") {
-    output <- monkey_classify(req, ...)
+    output <- monkey_classify(input, ...)
   } else if (action == "extract") {
-    output <- monkey_extract(req, ...)
+    output <- monkey_extract(input, ...)
   }
 
   testthat::expect_is(output, "data.frame")
