@@ -79,6 +79,7 @@
 #' Attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
 #'
 #' @export
+#'
 
 monkey_extract <- function(input, col = NULL,
                             key = monkeylearn_key(quiet = TRUE),
@@ -99,6 +100,9 @@ monkey_extract <- function(input, col = NULL,
     }
     request_orig <- input[[deparse(substitute(col))]]
   } else if (is.vector(input)) {
+    if (!is.null(col)) {
+      warning("Input is a vector but col was supplied; it will be ignored.")
+    }
     request_orig <- input
   } else {
     stop("input must be a dataframe or a vector")
@@ -109,40 +113,53 @@ monkey_extract <- function(input, col = NULL,
 
   length1 <- length(request_orig)
 
+  # Filter the blank requests
+  request_pre_chunking <- monkeylearn_filter_blank(request_orig)
+
+  filtered_len <- length(request_pre_chunking)
+
   # Default texts_per_req to 200, or to the length of the input if fewer than 200 texts
   # If more than 200 texts sent, proceed with a warning
-  texts_per_req <- determine_texts_per_req(length1, texts_per_req)
+  texts_per_req <- determine_texts_per_req(filtered_len, texts_per_req)
 
-  # Filter the blank requests
-  request <- monkeylearn_filter_blank(request_orig)
-
-  if (length(request) == 0) {
+  if (filtered_len == 0) {
     warning("You only entered blank text in the request.", call. = FALSE)
     return(tibble::tibble())
   } else {
-    if (length1 != length(request)) {
+    if (length1 != filtered_len) {
       if(verbose) {
         # Indices in request_orig that are not in request
         message(paste0("The following indices were empty strings and could not be sent to the API: ",
-                       setdiff(seq_along(request), which(request_orig %in% request)),
+                       setdiff(seq_along(request_pre_chunking), which(request_orig %in% request_pre_chunking)),
                        "
                        They will still be included in the output. \n"))
       }
-    }
+      }
 
     # Split request into texts_per_req texts per request
-    request <- split(request, ceiling(seq_along(request)/texts_per_req))
+    request <- split(request_pre_chunking, ceiling(seq_along(request_pre_chunking)/texts_per_req))
 
     results <- NULL
     headers <- NULL
 
     for (i in seq_along(request)) {
       min_text <- ifelse((i - 1)*texts_per_req == 0, 1, (i - 1)*texts_per_req)
-      max_text <- i*texts_per_req
+      max_text <- ifelse(i == length(request), filtered_len, i*texts_per_req)
 
       if (verbose) {
         message(paste0("Processing batch ", i, " of ", length(request), " batches: texts ", min_text, " to ", max_text))
-      }
+
+        if (i %% 10 == 0) {
+          message("
+                  /~\\
+                  C oo
+                  _( ^)
+                  /  ~  \\
+                  Still working!
+                  ")
+        }
+        }
+
 
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(request[[i]],
@@ -185,11 +202,11 @@ monkey_extract <- function(input, col = NULL,
 
       # Get our result and headers for this batch
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
-      this_headers <- tibble::as_tibble(output$headers)
+      this_headers <- tibble::as_tibble(output$headers) # %>% purrr::map_df(.p = is.factor, .f = as.character)
 
       results <- dplyr::bind_rows(results, this_result)
       headers <- dplyr::bind_rows(headers, this_headers)
-    }
+        }
 
     # If we had empty strings in the input, get them back into the result in the right spots
     if (length(request_orig) > nrow(results)) {
@@ -214,7 +231,5 @@ monkey_extract <- function(input, col = NULL,
     # Done!
     attr(results, "headers") <- tibble::as_tibble(headers)
     return(results)
+      }
     }
-}
-
-
