@@ -18,7 +18,9 @@ Imports: digest,
     dplyr,
     httr,
     jsonlite,
+    magrittr,
     methods,
+    purrr,
     tibble (>= 1.2),
     tidyr
 VignetteBuilder: knitr

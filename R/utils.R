@@ -290,3 +290,14 @@ monkeylearn_key <- function(quiet = TRUE) {
   }
   return(pat)
 }
+
+
+
+#' Pipe operator
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
