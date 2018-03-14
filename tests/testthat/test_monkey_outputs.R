@@ -8,8 +8,8 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 
   request %>% test_texts()
 
-  testthat::expect_warning(monkey_classify(request, foo,   # This is a vector, so we shouldn't supply a column
-                               classifier_id = "cl_oFKL5wft"))
+  # testthat::expect_warning(monkey_classify(request, foo,   # This is a vector, so we shouldn't supply a column
+  #                              classifier_id = "cl_oFKL5wft"))
 
   ## Test 2
   text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
