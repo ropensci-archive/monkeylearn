@@ -2,7 +2,7 @@ Package: monkeylearn
 Type: Package
 Title: Accesses the Monkeylearn API for Text Classifiers and Extractors
 Version: 0.1.3
-Authors@R: c(person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre")), person("Thomas", "Leeper", role = c("ctb"), comment = "Thomas Leeper reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/45"), person("Jeroen", "Ooms", role = c("ctb")))
+Authors@R: c(person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre")), person("Amanda", "Dobbyn", email = "amanda.e.dobbyn@gmail.com", role = c("aut")), person("Thomas", "Leeper", role = c("ctb"), comment = "Thomas Leeper reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/45"), person("Jeroen", "Ooms", role = c("ctb")))
 Description: Allows using some services of Monkeylearn <http://monkeylearn.com/> which is
     a Machine Learning platform on the cloud for text analysis (classification and extraction).
 License: GPL (>= 2)
