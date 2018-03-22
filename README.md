@@ -20,6 +20,8 @@ To get an API key for MonkeyLearn, register at <http://monkeylearn.com/>. Note t
 
 All functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN\_KEY" you don't need to input it manually.
 
+Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether your [Monkeylearn plan](https://app.monkeylearn.com/main/my-account/tab/change-plan/) is "free", "team" or "business".
+
 # Documentation
 
 Please refer to the [`pkgdown` website](http://ropensci.github.io/monkeylearn/) to read docs, in particular the [reference](http://ropensci.github.io/monkeylearn/reference/index.html) and the [vignettes](http://ropensci.github.io/monkeylearn/articles/index.html).
