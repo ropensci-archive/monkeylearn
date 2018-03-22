@@ -58,7 +58,7 @@ text2 <- "i want to buy an iphone"
 text3 <- "Je déteste ne plus avoir de dentifrice."
 text_4 <- "I hate not having any toothpaste."
 request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
-monkeylearn_classify_df(request_df, txt, texts_per_req = 2, unnest = TRUE
+monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)
 attr(output, "headers")}
 
 }

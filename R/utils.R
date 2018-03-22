@@ -293,14 +293,6 @@ monkeylearn_key <- function(quiet = TRUE) {
 
 
 
-#' Pipe operator
-#'
-#' @name %>%
-#' @rdname pipe
-#' @keywords internal
-#' @export
-#' @importFrom magrittr %>%
-#' @usage lhs \%>\% rhs
 
 # Current rates
 # There is a maximum amount of requests per minute that you
@@ -324,3 +316,13 @@ monkey_post <- ratelimitr::limit_rate(
   httr::POST,
   ratelimitr::rate(n = 5, period = 1),
   ratelimitr::rate(n = monkeylearn_rate, period = 60))
+
+
+#' Pipe operator
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
