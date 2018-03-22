@@ -79,7 +79,6 @@ monkeylearn_get_extractor <- function(request, key, extractor_id) {
 }
 
 monkeylearn_get_classify <- function(request, key, classifier_id) {
-  print("ok")
   httr::POST(monkeylearn_url_classify(classifier_id),
              httr::add_headers(
                "Accept" = "application/json",
@@ -321,9 +320,9 @@ if (identical(monkeylearn_plan, "")){
 monkeylearn_rate <- monkeylearn_rates$req_min[monkeylearn_rates$plan == monkeylearn_plan]
 
 # rate limiting
-limited <- ratelimitr::limit_rate(
-  list(monkeylearn_get_extractor = monkeylearn_get_extractor,
-       monkeylearn_get_classify = monkeylearn_get_classify,
-       monkeylearn_post = monkeylearn_post),
+monkey_limited <- ratelimitr::limit_rate(
+  list(get_extractor = monkeylearn_get_extractor,
+       get_classify = monkeylearn_get_classify,
+       post = monkeylearn_post),
   ratelimitr::rate(n = 5, period = 1),
   ratelimitr::rate(n = monkeylearn_rate, period = 60))

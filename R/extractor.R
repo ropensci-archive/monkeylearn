@@ -88,20 +88,20 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(request[[i]],
                                        params)
-      output <- tryCatch(limited$monkeylearn_get_extractor(request_part, key, extractor_id))
+      output <- tryCatch(monkey_limited$get_extractor(request_part, key, extractor_id))
       # for the case when the server returns nothing
       # try 5 times, not more
       try_number <- 1
       while(class(output) == "try-error" && try_number < 6) {
         message(paste0("Server returned nothing, trying again, try number", try_number))
         Sys.sleep(2^try_number)
-        output <- tryCatch(limited$monkeylearn_get_extractor(request_part, key, extractor_id))
+        output <- tryCatch(monkey_limited$get_extractor(request_part, key, extractor_id))
         try_number <- try_number + 1
       }
 
       # check the output -- if it is 429 try again (throttle limit)
       while(!monkeylearn_check(output)) {
-        output <- limited$monkeylearn_get_extractor(request_part, key, extractor_id)
+        output <- monkey_limited$get_extractor(request_part, key, extractor_id)
       }
       # parse output
       output <- monkeylearn_parse(output, request_text = request[[i]])

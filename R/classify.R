@@ -63,14 +63,14 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
       request_part <- monkeylearn_prep(request[[i]],
                                        params = NULL)
 
-      output <- tryCatch(limited$monkeylearn_get_classify(request_part, key, classifier_id))
+      output <- tryCatch(monkey_limited$get_classify(request_part, key, classifier_id))
       # for the case when the server returns nothing
       # try 5 times, not more
       try_number <- 1
       while(class(output) == "try-error" && try_number < 6) {
         message(paste0("Server returned nothing, trying again, try number", try_number))  # Changed from i to try_number
         Sys.sleep(2^try_number)
-        output <- tryCatch(limited$monkeylearn_get_classify(request_part, key, classifier_id))
+        output <- tryCatch(monkey_limited$get_classify(request_part, key, classifier_id))
         try_number <- try_number + 1
       }
 
@@ -79,7 +79,7 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
       try_number <- 1
       while(!monkeylearn_check(output) && try_number < 6) {
         if (verbose) { message(paste0("Received 429, trying again, try number", try_number)) }
-        output <- limited$monkeylearn_get_classify(request_part, key, classifier_id)
+        output <- monkey_limited$get_classify(request_part, key, classifier_id)
         try_number <- try_number + 1
       }
       # parse output
