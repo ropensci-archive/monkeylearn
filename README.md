@@ -26,7 +26,7 @@ Please refer to the [`pkgdown` website](http://ropensci.github.io/monkeylearn/) 
 
 # External use cases
 
-Submit your use cases by opening [a new issue]((https://github.com/ropensci/monkeylearn/issues/new)!
+Submit your use cases by opening [a new issue](https://github.com/ropensci/monkeylearn/issues/new)!
 
 ## Using the newer set of functions monkey_extract and monkey_classify
 
