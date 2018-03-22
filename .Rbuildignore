@@ -7,3 +7,5 @@
 ^README\.Rmd$
 ^cran-comments\.md$
 ^codemeta\.json$
+^_pkgdown\.yml$
+^docs$
