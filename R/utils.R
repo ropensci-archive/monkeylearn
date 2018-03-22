@@ -79,6 +79,7 @@ monkeylearn_get_extractor <- function(request, key, extractor_id) {
 }
 
 monkeylearn_get_classify <- function(request, key, classifier_id) {
+  print("ok")
   httr::POST(monkeylearn_url_classify(classifier_id),
              httr::add_headers(
                "Accept" = "application/json",
@@ -301,3 +302,28 @@ monkeylearn_key <- function(quiet = TRUE) {
 #' @export
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
+
+# Current rates
+# There is a maximum amount of requests per minute that you
+# can make to the API depending on your plan: 20 for the Free plan,
+# 60 for the Team plan and 120 for the Business plan.
+# The API is limited to 5 concurrent requests per second.
+monkeylearn_rates <- data.frame(plan = c("free", "team", "business"),
+                                req_min = c(20, 60, 120))
+
+monkeylearn_plan <- Sys.getenv("MONKEYLEARN_PLAN")
+if (identical(monkeylearn_plan, "")){
+  warning("Please indicate your Monkeylearn plan in the MONKEYLEARN_PLAN environment variable\n
+          Now using 'free' by default") # nolint
+  monkeylearn_plan <- "free"
+}
+
+monkeylearn_rate <- monkeylearn_rates$req_min[monkeylearn_rates$plan == monkeylearn_plan]
+
+# rate limiting
+limited <- ratelimitr::limit_rate(
+  list(monkeylearn_get_extractor = monkeylearn_get_extractor,
+       monkeylearn_get_classify = monkeylearn_get_classify,
+       monkeylearn_post = monkeylearn_post),
+  ratelimitr::rate(n = 5, period = 1),
+  ratelimitr::rate(n = monkeylearn_rate, period = 60))
