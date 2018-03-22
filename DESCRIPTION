@@ -14,7 +14,8 @@ RoxygenNote: 6.0.1.9000
 Suggests: knitr,
     rmarkdown,
     testthat
-Imports: digest,
+Imports: 
+    digest,
     dplyr,
     httr,
     jsonlite,
@@ -22,5 +23,6 @@ Imports: digest,
     methods,
     purrr,
     tibble (>= 1.2),
-    tidyr
+    tidyr,
+    ratelimitr
 VignetteBuilder: knitr

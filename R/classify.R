@@ -62,6 +62,7 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(request[[i]],
                                        params = NULL)
+
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
       # for the case when the server returns nothing
       # try 5 times, not more
