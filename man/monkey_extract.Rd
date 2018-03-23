@@ -6,7 +6,7 @@
 \usage{
 monkey_extract(input, col = NULL, key = monkeylearn_key(quiet = TRUE),
   extractor_id = "ex_isnnZRbS", params = NULL, texts_per_req = NULL,
-  unnest = FALSE, verbose = TRUE)
+  unnest = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{input}{A dataframe or vector of texts (each text smaller than 50kB)}

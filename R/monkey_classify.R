@@ -51,7 +51,7 @@ monkey_classify <- function(input, col = NULL,
                            classifier_id = "cl_oFKL5wft",
                            params = NULL,
                            texts_per_req = NULL,
-                           unnest = FALSE,
+                           unnest = TRUE,
                            verbose = TRUE) {
 
 

@@ -87,7 +87,7 @@ monkey_extract <- function(input, col = NULL,
                             extractor_id = "ex_isnnZRbS",
                             params = NULL,
                             texts_per_req = NULL,
-                            unnest = FALSE,
+                            unnest = TRUE,
                             verbose = TRUE) {
 
 

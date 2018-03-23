@@ -104,7 +104,7 @@ The Goldman employees knew they had an uphill battle. They were fighting against
 Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the world’s most difficult technical problems.
 
 “Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide,” Afsheen Afshar, a managing director at Goldman Sachs, told the students."
-monkey_extract(text, extractor_id = "ex_y7BPYzNG", unnest = TRUE)
+monkey_extract(text, extractor_id = "ex_y7BPYzNG")
 
 ```
 
@@ -129,7 +129,7 @@ text2 <- "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-
 text1 <- "my dog is an avid rice eater"
 text2 <- "i want to buy an iphone"
 request <- c(text1, text2)
-monkey_classify(request, classifier_id = "cl_oFKL5wft", unnest = TRUE)
+monkey_classify(request, classifier_id = "cl_oFKL5wft")
 
 ```
 ## How to find classifiers?
@@ -151,7 +151,7 @@ text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis un
 text2 <- "i want to buy an iphone"
 text3 <- "Je déteste ne plus avoir de dentifrice."
 request <- c(text1, text2, text3)
-monkey_classify(request, classifier_id = "cl_oJNMkt2V", unnest = TRUE)
+monkey_classify(request, classifier_id = "cl_oJNMkt2V")
 
 ```
 
@@ -161,7 +161,7 @@ monkey_classify(request, classifier_id = "cl_oJNMkt2V", unnest = TRUE)
 text1 <- "I think this is awesome."
 text2 <- "Holy shit! You did great!"
 request <- c(text1, text2)
-monkey_classify(request, classifier_id = "cl_KFXhoTdt", unnest = TRUE)
+monkey_classify(request, classifier_id = "cl_KFXhoTdt")
 
 ```
 
@@ -171,7 +171,7 @@ monkey_classify(request, classifier_id = "cl_KFXhoTdt", unnest = TRUE)
 text1 <- "Let me tell you about my dog and my cat. They are really friendly and like going on walks. They both like chasing mice."
 text2 <- "My first R package was probably a disaster but I keep learning how to program."
 request <- c(text1, text2)
-monkey_classify(request, classifier_id = "cl_5icAVzKR", unnest = TRUE)
+monkey_classify(request, classifier_id = "cl_5icAVzKR")
 
 ```
 
@@ -220,7 +220,7 @@ input <- c("Emma Woodhouse, handsome, clever, and rich, with a comfortable home"
 That is true even if you have inputs that cannot be processed. For instance, empty string input elements are not sent to the API for classification/extraction. (You'll get a warning of this if `verbose = TRUE`.) We've got one above to illustrate and elements that returned no classifications/extractions are included in the resulting dataframe. This way you'll know which inputs could not be processed.
 
 ```{r monkey_output}
-(output <- monkey_classify(input, verbose = FALSE))
+(output <- monkey_classify(input, verbose = FALSE, unnest = FALSE))
 ```
 
 <br>
@@ -234,10 +234,10 @@ Let's take a look at the `resp` output column.
 output$resp
 ```
 
-You can easily choose an unnested output by setting the **unnest flag** to TRUE to get one row per classification/extraction. 
+You can easily choose an unnested output by setting the **unnest flag** to TRUE (which it is by default) to get one row per classification/extraction. 
 
 ```{r unnest_true}
-(output_unnested <- monkey_classify(input, unnest = TRUE, verbose = FALSE))
+(output_unnested <- monkey_classify(input, verbose = FALSE))
 ```
 
 We could have gotten the same result by sending in a dataframe and a named column.
