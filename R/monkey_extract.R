@@ -90,6 +90,9 @@ monkey_extract <- function(input, col = NULL,
                             unnest = TRUE,
                             verbose = TRUE) {
 
+  if (verbose) {
+    message(paste0("Using extractor ID ", extractor_id, "; to find other extractors, visit https://app.monkeylearn.com/main/explore/"))
+  }
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
   if (is.null(input)) { stop("input must be non-NULL") }

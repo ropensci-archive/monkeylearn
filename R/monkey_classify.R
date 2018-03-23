@@ -54,6 +54,9 @@ monkey_classify <- function(input, col = NULL,
                            unnest = TRUE,
                            verbose = TRUE) {
 
+  if (verbose) {
+    message(paste0("Using classifier ID ", classifier_id, "; to find other extractors, run monkeylearn_classifiers() or visit https://app.monkeylearn.com/main/explore/"))
+  }
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
   if (is.null(input)) { stop("input must be non-NULL") }
