@@ -54,7 +54,7 @@ monkey_classify <- function(input, col = NULL,
                            unnest = TRUE,
                            verbose = TRUE) {
 
-  if (verbose) {
+  if (verbose && classifier_id == "cl_oFKL5wft") {
     message(paste0("Using classifier ID ", classifier_id, "; to find other extractors, run monkeylearn_classifiers() or visit https://app.monkeylearn.com/main/explore/"))
   }
 
