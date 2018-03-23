@@ -40,8 +40,8 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
 
 
 testthat::test_that("No error if no results from the extractor call",{
-  testthat::expect_is(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG"), "tbl_df")
-  testthat::expect_message(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", verbose = TRUE),
+  testthat::expect_is(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", unnest = FALSE), "tbl_df")
+  testthat::expect_message(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", unnest = FALSE, verbose = TRUE),
                  "No results for this call")
 })
 
@@ -59,8 +59,8 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
   # Set up texts to test
   output_unnested <- monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)
   output_nested <- monkey_classify(request_df, txt, texts_per_req = 2, unnest = FALSE)
-  output_2_texts <- tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 2))
-  output_3_texts <- tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 3))
+  output_2_texts <- tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 2, unnest = FALSE))
+  output_3_texts <- tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 3, unnest = FALSE))
 
   # Different numbers of texts_per_req give same output
   testthat::expect_equal(output_2_texts, output_3_texts)
@@ -110,7 +110,7 @@ testthat::test_that("We can reconstruct the same length vector as we had in our 
   testthat::expect_equal(empties_result_nested_posthoc, empties_result_unnested)
 
   # Same behavior with extractors
-  empties_extracted_nested <- monkey_extract(text_w_empties, extractor_id = "ex_y7BPYzNG")
+  empties_extracted_nested <- monkey_extract(text_w_empties, extractor_id = "ex_y7BPYzNG", unnest = FALSE)
   empties_extracted_unnested <- monkey_extract(text_w_empties, extractor_id = "ex_y7BPYzNG", unnest = TRUE)
   testthat::expect_equal(dim(tidyr::unnest(empties_extracted_nested)), dim(empties_extracted_unnested))
 })
