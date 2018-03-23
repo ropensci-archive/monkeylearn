@@ -237,7 +237,7 @@ monkey_extract <- function(input, col = NULL,
       names(results)[which(names(results) == "req_orig")] <- "req"
     }
 
-    if (unnest == TRUE) {
+    if (unnest == TRUE & !(all(is.na(results$resp)))) {
       results <- tidyr::unnest(results)
     }
 
