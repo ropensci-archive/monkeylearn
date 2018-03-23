@@ -244,4 +244,4 @@ monkey_extract <- function(input, col = NULL,
     attr(results, "headers") <- tibble::as_tibble(headers)
     return(results)
       }
-    }
+  }

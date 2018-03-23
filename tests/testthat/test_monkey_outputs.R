@@ -40,8 +40,8 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
 
 
 testthat::test_that("No error if no results from the extractor call",{
-  testthat::expect_is(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG"), "tbl_df")
-  testthat::expect_message(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", verbose = TRUE),
+  testthat::expect_is(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", unnest = FALSE), "tbl_df")
+  testthat::expect_message(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", unnest = FALSE, verbose = TRUE),
                  "No results for this call")
 })
 
