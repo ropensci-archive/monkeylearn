@@ -82,7 +82,7 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
 
 
 testthat::test_that("We can reconstruct the same length vector as we had in our input, retaining empty strings", {
-  text_w_empties <- c(
+  text_w_empties <<- c(
     "In a hole in the ground there lived a hobbit.",
     "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
     "",
