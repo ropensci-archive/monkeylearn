@@ -1,6 +1,6 @@
-context("test monkey_ outputs")
+testthat::context("test monkey_ outputs")
 
-test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute",{
+testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute",{
   ## Test 1
   text1 <- "my dog is an avid rice eater"
   text2 <- "i want to buy an iphone"
@@ -39,14 +39,14 @@ test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute
 })
 
 
-test_that("No error if no results from the extractor call",{
+testthat::test_that("No error if no results from the extractor call",{
   testthat::expect_is(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG"), "tbl_df")
   testthat::expect_message(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", verbose = TRUE),
                  "No results for this call")
 })
 
 
-test_that("We can use different texts_per_req in classify_df and get the same output and unnesting works", {
+testthat::test_that("We can use different texts_per_req in classify_df and get the same output and unnesting works", {
   text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
   text2 <- "i want to buy an iphone"
   text3 <- "Je déteste ne plus avoir de dentifrice."
@@ -81,7 +81,7 @@ test_that("We can use different texts_per_req in classify_df and get the same ou
 })
 
 
-test_that("We can reconstruct the same length vector as we had in our input, retaining empty strings", {
+testthat::test_that("We can reconstruct the same length vector as we had in our input, retaining empty strings", {
   text_w_empties <- c(
     "In a hole in the ground there lived a hobbit.",
     "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
@@ -90,7 +90,7 @@ test_that("We can reconstruct the same length vector as we had in our input, ret
     " ")
 
   # General test
-  text_w_empties %>%  test_texts()
+  text_w_empties %>% test_texts()
 
   # Test unnest parameter
   empties_result_unnested <- monkey_classify(text_w_empties, texts_per_req = 2, unnest = TRUE)
@@ -114,5 +114,17 @@ test_that("We can reconstruct the same length vector as we had in our input, ret
   empties_extracted_unnested <- monkey_extract(text_w_empties, extractor_id = "ex_y7BPYzNG", unnest = TRUE)
   testthat::expect_equal(dim(tidyr::unnest(empties_extracted_nested)), dim(empties_extracted_unnested))
 })
+
+
+testthat::test_that("Messaging works as expected", {
+  text_w_many_empties <- c(text_w_empties, rep("", 25))
+
+  empties_msg_expected <- "The following indices were empty strings and could not be sent to the API. (Displaying first 20): 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23...\n                         They will still be included in the output. \n\n"
+  empties_mgs_out <- testthat::capture_message(monkey_classify(text_w_many_empties))
+
+  testthat::expect_equal(empties_mgs_out$message, empties_msg_expected)
+})
+
+
 
 
