@@ -99,7 +99,7 @@ monkey_extract <- function(input, col = NULL,
 
   # We're either taking a dataframe or a vector; not both, not neither
   if (inherits(input, "data.frame")) {
-    if (is.null(deparse(substitute(col)))) {
+    if (deparse(substitute(col)) == "NULL") {
       stop("If input is a dataframe, col must be non-null")
     }
     request_orig <- input[[deparse(substitute(col))]]
