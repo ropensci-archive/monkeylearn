@@ -63,7 +63,7 @@ monkey_classify <- function(input, col = NULL,
 
   # We're either taking a dataframe or a vector; not both, not neither
   if (inherits(input, "data.frame")) {
-    if (deparse(substitute(col)) == "NULL") {
+    if (is.null(substitute(col))) {
       stop("If input is a dataframe, col must be non-null")
     }
     request_orig <- input[[deparse(substitute(col))]]
