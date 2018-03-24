@@ -90,6 +90,7 @@ monkeylearn_get_classify <- function(request, key, classifier_id) {
   )
 }
 
+# -- Not currently used, but may be worth condensing monkeylearn_get_classify and monkeylearn_get_extractor into this
 monkeylearn_post <- function(request, key, classifier_id) {
   monkey_post(monkeylearn_url_classify(classifier_id),
              httr::add_headers(
@@ -101,8 +102,6 @@ monkeylearn_post <- function(request, key, classifier_id) {
              body = request
   )
 }
-
-
 
 # parse results
 monkeylearn_parse <- function(output, request_text) {

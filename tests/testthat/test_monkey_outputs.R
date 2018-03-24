@@ -9,6 +9,8 @@ testthat::test_that("Bad data is handled with informative messages", {
 
   testthat::expect_equal(testthat::capture_warning(monkey_classify(c("", "")))$message,
                          "You only entered blank text in the request.")
+
+  testthat::expect_is(monkey_extract("asdf"), "data.frame")
 })
 
 
