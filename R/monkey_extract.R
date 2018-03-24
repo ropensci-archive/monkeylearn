@@ -83,12 +83,12 @@
 #'
 
 monkey_extract <- function(input, col = NULL,
-                            key = monkeylearn_key(quiet = TRUE),
-                            extractor_id = "ex_isnnZRbS",
-                            params = NULL,
-                            texts_per_req = NULL,
-                            unnest = TRUE,
-                            verbose = TRUE) {
+                           key = monkeylearn_key(quiet = TRUE),
+                           extractor_id = "ex_isnnZRbS",
+                           params = NULL,
+                           texts_per_req = NULL,
+                           unnest = TRUE,
+                           verbose = TRUE) {
 
   if (verbose && extractor_id == "ex_isnnZRbS") {
     message(paste0("Using extractor ID ", extractor_id, "; to find other extractors, visit https://app.monkeylearn.com/main/explore/"))
@@ -148,8 +148,8 @@ monkey_extract <- function(input, col = NULL,
                          "
                          They will still be included in the output. \n"))
         }
+        }
       }
-    }
 
     # Split request into texts_per_req texts per request
     request <- split(request_pre_chunking, ceiling(seq_along(request_pre_chunking)/texts_per_req))
@@ -204,11 +204,10 @@ monkey_extract <- function(input, col = NULL,
                                               row_name = as.numeric(names(request[[i]])))
 
       res <- output$result
-      if (length(res) == 1 && is.na(res)) {
-        res <- rep(res, nrow(request_reconstructed))
-      }
 
-      if (res %>% unlist() %>% is.null()) {
+      # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
+      if ((length(res) == 1 && is.na(res)) |
+          res %>% unlist() %>% is.null()){
         res <- rep(NA_character_, length1)
       }
 
@@ -220,7 +219,7 @@ monkey_extract <- function(input, col = NULL,
 
       results <- dplyr::bind_rows(results, this_result)
       headers <- dplyr::bind_rows(headers, this_headers)
-        }
+    }
 
     # If we had empty strings in the input, get them back into the result in the right spots
     if (length(request_orig) > nrow(results)) {
@@ -245,5 +244,5 @@ monkey_extract <- function(input, col = NULL,
     # Done!
     attr(results, "headers") <- tibble::as_tibble(headers)
     return(results)
-      }
-  }
+    }
+}
