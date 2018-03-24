@@ -209,7 +209,7 @@ monkey_extract <- function(input, col = NULL,
       }
 
       if (res %>% unlist() %>% is.null()) {
-        res <- res %>% purrr::map_df(replace_x)
+        res <- rep(NA_character_, length1)
       }
 
       output_nested <- tibble::tibble(resp = res)
