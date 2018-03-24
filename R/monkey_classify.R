@@ -59,12 +59,12 @@ monkey_classify <- function(input, col = NULL,
   }
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
-  if (is.null(input)) { stop("input must be non-null") }
+  if (is.null(input)) { stop("input must be non-null.") }
 
   # We're either taking a dataframe or a vector; not both, not neither
   if (inherits(input, "data.frame")) {
     if (is.null(substitute(col))) {
-      stop("If input is a dataframe, col must be non-null")
+      stop("If input is a dataframe, col must be non-null.")
     } else if (!deparse(substitute(col)) %in% names(input)) {
       stop("Column supplied does not appear in dataframe.")
     }

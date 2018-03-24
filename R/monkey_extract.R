@@ -100,7 +100,7 @@ monkey_extract <- function(input, col = NULL,
   # We're either taking a dataframe or a vector; not both, not neither
   if (inherits(input, "data.frame")) {
     if (is.null(substitute(col))) {
-      stop("If input is a dataframe, col must be non-null")
+      stop("If input is a dataframe, col must be non-null.")
     } else if (!deparse(substitute(col)) %in% names(input)) {
       stop("Column supplied does not appear in dataframe.")
     }

@@ -5,10 +5,10 @@ testthat::test_that("Bad data is handled with informative messages", {
                          "input must be non-null.")
 
   testthat::expect_equal(testthat::capture_warning(monkey_extract(NA_character_))$message,
-                         "You only entered blank text in the request.")
+                         "You only entered blank text or NAs in the request.")
 
   testthat::expect_equal(testthat::capture_warning(monkey_classify(c("", "")))$message,
-                         "You only entered blank text in the request.")
+                         "You only entered blank text or NAs in the request.")
 
   testthat::expect_is(monkey_extract("asdf"), "data.frame")
 })
@@ -74,6 +74,10 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
   # foo is not a column; expect informative error
   testthat::expect_equal(testthat::capture_error(monkey_classify(request_df, foo))$message,
                          "Column supplied does not appear in dataframe.")
+
+  # No column supplied
+  testthat::expect_equal(testthat::capture_error(monkey_classify(request_df))$message,
+                         "If input is a dataframe, col must be non-null.")
 
   # Test texts_per_req is a number and <= number of texts
   testthat::expect_equal(testthat::capture_error(monkey_classify(request_df, txt, texts_per_req = "bar"))$message,
