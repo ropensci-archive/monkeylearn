@@ -47,7 +47,9 @@ For inspiration beyond this vignette, you can see external examples of the packa
 ## A first example 
 
 ```{r, message = FALSE}
-library("monkeylearn")
+library(monkeylearn)
+library(magrittr)
+
 text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
 output <- monkey_extract(input = text,
                          extractor_id = "ex_isnnZRbS")
@@ -217,13 +219,26 @@ input <- c("Emma Woodhouse, handsome, clever, and rich, with a comfortable home"
  "governess, who had fallen little short of a mother in affection.")
 ```
 
-That is true even if you have inputs that cannot be processed. For instance, empty string input elements are not sent to the API for classification/extraction. (You'll get a warning of this if `verbose = TRUE`.) We've got one above to illustrate and elements that returned no classifications/extractions are included in the resulting dataframe. This way you'll know which inputs could not be processed.
+That is true even if you have inputs that cannot be processed. For instance, empty string and `NA` input elements are not sent to the API for classification/extraction. (You'll get a warning of this if `verbose = TRUE`.) We've got one above to illustrate and elements that returned no classifications/extractions are included in the resulting dataframe. This way you'll know which inputs could not be processed.
 
 ```{r monkey_output}
-(output <- monkey_classify(input, verbose = FALSE, unnest = FALSE))
+(output <- monkey_classify(input, unnest = FALSE))
 ```
 
 <br>
+
+If there are more than 20 empty inputs, we save your console by messaging only the first 20 indices.
+
+```{r}
+(very_empty_input <- rep("", 25) %>% c(input) %>% sample())
+```
+
+
+Since the entire original input is represented in the output, if you need to find all of the empty inputs you can easily filter the output to all of the rows containing empty strings.
+```{r}
+monkey_classify(very_empty_input, unnest = FALSE)
+```
+
 
 ### Configuring the Output
 
