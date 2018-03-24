@@ -60,7 +60,7 @@ notifications:
    to:
      - maelle.salmon@yahoo.se
    subject: 'monkeylearn build {{status}}'                  # optional
-   message: "https://ci.appveyor.com/project/ropenscilabs/monkeylearn"    # optional
+   message: "https://ci.appveyor.com/project/ropensci/monkeylearn"    # optional
    on_build_success: false
    on_build_failure: true
    on_build_status_changed: true
