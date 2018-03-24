@@ -171,6 +171,11 @@ monkey_classify <- function(input, col = NULL,
       if (length(res) == 1 && is.na(res)) {
         res <- rep(res, nrow(request_reconstructed))
       }
+
+      if (res %>% unlist() %>% is.null()) {
+        res <- rep(NA_character_, length1)
+      }
+
       output_nested <- tibble::tibble(resp = res)
 
 
