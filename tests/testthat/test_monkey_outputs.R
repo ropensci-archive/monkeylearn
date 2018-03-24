@@ -1,5 +1,19 @@
 testthat::context("test monkey_ outputs")
 
+testthat::test_that("Bad data is handled with informative messages", {
+  testthat::expect_equal(testthat::capture_error(monkey_classify(NULL))$message,
+                         "input must be non-null.")
+
+  testthat::expect_equal(testthat::capture_warning(monkey_extract(NA_character_))$message,
+                         "You only entered blank text or NAs in the request.")
+
+  testthat::expect_equal(testthat::capture_warning(monkey_classify(c("", "")))$message,
+                         "You only entered blank text or NAs in the request.")
+
+  testthat::expect_is(monkey_extract("asdf"), "data.frame")
+})
+
+
 testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute",{
   ## Test 1
   text1 <- "my dog is an avid rice eater"
@@ -8,8 +22,8 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
 
   request %>% test_texts()
 
-  # testthat::expect_warning(monkey_classify(request, foo,   # This is a vector, so we shouldn't supply a column
-  #                              classifier_id = "cl_oFKL5wft"))
+  testthat::expect_warning(monkey_classify(request, foo,   # This is a vector, so we shouldn't supply a column
+                               classifier_id = "cl_oFKL5wft"))
 
   ## Test 2
   text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
@@ -20,7 +34,8 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
   text1 <- "Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am"
   text2 <- "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"
 
-  # c(text1, text2) %>% test_texts(action = "extract", extractor_id = "ex_dqRio5sG") # ----- See issue #39: trouble creating `output_nested`  from `output$result` in `monkey_extract()` with this particular extractor
+      # Whole reponse is NULL, becomes NAs
+  c(text1, text2) %>% test_texts(action = "extract", extractor_id = "ex_dqRio5sG")
 
   ## Test 4
   text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
@@ -55,6 +70,21 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
 
   # General test of dataframe
   request_df %>% test_texts(col = txt)
+
+  # foo is not a column; expect informative error
+  testthat::expect_equal(testthat::capture_error(monkey_classify(request_df, foo))$message,
+                         "Column supplied does not appear in dataframe.")
+
+  # No column supplied
+  testthat::expect_equal(testthat::capture_error(monkey_classify(request_df))$message,
+                         "If input is a dataframe, col must be non-null.")
+
+  # Test texts_per_req is a number and <= number of texts
+  testthat::expect_equal(testthat::capture_error(monkey_classify(request_df, txt, texts_per_req = "bar"))$message,
+                         "texts_per_req must be a whole positive number less than or equal to the number of texts.")
+
+  testthat::expect_equal(testthat::capture_error(monkey_extract(request_df, txt, texts_per_req = 10))$message,
+                         "texts_per_req must be a whole positive number less than or equal to the number of texts.")
 
   # Set up texts to test
   output_unnested <- monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)

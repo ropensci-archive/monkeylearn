@@ -50,7 +50,7 @@ monkeylearn_url_extractor <- function(extractor_id) {
 
 # no blank request
 monkeylearn_filter_blank <- function(request){
-  request <- request[gsub(" ", "", request) != ""]
+  request <- request[!gsub(" ", "", request) %in% c("", NA)]
 
   request
 }
@@ -90,6 +90,7 @@ monkeylearn_get_classify <- function(request, key, classifier_id) {
   )
 }
 
+# -- Not currently used, but may be worth condensing monkeylearn_get_classify and monkeylearn_get_extractor into this
 monkeylearn_post <- function(request, key, classifier_id) {
   monkey_post(monkeylearn_url_classify(classifier_id),
              httr::add_headers(
@@ -101,8 +102,6 @@ monkeylearn_post <- function(request, key, classifier_id) {
              body = request
   )
 }
-
-
 
 # parse results
 monkeylearn_parse <- function(output, request_text) {
@@ -184,7 +183,7 @@ monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
 
 
 replace_x <- function(x, replacement = NA_character_) {
-  if(is.null(x) || is.na(x) || nrow(x) == 0) {
+  if(is.null(x) || is.na(x) || nrow(x) == 0 || length(x[[1]]) == 0) {
     replacement
   } else {
     x
@@ -229,7 +228,7 @@ determine_texts_per_req <- function(length1, texts_per_req) {
       texts_per_req <- 200
     }
   } else if (!is.numeric(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
-    stop("Error: texts_per_req must be a whole positive number less than or equal to the number of texts.")
+    stop("texts_per_req must be a whole positive number less than or equal to the number of texts.")
   } else if (texts_per_req > 200) {
     warning("Maximum 200 texts recommended per requests.")
     texts_per_req <- texts_per_req   # Go ahead with the attempt to send more than 200 texts
@@ -252,13 +251,14 @@ get_request_orig <- function(input) {
 }
 
 test_texts <- function(input, action = "classify",
-                       do_test_headers = TRUE, ...) {
+                       do_test_headers = TRUE, classifier_id = "cl_oFKL5wft",
+                       extractor_id = "ex_isnnZRbS", ...) {
   stopifnot(action %in% c("classify", "extract"))
 
   if (action == "classify") {
-    output <- monkey_classify(input, ...)
+    output <- monkey_classify(input, classifier_id = "cl_oFKL5wft", ...)
   } else if (action == "extract") {
-    output <- monkey_extract(input, ...)
+    output <- monkey_extract(input, extractor_id = "ex_isnnZRbS", ...)
   }
 
   testthat::expect_is(output, "data.frame")
