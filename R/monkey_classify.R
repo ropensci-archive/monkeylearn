@@ -129,13 +129,8 @@ monkey_classify <- function(input, col = NULL,
         message(paste0("Processing batch ", i, " of ", length(request), " batches: texts ", min_text, " to ", max_text))
 
         if (i %% 10 == 0) {
-          message("
-                   /~\\
-                  C oo
-                  _( ^)
-                 /  ~  \\
-              Still working!
-          ")
+          # Insert possible ASCII art or message here
+          message("Still working!")
         }
       }
 
