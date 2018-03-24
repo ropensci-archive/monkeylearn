@@ -204,12 +204,10 @@ monkey_extract <- function(input, col = NULL,
                                               row_name = as.numeric(names(request[[i]])))
 
       res <- output$result
-      if (length(res) == 1 && is.na(res)) {
-        res <- rep(res, nrow(request_reconstructed))
-      }
 
-      # If the entire output is NULL, treat it as if we had NAs
-      if (res %>% unlist() %>% is.null()) {
+      # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
+      if ((length(res) == 1 && is.na(res)) |
+          res %>% unlist() %>% is.null()){
         res <- rep(NA_character_, length1)
       }
 
