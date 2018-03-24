@@ -68,7 +68,7 @@ monkey_classify <- function(input, col = NULL,
     }
     request_orig <- input[[deparse(substitute(col))]]
   } else if (is.vector(input)) {
-    if (!is.null(col)) {
+    if (!is.null(substitute(col))) {
       warning("Input is a vector but col was supplied; it will be ignored.")
     }
     request_orig <- input

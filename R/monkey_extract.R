@@ -104,7 +104,7 @@ monkey_extract <- function(input, col = NULL,
     }
     request_orig <- input[[deparse(substitute(col))]]
   } else if (is.vector(input)) {
-    if (!is.null(col)) {
+    if (!is.null(substitute(col))) {
       warning("Input is a vector but col was supplied; it will be ignored.")
     }
     request_orig <- input
@@ -207,8 +207,12 @@ monkey_extract <- function(input, col = NULL,
       if (length(res) == 1 && is.na(res)) {
         res <- rep(res, nrow(request_reconstructed))
       }
-      output_nested <- tibble::tibble(resp = res)
 
+      if (res %>% unlist() %>% is.null()) {
+        res <- res %>% purrr::map_df(replace_x)
+      }
+
+      output_nested <- tibble::tibble(resp = res)
 
       # Get our result and headers for this batch
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)

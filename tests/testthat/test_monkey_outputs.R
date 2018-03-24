@@ -8,8 +8,8 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
 
   request %>% test_texts()
 
-  # testthat::expect_warning(monkey_classify(request, foo,   # This is a vector, so we shouldn't supply a column
-  #                              classifier_id = "cl_oFKL5wft"))
+  testthat::expect_warning(monkey_classify(request, foo,   # This is a vector, so we shouldn't supply a column
+                               classifier_id = "cl_oFKL5wft"))
 
   ## Test 2
   text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
@@ -20,7 +20,7 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
   text1 <- "Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am"
   text2 <- "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"
 
-  # c(text1, text2) %>% test_texts(action = "extract", extractor_id = "ex_dqRio5sG") # ----- See issue #39: trouble creating `output_nested`  from `output$result` in `monkey_extract()` with this particular extractor
+  c(text1, text2) %>% test_texts(action = "extract", extractor_id = "ex_dqRio5sG") # ----- See issue #39: trouble creating `output_nested`  from `output$result` in `monkey_extract()` with this particular extractor
 
   ## Test 4
   text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
