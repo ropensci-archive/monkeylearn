@@ -36,7 +36,13 @@
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
                                  texts_per_req = 20,
-                                 verbose = FALSE) {
+                                 verbose = TRUE) {
+
+  if (verbose) {
+    message("This function is in the process of being deprecated. We suggest you switch to monkey_classify.
+More information available here: https://ropensci.github.io/monkeylearn/")
+  }
+
   # filter the blank requests
   length1 <- length(request)
   request <- monkeylearn_filter_blank(request)
