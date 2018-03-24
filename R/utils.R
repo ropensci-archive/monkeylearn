@@ -252,13 +252,14 @@ get_request_orig <- function(input) {
 }
 
 test_texts <- function(input, action = "classify",
-                       do_test_headers = TRUE, ...) {
+                       do_test_headers = TRUE, classifier_id = "cl_oFKL5wft",
+                       extractor_id = "ex_isnnZRbS", ...) {
   stopifnot(action %in% c("classify", "extract"))
 
   if (action == "classify") {
-    output <- monkey_classify(input, ...)
+    output <- monkey_classify(input, classifier_id = "cl_oFKL5wft", ...)
   } else if (action == "extract") {
-    output <- monkey_extract(input, ...)
+    output <- monkey_extract(input, extractor_id = "ex_isnnZRbS", ...)
   }
 
   testthat::expect_is(output, "data.frame")
