@@ -59,12 +59,14 @@ monkey_classify <- function(input, col = NULL,
   }
 
   if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
-  if (is.null(input)) { stop("input must be non-NULL") }
+  if (is.null(input)) { stop("input must be non-null") }
 
   # We're either taking a dataframe or a vector; not both, not neither
   if (inherits(input, "data.frame")) {
     if (is.null(substitute(col))) {
       stop("If input is a dataframe, col must be non-null")
+    } else if (!deparse(substitute(col)) %in% names(input)) {
+      stop("Column supplied does not appear in dataframe.")
     }
     request_orig <- input[[deparse(substitute(col))]]
   } else if (is.vector(input)) {
@@ -91,7 +93,7 @@ monkey_classify <- function(input, col = NULL,
   texts_per_req <- determine_texts_per_req(filtered_len, texts_per_req)
 
   if (filtered_len == 0) {
-    warning("You only entered blank text in the request.", call. = FALSE)
+    warning("You only entered blank text or NAs in the request.", call. = FALSE)
     return(tibble::tibble())
   } else {
     if (length1 != filtered_len) {
@@ -134,7 +136,6 @@ monkey_classify <- function(input, col = NULL,
         }
       }
 
-
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(request[[i]],
                                        params)
@@ -176,7 +177,6 @@ monkey_classify <- function(input, col = NULL,
       }
 
       output_nested <- tibble::tibble(resp = res)
-
 
       # Get our result and headers for this batch
       this_result <- dplyr::bind_cols(request_reconstructed, output_nested)

@@ -50,7 +50,7 @@ monkeylearn_url_extractor <- function(extractor_id) {
 
 # no blank request
 monkeylearn_filter_blank <- function(request){
-  request <- request[gsub(" ", "", request) != ""]
+  request <- request[!gsub(" ", "", request) %in% c("", NA)]
 
   request
 }
@@ -229,7 +229,7 @@ determine_texts_per_req <- function(length1, texts_per_req) {
       texts_per_req <- 200
     }
   } else if (!is.numeric(texts_per_req) || texts_per_req <= 0 || texts_per_req > length1) {
-    stop("Error: texts_per_req must be a whole positive number less than or equal to the number of texts.")
+    stop("texts_per_req must be a whole positive number less than or equal to the number of texts.")
   } else if (texts_per_req > 200) {
     warning("Maximum 200 texts recommended per requests.")
     texts_per_req <- texts_per_req   # Go ahead with the attempt to send more than 200 texts
