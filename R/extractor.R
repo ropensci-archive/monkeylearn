@@ -60,8 +60,13 @@
 monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
                                 extractor_id = "ex_isnnZRbS",
                                 texts_per_req = 200,
-                                verbose = FALSE,
+                                verbose = TRUE,
                                 params = NULL) {
+
+  if (verbose) {
+    message("This function is in the process of being deprecated. We suggest you switch to monkey_extract.
+More information available here: https://ropensci.github.io/monkeylearn/")
+  }
 
   # filter the blank requests
   length1 <- length(request)
