@@ -5,7 +5,7 @@
 \title{monkeylearn_extract}
 \usage{
 monkeylearn_extract(request, key = monkeylearn_key(quiet = TRUE),
-  extractor_id = "ex_isnnZRbS", texts_per_req = 200, verbose = FALSE,
+  extractor_id = "ex_isnnZRbS", texts_per_req = 200, verbose = TRUE,
   params = NULL)
 }
 \arguments{
