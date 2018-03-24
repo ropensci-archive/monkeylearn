@@ -115,7 +115,7 @@
 
     <pre class="usage"><span class='fu'>monkey_classify</span>(<span class='no'>input</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='monkeylearn_key.html'>monkeylearn_key</a></span>(<span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
   <span class='kw'>classifier_id</span> <span class='kw'>=</span> <span class='st'>"cl_oFKL5wft"</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>texts_per_req</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,16 +178,15 @@ and <code>attr(output, "headers")$x.query.limit.limit</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"># NOT RUN {
-text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
-text2 <- "i want to buy an iphone"
-text3 <- "Je déteste ne plus avoir de dentifrice."
-text_4 <- "I hate not having any toothpaste."
-request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
-monkeylearn_classify_df(request_df, txt, texts_per_req = 2, unnest = TRUE
-attr(output, "headers")
-# }
-<div class='input'>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>text1</span> <span class='kw'>&lt;-</span> <span class='st'>"Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."</span>
+<span class='no'>text2</span> <span class='kw'>&lt;-</span> <span class='st'>"i want to buy an iphone"</span>
+<span class='no'>text3</span> <span class='kw'>&lt;-</span> <span class='st'>"Je déteste ne plus avoir de dentifrice."</span>
+<span class='no'>text_4</span> <span class='kw'>&lt;-</span> <span class='st'>"I hate not having any toothpaste."</span>
+<span class='no'>request_df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/as_tibble'>as_tibble</a></span>(<span class='fu'>list</span>(<span class='kw'>txt</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='no'>text1</span>, <span class='no'>text2</span>, <span class='no'>text3</span>, <span class='no'>text_4</span>)))
+<span class='fu'>monkey_classify</span>(<span class='no'>request_df</span>, <span class='no'>txt</span>, <span class='kw'>texts_per_req</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>attr</span>(<span class='no'>output</span>, <span class='st'>"headers"</span>)
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -283,11 +283,11 @@ batch_of_five <- system.time(output <- monkey_classify(input, texts_per_req = 5)
 ```
 
 How much does sending 5 texts in a batch vs. 1 text improve our processing time?
-```{r speedup}
+```{r}
 (speedup <- one_by_one[1] / batch_of_five[1])
 ```
 
-A `r round(speedup, digits=0)`x speedup isn't so bad! Worth keeping in mind that if you need the blazing fast speeds you might consider upgrading to a higher MonkeyLearn price tier. 
+A 3-4x speedup isn't so bad! Worth keeping in mind that if you need the blazing fast speeds you might consider upgrading to a higher MonkeyLearn price tier. 
 
 <br>
 
