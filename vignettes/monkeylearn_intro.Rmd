@@ -237,7 +237,7 @@ output$resp
 You can easily choose an unnested output by setting the **unnest flag** to TRUE (which it is by default) to get one row per classification/extraction. 
 
 ```{r unnest_true}
-(output_unnested <- monkey_classify(input, verbose = FALSE))
+(output_unnested <- monkey_classify(input, verbose = FALSE, unnest = TRUE))
 ```
 
 We could have gotten the same result by sending in a dataframe and a named column.
@@ -287,7 +287,7 @@ A `r round(speedup, digits=0)`x speedup isn't so bad! Worth keeping in mind that
 
 # Meta
 
-* Please [report any issues or bugs](https://github.com/ropenscilabs/monkeylearn/issues).
+* Please [report any issues or bugs](https://github.com/ropensci/monkeylearn/issues).
 * License: GPL
 * Get citation information for `monkeylearn` in R doing `citation(package = 'monkeylearn')`
 * Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
