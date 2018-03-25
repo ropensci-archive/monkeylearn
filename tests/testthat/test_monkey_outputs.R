@@ -45,9 +45,9 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
   c(text1, text2) %>% test_texts(action = "extract", extractor_id = "ex_dqRio5sG")
 
   ## Test 4
-  text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir.
+  text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
   text2 <- "i want to buy an iphone"
-  text3 <- "Je déteste ne plus avoir de dentifrice.
+  text3 <- "Je déteste ne plus avoir de dentifrice."
 
   c(text1, text2, text3) %>% test_texts(classifier_id = "cl_oJNMkt2V")
 
@@ -74,9 +74,9 @@ testthat::test_that("No error if no results from the extractor call", {
 
 
 testthat::test_that("We can use different texts_per_req in classify_df and get the same output and unnesting works", {
-  text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir.
+  text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
   text2 <- "i want to buy an iphone"
-  text3 <- "Je déteste ne plus avoir de dentifrice.
+  text3 <- "Je déteste ne plus avoir de dentifrice."
   text_4 <- "I hate not having any toothpaste."
   request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
 
