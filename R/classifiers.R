@@ -18,34 +18,40 @@
 #' @export
 monkeylearn_classifiers <- function(private = FALSE,
                                     key = monkeylearn_key(quiet = TRUE)) {
-
   page <- 1
   has_next <- TRUE
   results <- NULL
 
-  while(has_next == TRUE) {
+  while (has_next == TRUE) {
     address <- ifelse(!private,
-                      paste0(monkeylearn_url(), "classifiers",
-                             "/?all=1&page=",
-                             page),
-                      paste0(monkeylearn_url(), "classifiers",
-                             "/?page=",
-                             page))
-
-    output <- httr::GET(address,
-                        httr::add_headers(
-                          "Authorization" = paste("Token ", monkeylearn_key()),
-                          "Content-Type" =
-                            "application/json"
-                        )
+      paste0(
+        monkeylearn_url(), "classifiers",
+        "/?all=1&page=",
+        page
+      ),
+      paste0(
+        monkeylearn_url(), "classifiers",
+        "/?page=",
+        page
+      )
     )
 
+    output <- httr::GET(
+      address,
+      httr::add_headers(
+        "Authorization" = paste("Token ", monkeylearn_key()),
+        "Content-Type" =
+          "application/json"
+      )
+    )
 
-    text <- httr::content(output, as = "text",
-                          encoding = "UTF-8")
+    text <- httr::content(output,
+      as = "text",
+      encoding = "UTF-8"
+    )
     temp <- jsonlite::fromJSON(text)
 
-    if(class(temp$results) == "data.frame") {
+    if (class(temp$results) == "data.frame") {
       has_next <- temp$has_next[1]
 
       names(temp$results)[1] <- "classifier_id"
@@ -53,10 +59,9 @@ monkeylearn_classifiers <- function(private = FALSE,
 
       page <- page + 1
     }
-  else{
-    has_next <- FALSE
-  }
-
+    else {
+      has_next <- FALSE
+    }
   }
   tibble::as_tibble(results)
 }

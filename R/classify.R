@@ -37,7 +37,6 @@ monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
                                  texts_per_req = 20,
                                  verbose = TRUE) {
-
   if (verbose) {
     message("This function is in the process of being deprecated. We suggest you switch to monkey_classify.
 More information available here: https://ropensci.github.io/monkeylearn/")
@@ -46,35 +45,35 @@ More information available here: https://ropensci.github.io/monkeylearn/")
   # filter the blank requests
   length1 <- length(request)
   request <- monkeylearn_filter_blank(request)
-  if(length(request) == 0){
+  if (length(request) == 0) {
     warning("You only entered blank text in the request.", call. = FALSE)
     return(tibble::tibble())
-  }else{
-    if(length1 != length(request)){
+  } else {
+    if (length1 != length(request)) {
       message("The parts of your request that are only blank are not sent to the API.")
     }
     # 20 texts per request
-    request <- split(request, ceiling(seq_along(request)/texts_per_req))
+    request <- split(request, ceiling(seq_along(request) / texts_per_req))
 
     results <- NULL
     headers <- NULL
 
-    for(i in seq_along(request)) {
-
-      if(verbose) {
+    for (i in seq_along(request)) {
+      if (verbose) {
         message(paste0("Processing request number ", i, " out of ", length(request)))
       }
 
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(request[[i]],
-                                       params = NULL)
+        params = NULL
+      )
 
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
       # for the case when the server returns nothing
       # try 5 times, not more
       try_number <- 1
-      while(class(output) == "try-error" && try_number < 6) {
-        message(paste0("Server returned nothing, trying again, try number", try_number))  # Changed from i to try_number
+      while (class(output) == "try-error" && try_number < 6) {
+        message(paste0("Server returned nothing, trying again, try number", try_number)) # Changed from i to try_number
         Sys.sleep(2^try_number)
         output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
         try_number <- try_number + 1
@@ -83,8 +82,10 @@ More information available here: https://ropensci.github.io/monkeylearn/")
       # check the output -- if it is 429 try again (throttle limit)
       # try 5 times, not more
       try_number <- 1
-      while(!monkeylearn_check(output) && try_number < 6) {
-        if (verbose) { message(paste0("Received 429, trying again, try number", try_number)) }
+      while (!monkeylearn_check(output) && try_number < 6) {
+        if (verbose) {
+          message(paste0("Received 429, trying again, try number", try_number))
+        }
         output <- monkeylearn_get_classify(request_part, key, classifier_id)
         try_number <- try_number + 1
       }

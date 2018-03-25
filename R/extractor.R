@@ -62,7 +62,6 @@ monkeylearn_extract <- function(request, key = monkeylearn_key(quiet = TRUE),
                                 texts_per_req = 200,
                                 verbose = TRUE,
                                 params = NULL) {
-
   if (verbose) {
     message("This function is in the process of being deprecated. We suggest you switch to monkey_extract.
 More information available here: https://ropensci.github.io/monkeylearn/")
@@ -71,33 +70,35 @@ More information available here: https://ropensci.github.io/monkeylearn/")
   # filter the blank requests
   length1 <- length(request)
   request <- monkeylearn_filter_blank(request)
-  if(length(request) == 0){
+  if (length(request) == 0) {
     warning("You only entered blank text in the request.", call. = FALSE)
     return(tibble::tibble())
-  }else{
-    if(length1 != length(request)){
+  } else {
+    if (length1 != length(request)) {
       message("The parts of your request that are only blank are not sent to the API.")
     }
 
     # 20 texts per request
-    request <- split(request, ceiling(seq_along(request)/texts_per_req))
+    request <- split(request, ceiling(seq_along(request) / texts_per_req))
 
     results <- NULL
     headers <- NULL
 
-    for(i in seq_along(request)) {
-      if(verbose) {
+    for (i in seq_along(request)) {
+      if (verbose) {
         message(paste0("Processing request number ", i, " out of ", length(request)))
       }
 
       monkeylearn_text_size(request[[i]])
-      request_part <- monkeylearn_prep(request[[i]],
-                                       params)
+      request_part <- monkeylearn_prep(
+        request[[i]],
+        params
+      )
       output <- tryCatch(monkeylearn_get_extractor(request_part, key, extractor_id))
       # for the case when the server returns nothing
       # try 5 times, not more
       try_number <- 1
-      while(class(output) == "try-error" && try_number < 6) {
+      while (class(output) == "try-error" && try_number < 6) {
         message(paste0("Server returned nothing, trying again, try number", try_number))
         Sys.sleep(2^try_number)
         output <- tryCatch(monkeylearn_get_extractor(request_part, key, extractor_id))
@@ -105,7 +106,7 @@ More information available here: https://ropensci.github.io/monkeylearn/")
       }
 
       # check the output -- if it is 429 try again (throttle limit)
-      while(!monkeylearn_check(output)) {
+      while (!monkeylearn_check(output)) {
         output <- monkeylearn_get_extractor(request_part, key, extractor_id)
       }
       # parse output
@@ -119,7 +120,4 @@ More information available here: https://ropensci.github.io/monkeylearn/")
     attr(results, "headers") <- tibble::as_tibble(headers)
     results
   }
-
-
 }
-

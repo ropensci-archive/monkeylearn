@@ -47,19 +47,22 @@
 #' @export
 
 monkey_classify <- function(input, col = NULL,
-                           key = monkeylearn_key(quiet = TRUE),
-                           classifier_id = "cl_oFKL5wft",
-                           params = NULL,
-                           texts_per_req = NULL,
-                           unnest = TRUE,
-                           verbose = TRUE) {
-
+                            key = monkeylearn_key(quiet = TRUE),
+                            classifier_id = "cl_oFKL5wft",
+                            params = NULL,
+                            texts_per_req = NULL,
+                            unnest = TRUE,
+                            verbose = TRUE) {
   if (verbose && classifier_id == "cl_oFKL5wft") {
     message(paste0("Using classifier ID ", classifier_id, "; to find other extractors, run monkeylearn_classifiers() or visit https://app.monkeylearn.com/main/explore/"))
   }
 
-  if (!is.logical(unnest)) { stop("Error: unnest must be boolean.") }
-  if (is.null(input)) { stop("input must be non-null.") }
+  if (!is.logical(unnest)) {
+    stop("Error: unnest must be boolean.")
+  }
+  if (is.null(input)) {
+    stop("input must be non-null.")
+  }
 
   # We're either taking a dataframe or a vector; not both, not neither
   if (inherits(input, "data.frame")) {
@@ -97,35 +100,38 @@ monkey_classify <- function(input, col = NULL,
     return(tibble::tibble())
   } else {
     if (length1 != filtered_len) {
-      if(verbose) {
+      if (verbose) {
         # Indices in request_orig that are not in request
         emtpy_str_indices <- setdiff(seq_along(request_orig), which(request_orig %in% request_pre_chunking))
 
         if (length(emtpy_str_indices) <= 20) {
-          message(paste0("The following indices were empty strings and could not be sent to the API: ",
-                         paste0(emtpy_str_indices, collapse = ", "),
-                         "
-                         They will still be included in the output. \n"))
-
+          message(paste0(
+            "The following indices were empty strings and could not be sent to the API: ",
+            paste0(emtpy_str_indices, collapse = ", "),
+            "
+                         They will still be included in the output. \n"
+          ))
         } else {
           emtpy_str_indices_trunc <- emtpy_str_indices[1:20]
-          message(paste0("The following indices were empty strings and could not be sent to the API. (Displaying first 20): ",
-                         paste0(paste0(emtpy_str_indices_trunc, collapse = ", "), "..."),
-                         "
-                         They will still be included in the output. \n"))
+          message(paste0(
+            "The following indices were empty strings and could not be sent to the API. (Displaying first 20): ",
+            paste0(paste0(emtpy_str_indices_trunc, collapse = ", "), "..."),
+            "
+                         They will still be included in the output. \n"
+          ))
         }
       }
     }
 
     # Split request into texts_per_req texts per request
-    request <- split(request_pre_chunking, ceiling(seq_along(request_pre_chunking)/texts_per_req))
+    request <- split(request_pre_chunking, ceiling(seq_along(request_pre_chunking) / texts_per_req))
 
     results <- NULL
     headers <- NULL
 
     for (i in seq_along(request)) {
-      min_text <- ifelse((i - 1)*texts_per_req == 0, 1, (i - 1)*texts_per_req)
-      max_text <- ifelse(i == length(request), filtered_len, i*texts_per_req)
+      min_text <- ifelse((i - 1) * texts_per_req == 0, 1, (i - 1) * texts_per_req)
+      max_text <- ifelse(i == length(request), filtered_len, i * texts_per_req)
 
       if (verbose) {
         message(paste0("Processing batch ", i, " of ", length(request), " batches: texts ", min_text, " to ", max_text))
@@ -137,8 +143,10 @@ monkey_classify <- function(input, col = NULL,
       }
 
       monkeylearn_text_size(request[[i]])
-      request_part <- monkeylearn_prep(request[[i]],
-                                       params)
+      request_part <- monkeylearn_prep(
+        request[[i]],
+        params
+      )
 
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
 
@@ -154,8 +162,10 @@ monkey_classify <- function(input, col = NULL,
 
       # Check the output -- if it is 429 (throttle limit) try again. Try 5 times, not more
       try_number <- 1
-      while(!monkeylearn_check(output) && try_number < 6) {
-        if (verbose) { message(paste0("Received 429, trying again, try number", try_number)) }
+      while (!monkeylearn_check(output) && try_number < 6) {
+        if (verbose) {
+          message(paste0("Received 429, trying again, try number", try_number))
+        }
         output <- monkeylearn_get_classify(request_part, key, classifier_id)
         try_number <- try_number + 1
       }
@@ -165,14 +175,16 @@ monkey_classify <- function(input, col = NULL,
       output <- monkeylearn_parse_each(output, request_text = request[[i]], verbose = verbose)
 
       # Set up the two columns
-      request_reconstructed <- tibble::tibble(req = request[[i]],
-                                              row_name = as.numeric(names(request[[i]])))
+      request_reconstructed <- tibble::tibble(
+        req = request[[i]],
+        row_name = as.numeric(names(request[[i]]))
+      )
 
       res <- output$result
 
       # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
       if ((length(res) == 1 && is.na(res)) |
-          res %>% unlist() %>% is.null()){
+        res %>% unlist() %>% is.null()) {
         res <- rep(NA_character_, length1)
       }
 
@@ -188,15 +200,18 @@ monkey_classify <- function(input, col = NULL,
 
     # If we had empty strings in the input, get them back into the result in the right spots
     if (length(request_orig) > nrow(results)) {
-      request_orig_df <- tibble::tibble(req_orig = request_orig,
-                                        row_name = as.numeric(names(request_orig)))
+      request_orig_df <- tibble::tibble(
+        req_orig = request_orig,
+        row_name = as.numeric(names(request_orig))
+      )
 
       results <- dplyr::left_join(request_orig_df, results,
-                                  by = "row_name")
+        by = "row_name"
+      )
 
       results$resp <- replace_nulls_vec(results$resp)
 
-      results <- results[ , -which(names(results) == "req")]
+      results <- results[, -which(names(results) == "req")]
       names(results)[which(names(results) == "req_orig")] <- "req"
     }
 
@@ -204,12 +219,10 @@ monkey_classify <- function(input, col = NULL,
       results <- tidyr::unnest(results)
     }
 
-    results <- results[ , -which(names(results) == "row_name")]
+    results <- results[, -which(names(results) == "row_name")]
 
     # Done!
     attr(results, "headers") <- tibble::as_tibble(headers)
     return(results)
   }
 }
-
-
