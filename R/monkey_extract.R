@@ -224,6 +224,7 @@ monkey_extract <- function(input, col = NULL,
         res <- rep(NA_character_, length_orig)
       }
 
+      # ---- Replace NULLs with NAs ----
       # res <- res %>% map(replace_na, list(NA_character_))
 
       res_nested <- tibble::tibble(res = res)

@@ -241,9 +241,9 @@ monkey_classify(very_empty_input, unnest = FALSE)
 
 The default output is a nested dataframe with the same number of rows as your input dataframe or the same length as your input vector, depending on which one you sent in. 
 
-Let's take a look at the `resp` output column. 
+Let's take a look at the `res` output column. 
 ```{r}
-output$resp
+output$res
 ```
 
 You can easily choose an unnested output by setting the **unnest flag** to TRUE (which it is by default) to get one row per classification/extraction. 
