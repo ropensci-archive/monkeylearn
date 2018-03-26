@@ -115,7 +115,7 @@
 
     <pre class="usage"><span class='fu'>monkey_extract</span>(<span class='no'>input</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='monkeylearn_key.html'>monkeylearn_key</a></span>(<span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
   <span class='kw'>extractor_id</span> <span class='kw'>=</span> <span class='st'>"ex_isnnZRbS"</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>texts_per_req</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.keep_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,8 +150,16 @@
       <td><p>Should the output column be unnested?</p></td>
     </tr>
     <tr>
+      <th>.keep_all</th>
+      <td><p>If <code>input</code> is a dataframe, should non-<code>col</code> columns be retained in the output?</p></td>
+    </tr>
+    <tr>
       <th>verbose</th>
       <td><p>Whether to output messages about batch requests and progress of processing.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other arguments</p></td>
     </tr>
     </table>
     
@@ -192,15 +200,18 @@ and <code>attr(output, "headers")$x.query.limit.limit</code>.</p>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='st'>"In the 19th century, the major European powers had gone to great lengths
 to maintain a balance of power throughout Europe, resulting in the existence of
- a complex network of political and military alliances throughout the continent by 1900.[7]
-  These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria.
-  Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of
-   the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary,
-    Russia and Germany."</span>
+a complex network of political and military alliances throughout the continent by 1900.[7]
+These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria.
+Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of
+the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary,
+Russia and Germany."</span>
 <span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='monkeylearn_extract.html'>monkeylearn_extract</a></span>(<span class='kw'>request</span> <span class='kw'>=</span> <span class='no'>text</span>)
 <span class='no'>output</span>
-<span class='co'># example with parameters</span>
-<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='st'>[1085 chars quoted with '"']</span>
+
+
+<span class='co'># Example with parameters</span>
+<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='st'>[1061 chars quoted with '"']</span>
+
 <span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>monkey_extract</span>(<span class='no'>text</span>,
                             <span class='kw'>extractor_id</span> <span class='kw'>=</span> <span class='st'>"ex_y7BPYzNG"</span>,
                             <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>max_keywords</span> <span class='kw'>=</span> <span class='fl'>3</span>,
