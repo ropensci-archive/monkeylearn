@@ -11,7 +11,9 @@
 #' @param texts_per_req Number of texts to be processed per requests. Minimum value is the number of texts in input; max is 200, as per
 #' [Monkeylearn documentation](docs.monkeylearn.com/article/api-reference/). If NULL, we default to 200, or, if there are fewer than 200 texts, the length of the input.
 #' @param unnest Should the output column be unnested?
+#' @param .keep_all If \code{input} is a dataframe, should non-\code{col} columns be retained in the output?
 #' @param verbose Whether to output messages about batch requests and progress of processing.
+#' @param ... Other arguments
 #'
 #' @details Find IDs of classifiers using \url{https://app.monkeylearn.com/main/explore}.
 #'
@@ -52,9 +54,11 @@ monkey_classify <- function(input, col = NULL,
                             params = NULL,
                             texts_per_req = NULL,
                             unnest = TRUE,
-                            verbose = TRUE) {
+                            .keep_all = TRUE,
+                            verbose = TRUE,
+                            ...) {
   if (verbose && classifier_id == "cl_oFKL5wft") {
-    message(paste0("Using classifier ID ", classifier_id, "; to find other extractors, run monkeylearn_classifiers() or visit https://app.monkeylearn.com/main/explore/"))
+    message(paste0("Using classifier ID ", classifier_id, "; to find other classifiers, run monkeylearn_classifiers() or visit https://app.monkeylearn.com/main/explore/"))
   }
 
   if (!is.logical(unnest)) {
@@ -72,9 +76,13 @@ monkey_classify <- function(input, col = NULL,
       stop("Column supplied does not appear in dataframe.")
     }
     request_orig <- input[[deparse(substitute(col))]]
+
   } else if (is.vector(input)) {
     if (!is.null(substitute(col))) {
       warning("Input is a vector but col was supplied; it will be ignored.")
+    }
+    if (.keep_all == FALSE) {
+      warning("Input is a vector but .keep_all was set to FALSE; it will be ignored.")
     }
     request_orig <- input
   } else {
@@ -84,22 +92,22 @@ monkey_classify <- function(input, col = NULL,
   # Add names to vector
   names(request_orig) <- 1:length(request_orig)
 
-  length1 <- length(request_orig)
+  length_orig <- length(request_orig)
 
   # Filter the blank requests
   request_pre_chunking <- monkeylearn_filter_blank(request_orig)
 
-  filtered_len <- length(request_pre_chunking)
+  length_filtered <- length(request_pre_chunking)
 
   # Default texts_per_req to 200, or to the length of the input if fewer than 200 texts
   # If more than 200 texts sent, proceed with a warning
-  texts_per_req <- determine_texts_per_req(filtered_len, texts_per_req)
+  texts_per_req <- determine_texts_per_req(length_filtered, texts_per_req)
 
-  if (filtered_len == 0) {
+  if (length_filtered == 0) {
     warning("You only entered blank text or NAs in the request.", call. = FALSE)
     return(tibble::tibble())
   } else {
-    if (length1 != filtered_len) {
+    if (length_orig != length_filtered) {
       if (verbose) {
         # Indices in request_orig that are not in request
         emtpy_str_indices <- setdiff(seq_along(request_orig), which(request_orig %in% request_pre_chunking))
@@ -131,7 +139,7 @@ monkey_classify <- function(input, col = NULL,
 
     for (i in seq_along(request)) {
       min_text <- ifelse((i - 1) * texts_per_req == 0, 1, (i - 1) * texts_per_req)
-      max_text <- ifelse(i == length(request), filtered_len, i * texts_per_req)
+      max_text <- ifelse(i == length(request), length_filtered, i * texts_per_req)
 
       if (verbose) {
         message(paste0("Processing batch ", i, " of ", length(request), " batches: texts ", min_text, " to ", max_text))
@@ -173,6 +181,15 @@ monkey_classify <- function(input, col = NULL,
 
       # Parse output
       output <- monkeylearn_parse_each(output, request_text = request[[i]], verbose = verbose)
+      res <- output$result
+
+      # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
+      if ((length(res) == 1 && is.na(res)) |
+        res %>% unlist() %>% is.null()) {
+        res <- rep(NA_character_, length_orig)
+      }
+
+      res_nested <- tibble::tibble(res = res)
 
       # Set up the two columns
       request_reconstructed <- tibble::tibble(
@@ -180,18 +197,8 @@ monkey_classify <- function(input, col = NULL,
         row_name = as.numeric(names(request[[i]]))
       )
 
-      res <- output$result
-
-      # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
-      if ((length(res) == 1 && is.na(res)) |
-        res %>% unlist() %>% is.null()) {
-        res <- rep(NA_character_, length1)
-      }
-
-      output_nested <- tibble::tibble(resp = res)
-
       # Get our result and headers for this batch
-      this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
+      this_result <- dplyr::bind_cols(request_reconstructed, res_nested)
       this_headers <- tibble::as_tibble(output$headers) %>% purrr::map_df(.p = is.factor, .f = as.character)
 
       results <- dplyr::bind_rows(results, this_result)
@@ -201,25 +208,34 @@ monkey_classify <- function(input, col = NULL,
     # If we had empty strings in the input, get them back into the result in the right spots
     if (length(request_orig) > nrow(results)) {
       request_orig_df <- tibble::tibble(
-        req_orig = request_orig,
+        req = request_orig,
         row_name = as.numeric(names(request_orig))
       )
 
       results <- dplyr::left_join(request_orig_df, results,
-        by = "row_name"
+        by = c("row_name", "req")
       )
 
-      results$resp <- replace_nulls_vec(results$resp)
-
-      results <- results[, -which(names(results) == "req")]
-      names(results)[which(names(results) == "req_orig")] <- "req"
+      # Replace NULLs with NAs
+      results$res <- replace_nulls_vec(results$res)
     }
 
-    if (unnest == TRUE & !(all(is.na(results$resp)))) {
+    # Remove joiner column
+    results <- results[, -which(names(results) == "row_name")]
+
+    # Retain the original column name if input is a dataframe, rather than renaming it to req
+    if (inherits(input, "data.frame")) {
+      names(results)[which(names(results) == "req")] <- deparse(substitute(col))
+    }
+
+    if (.keep_all == TRUE && inherits(input, "data.frame")) {
+      results <- dplyr::bind_cols(input[, -(which(names(input) == deparse(substitute(col))))],
+                                  results)
+    }
+
+    if (unnest == TRUE & !(all(is.na(results$res)))) {
       results <- tidyr::unnest(results)
     }
-
-    results <- results[, -which(names(results) == "row_name")]
 
     # Done!
     attr(results, "headers") <- tibble::as_tibble(headers)

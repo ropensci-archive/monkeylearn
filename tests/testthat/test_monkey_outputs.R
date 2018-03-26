@@ -78,7 +78,8 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
   text2 <- "i want to buy an iphone"
   text3 <- "Je déteste ne plus avoir de dentifrice."
   text_4 <- "I hate not having any toothpaste."
-  request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
+  request_df <- tibble::tibble(txt = c(text1, text2, text3, text_4),
+                               other_col = 1:4)
 
   # General test of dataframe
   request_df %>% test_texts(col = txt)
@@ -124,8 +125,9 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
   test_headers(output_unnested)
 
   # Dataframe or vector as input produce same result
-  vec_output <- monkey_classify(request_df$txt, texts_per_req = 2, unnest = TRUE)
-  df_output <- monkey_classify(request_df, txt, texts_per_req = 1, unnest = TRUE)
+  vec_output <- monkey_classify(request_df$txt, texts_per_req = 2, unnest = TRUE) %>%
+    dplyr::rename(txt = req)
+  df_output <- monkey_classify(request_df, txt, texts_per_req = 1, unnest = TRUE, .keep_all = FALSE)
 
   testthat::expect_equal(vec_output, df_output)
   test_headers(vec_output)

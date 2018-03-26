@@ -11,7 +11,9 @@
 #' @param texts_per_req Number of texts to be processed per requests. Minimum value is the number of texts in input; max is 200, as per
 #' [Monkeylearn documentation](docs.monkeylearn.com/article/api-reference/). If NULL, we default to 200, or, if there are fewer than 200 texts, the length of the input.
 #' @param unnest Should the output column be unnested?
+#' @param .keep_all If \code{input} is a dataframe, should non-\code{col} columns be retained in the output?
 #' @param verbose Whether to output messages about batch requests and progress of processing.
+#' @param ... Other arguments
 #'
 #' @details Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 #'
@@ -32,30 +34,34 @@
 #'
 #' @importFrom magrittr %>%
 #'
+#'
 #' @examples \dontrun{
 #' text <- "In the 19th century, the major European powers had gone to great lengths
 #' to maintain a balance of power throughout Europe, resulting in the existence of
-#'  a complex network of political and military alliances throughout the continent by 1900.[7]
-#'   These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria.
-#'   Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of
-#'    the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary,
-#'     Russia and Germany."
+#' a complex network of political and military alliances throughout the continent by 1900.[7]
+#' These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria.
+#' Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of
+#' the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary,
+#' Russia and Germany."
 #' output <- monkeylearn_extract(request = text)
 #' output
-#' # example with parameters
+#'
+#'
+#' # Example with parameters
 #' text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the
 #' Columbia University faculty club trying to convince a packed room of potential
 #' recruits that Wall Street, not Silicon Valley, was the place to be for computer
 #' scientists.\n\n The Goldman employees knew they had an uphill battle. They were
-#'  fighting against perceptions of Wall Street as boring and regulation-bound and
-#'  Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
-#'   stock options.\n\n Their argument to the room of technologically inclined students
-#'   was that Wall Street was where they could find far more challenging, diverse and,
-#'    yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n
-#'    Whereas in other opportunities you might be considering, it is working one type of data
-#'    or one type of application, we deal in hundreds of products in hundreds of markets, with
-#'     thousands or tens of thousands of clients, every day, millions of times of day worldwide,
-#'      Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+#' fighting against perceptions of Wall Street as boring and regulation-bound and
+#' Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+#' stock options.\n\n Their argument to the room of technologically inclined students
+#' was that Wall Street was where they could find far more challenging, diverse and,
+#' yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n
+#' Whereas in other opportunities you might be considering, it is working one type of data
+#' or one type of application, we deal in hundreds of products in hundreds of markets, with
+#' thousands or tens of thousands of clients, every day, millions of times of day worldwide,
+#' Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+#'
 #' output <- monkey_extract(text,
 #'                             extractor_id = "ex_y7BPYzNG",
 #'                             params = list(max_keywords = 3,
@@ -80,7 +86,6 @@
 #' Attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
 #'
 #' @export
-#'
 
 monkey_extract <- function(input, col = NULL,
                            key = monkeylearn_key(quiet = TRUE),
@@ -88,9 +93,10 @@ monkey_extract <- function(input, col = NULL,
                            params = NULL,
                            texts_per_req = NULL,
                            unnest = TRUE,
+                           .keep_all = TRUE,
                            verbose = TRUE) {
   if (verbose && extractor_id == "ex_isnnZRbS") {
-    message(paste0("Using extractor ID ", extractor_id, "; to find other extractors, visit https://app.monkeylearn.com/main/explore/"))
+    message(paste0("Using extractor ID ", extractor_id, "; to find other extractors visit https://app.monkeylearn.com/main/explore/"))
   }
 
   if (!is.logical(unnest)) {
@@ -112,6 +118,9 @@ monkey_extract <- function(input, col = NULL,
     if (!is.null(substitute(col))) {
       warning("Input is a vector but col was supplied; it will be ignored.")
     }
+    if (.keep_all == FALSE) {
+      warning("Input is a vector but .keep_all was set to FALSE; it will be ignored.")
+    }
     request_orig <- input
   } else {
     stop("input must be a dataframe or a vector")
@@ -120,22 +129,22 @@ monkey_extract <- function(input, col = NULL,
   # Add names to vector
   names(request_orig) <- 1:length(request_orig)
 
-  length1 <- length(request_orig)
+  length_orig <- length(request_orig)
 
   # Filter the blank requests
   request_pre_chunking <- monkeylearn_filter_blank(request_orig)
 
-  filtered_len <- length(request_pre_chunking)
+  length_filtered <- length(request_pre_chunking)
 
   # Default texts_per_req to 200, or to the length of the input if fewer than 200 texts
   # If more than 200 texts sent, proceed with a warning
-  texts_per_req <- determine_texts_per_req(filtered_len, texts_per_req)
+  texts_per_req <- determine_texts_per_req(length_filtered, texts_per_req)
 
-  if (filtered_len == 0) {
+  if (length_filtered == 0) {
     warning("You only entered blank text or NAs in the request.", call. = FALSE)
     return(tibble::tibble())
   } else {
-    if (length1 != filtered_len) {
+    if (length_orig != length_filtered) {
       if (verbose) {
         # Indices in request_orig that are not in request
         emtpy_str_indices <- setdiff(seq_along(request_orig), which(request_orig %in% request_pre_chunking))
@@ -144,16 +153,14 @@ monkey_extract <- function(input, col = NULL,
           message(paste0(
             "The following indices were empty strings and could not be sent to the API: ",
             paste0(emtpy_str_indices, collapse = ", "),
-            "
-                         They will still be included in the output. \n"
+            "They will still be included in the output. \n"
           ))
         } else {
           emtpy_str_indices_trunc <- emtpy_str_indices[1:20]
           message(paste0(
             "The following indices were empty strings and could not be sent to the API. (Displaying first 20): ",
             paste0(paste0(emtpy_str_indices_trunc, collapse = ", "), "..."),
-            "
-                         They will still be included in the output. \n"
+            "They will still be included in the output. \n"
           ))
         }
       }
@@ -167,7 +174,7 @@ monkey_extract <- function(input, col = NULL,
 
     for (i in seq_along(request)) {
       min_text <- ifelse((i - 1) * texts_per_req == 0, 1, (i - 1) * texts_per_req)
-      max_text <- ifelse(i == length(request), filtered_len, i * texts_per_req)
+      max_text <- ifelse(i == length(request), length_filtered, i * texts_per_req)
 
       if (verbose) {
         message(paste0("Processing batch ", i, " of ", length(request), " batches: texts ", min_text, " to ", max_text))
@@ -177,7 +184,6 @@ monkey_extract <- function(input, col = NULL,
           message("Still working!")
         }
       }
-
 
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(
@@ -210,6 +216,17 @@ monkey_extract <- function(input, col = NULL,
 
       # Parse output
       output <- monkeylearn_parse_each(output, request_text = request[[i]], verbose = verbose)
+      res <- output$result
+
+      # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
+      if ((length(res) == 1 && is.na(res)) |
+        res %>% unlist() %>% is.null()) {
+        res <- rep(NA_character_, length_orig)
+      }
+
+      # res <- res %>% map(replace_na, list(NA_character_))
+
+      res_nested <- tibble::tibble(res = res)
 
       # Set up the two columns
       request_reconstructed <- tibble::tibble(
@@ -217,18 +234,8 @@ monkey_extract <- function(input, col = NULL,
         row_name = as.numeric(names(request[[i]]))
       )
 
-      res <- output$result
-
-      # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
-      if ((length(res) == 1 && is.na(res)) |
-        res %>% unlist() %>% is.null()) {
-        res <- rep(NA_character_, length1)
-      }
-
-      output_nested <- tibble::tibble(resp = res)
-
       # Get our result and headers for this batch
-      this_result <- dplyr::bind_cols(request_reconstructed, output_nested)
+      this_result <- dplyr::bind_cols(request_reconstructed, res_nested)
       this_headers <- tibble::as_tibble(output$headers) %>% purrr::map_df(.p = is.factor, .f = as.character)
 
       results <- dplyr::bind_rows(results, this_result)
@@ -238,25 +245,36 @@ monkey_extract <- function(input, col = NULL,
     # If we had empty strings in the input, get them back into the result in the right spots
     if (length(request_orig) > nrow(results)) {
       request_orig_df <- tibble::tibble(
-        req_orig = request_orig,
+        req = request_orig,
         row_name = as.numeric(names(request_orig))
       )
 
       results <- dplyr::left_join(request_orig_df, results,
-        by = "row_name"
+        by = c("row_name", "req")
       )
 
-      results$resp <- replace_nulls_vec(results$resp)
-
-      results <- results[, -which(names(results) == "req")]
-      names(results)[which(names(results) == "req_orig")] <- "req"
+      # Replace NULLs with NAs
+      results$res <- replace_nulls_vec(results$res)
     }
 
-    if (unnest == TRUE & !(all(is.na(results$resp)))) {
+    # Remove joiner column
+    results <- results[, -which(names(results) == "row_name")]
+
+    # Retain the original column name if input is a dataframe, rather than renaming it to req
+    if (inherits(input, "data.frame")) {
+      names(results)[which(names(results) == "req")] <- deparse(substitute(col))
+    }
+
+    if (.keep_all == TRUE && inherits(input, "data.frame")) {
+      results <- dplyr::bind_cols(
+        input[, -(which(names(input) == deparse(substitute(col))))],
+        results
+      )
+    }
+
+    if (unnest == TRUE & !(all(is.na(results$res)))) {
       results <- tidyr::unnest(results)
     }
-
-    results <- results[, -which(names(results) == "row_name")]
 
     # Done!
     attr(results, "headers") <- tibble::as_tibble(headers)

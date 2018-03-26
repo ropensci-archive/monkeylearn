@@ -6,7 +6,7 @@
 \usage{
 monkey_extract(input, col = NULL, key = monkeylearn_key(quiet = TRUE),
   extractor_id = "ex_isnnZRbS", params = NULL, texts_per_req = NULL,
-  unnest = TRUE, verbose = TRUE)
+  unnest = TRUE, .keep_all = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{input}{A dataframe or vector of texts (each text smaller than 50kB)}
@@ -24,7 +24,11 @@ monkey_extract(input, col = NULL, key = monkeylearn_key(quiet = TRUE),
 
 \item{unnest}{Should the output column be unnested?}
 
+\item{.keep_all}{If \code{input} is a dataframe, should non-\code{col} columns be retained in the output?}
+
 \item{verbose}{Whether to output messages about batch requests and progress of processing.}
+
+\item{...}{Other arguments}
 }
 \value{
 A data.frame (tibble) with the cleaned input (empty strings removed) and a new column, nested by default, containing the extraction for that particular row.
@@ -69,27 +73,30 @@ and \code{attr(output, "headers")$x.query.limit.limit}.
 \dontrun{
 text <- "In the 19th century, the major European powers had gone to great lengths
 to maintain a balance of power throughout Europe, resulting in the existence of
- a complex network of political and military alliances throughout the continent by 1900.[7]
-  These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria.
-  Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of
-   the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary,
-    Russia and Germany."
+a complex network of political and military alliances throughout the continent by 1900.[7]
+These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria.
+Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of
+the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary,
+Russia and Germany."
 output <- monkeylearn_extract(request = text)
 output
-# example with parameters
+
+
+# Example with parameters
 text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the
 Columbia University faculty club trying to convince a packed room of potential
 recruits that Wall Street, not Silicon Valley, was the place to be for computer
 scientists.\\n\\n The Goldman employees knew they had an uphill battle. They were
- fighting against perceptions of Wall Street as boring and regulation-bound and
- Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
-  stock options.\\n\\n Their argument to the room of technologically inclined students
-  was that Wall Street was where they could find far more challenging, diverse and,
-   yes, lucrative jobs working on some of the worlds most difficult technical problems.\\n\\n
-   Whereas in other opportunities you might be considering, it is working one type of data
-   or one type of application, we deal in hundreds of products in hundreds of markets, with
-    thousands or tens of thousands of clients, every day, millions of times of day worldwide,
-     Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+fighting against perceptions of Wall Street as boring and regulation-bound and
+Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+stock options.\\n\\n Their argument to the room of technologically inclined students
+was that Wall Street was where they could find far more challenging, diverse and,
+yes, lucrative jobs working on some of the worlds most difficult technical problems.\\n\\n
+Whereas in other opportunities you might be considering, it is working one type of data
+or one type of application, we deal in hundreds of products in hundreds of markets, with
+thousands or tens of thousands of clients, every day, millions of times of day worldwide,
+Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+
 output <- monkey_extract(text,
                             extractor_id = "ex_y7BPYzNG",
                             params = list(max_keywords = 3,
