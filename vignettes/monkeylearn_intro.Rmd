@@ -252,7 +252,7 @@ You can easily choose an unnested output by setting the **unnest flag** to TRUE 
 (output_unnested <- monkey_classify(input, verbose = FALSE, unnest = TRUE))
 ```
 
-We could have gotten the same result by sending in a dataframe and a named column.
+We could have gotten the same result by sending in a dataframe and a named column. If a dataframe is supplied input column is not renamed to `req` as it is when input is a vector; the original column name is retained.
 
 ```{r compare_df}
 input_df <- tibble::tibble(text = input) 
@@ -263,6 +263,20 @@ testthat::expect_equal(output_unnested, output_df_unnested)
 ```
 
 <br>
+
+If the input is a dataframe, setting the `.keep_all` option to TRUE allows you to retain all input columns. If FALSE, only the column you specify for classification will be retained. 
+
+```{r keep_all}
+sw <- dplyr::starwars %>% 
+  dplyr::select(name, height) %>% 
+  dplyr::sample_n(nrow(input_df))
+
+sw_input_df <- input_df %>% 
+  dplyr::bind_cols(sw)
+
+sw_input_df %>% monkey_classify(text, unnest = FALSE, verbose = FALSE)
+```
+
 
 ### Batching
 
