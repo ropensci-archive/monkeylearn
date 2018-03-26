@@ -6,7 +6,7 @@
 \usage{
 monkey_classify(input, col = NULL, key = monkeylearn_key(quiet = TRUE),
   classifier_id = "cl_oFKL5wft", params = NULL, texts_per_req = NULL,
-  unnest = TRUE, verbose = TRUE)
+  unnest = TRUE, .keep_all = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{input}{A dataframe or vector of texts (each text smaller than 50kB)}
@@ -24,7 +24,11 @@ monkey_classify(input, col = NULL, key = monkeylearn_key(quiet = TRUE),
 
 \item{unnest}{Should the output column be unnested?}
 
+\item{.keep_all}{If \code{input} is a dataframe, should non-\code{col} columns be retained in the output?}
+
 \item{verbose}{Whether to output messages about batch requests and progress of processing.}
+
+\item{...}{Other arguments}
 }
 \value{
 A data.frame (tibble) with the cleaned input (empty strings removed) and a new column, nested by default, containing the classification for that particular row.
