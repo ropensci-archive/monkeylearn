@@ -82,7 +82,7 @@
       <h1>monkeylearn, a R Package for Natural Language Processing Using Monkeylearn Existing Modules</h1>
                         <h4 class="author">M. Salmon, A. Dobbyn</h4>
             
-            <h4 class="date">2018-03-24</h4>
+            <h4 class="date">2018-03-26</h4>
       
       <small>Source: <a href="http://github.com/ropensci/monkeylearn/blob/master/vignettes/monkeylearn_intro.Rmd"><code>vignettes/monkeylearn_intro.Rmd</code></a></small>
 
@@ -169,6 +169,7 @@ output2
 <span class="st">Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the world’s most difficult technical problems.</span>
 
 <span class="st">“Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide,” Afsheen Afshar, a managing director at Goldman Sachs, told the students."</span>
+
 <span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(text, <span class="dt">extractor_id =</span> <span class="st">"ex_y7BPYzNG"</span>)</code></pre></div>
 <ul>
 <li>
@@ -177,7 +178,8 @@ output2
 <p>When using this extractor, the format of the API output is a bit different than for other extractors, see below how the output looks like.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> "Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am"</span>
 text2 &lt;-<span class="st"> "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"</span>
-<span class="co">#monkey_extract(c(text, text2), extractor_id = "ex_dqRio5sG", unnest = TRUE)</span></code></pre></div>
+
+<span class="co"># monkey_extract(c(text, text2), extractor_id = "ex_dqRio5sG", unnest = TRUE)</span></code></pre></div>
 </div>
 </div>
 <div id="classify" class="section level1">
@@ -189,14 +191,14 @@ text2 &lt;-<span class="st"> "Hi, my email is mary@example.com and my credit car
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> "my dog is an avid rice eater"</span>
 text2 &lt;-<span class="st"> "i want to buy an iphone"</span>
 request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
+
 <span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_oFKL5wft"</span>)</code></pre></div>
 </div>
 <div id="how-to-find-classifiers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-find-classifiers" class="anchor"></a>How to find classifiers?</h2>
 <p>You can find classifiers and their IDs at <a href="https://app.monkeylearn.com/main/explore" class="uri">https://app.monkeylearn.com/main/explore</a> or you can use the <code>monkeylearn_classifiers</code> function, choosing to show all classifiers or only the private ones with <code>private = TRUE</code>. The first column of the resulting data.frame is the <code>classifier_id</code> to be used in <code>monkeylearn_classify</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw"><a href="../reference/monkeylearn_classifiers.html">monkeylearn_classifiers</a></span>(<span class="dt">private =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/monkeylearn_classifiers.html">monkeylearn_classifiers</a></span>(<span class="dt">private =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Here are a few other examples:</p>
 <ul>
 <li>
@@ -206,6 +208,7 @@ request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
 text2 &lt;-<span class="st"> "i want to buy an iphone"</span>
 text3 &lt;-<span class="st"> "Je déteste ne plus avoir de dentifrice."</span>
 request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2, text3)
+
 <span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_oJNMkt2V"</span>)</code></pre></div>
 <ul>
 <li>
@@ -214,6 +217,7 @@ request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2, te
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> "I think this is awesome."</span>
 text2 &lt;-<span class="st"> "Holy shit! You did great!"</span>
 request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
+
 <span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_KFXhoTdt"</span>)</code></pre></div>
 <ul>
 <li>
@@ -280,16 +284,26 @@ request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
 <h3 class="hasAnchor">
 <a href="#configuring-the-output" class="anchor"></a>Configuring the Output</h3>
 <p>The default output is a nested dataframe with the same number of rows as your input dataframe or the same length as your input vector, depending on which one you sent in.</p>
-<p>Let’s take a look at the <code>resp</code> output column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output<span class="op">$</span>resp</code></pre></div>
+<p>Let’s take a look at the <code>res</code> output column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output<span class="op">$</span>res</code></pre></div>
 <p>You can easily choose an unnested output by setting the <strong>unnest flag</strong> to TRUE (which it is by default) to get one row per classification/extraction.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(output_unnested &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input, <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">unnest =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<p>We could have gotten the same result by sending in a dataframe and a named column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">input_df &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="dt">text =</span> input)
-output_df_unnested &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input_df, text, <span class="dt">unnest =</span> <span class="ot">TRUE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
+<p>We could have gotten the same result by sending in a dataframe and a named column. If a dataframe is supplied input column is not renamed to <code>req</code> as it is when input is a vector; the original column name is retained.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">input_df &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="dt">text =</span> input) 
+output_df_unnested &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input_df, text, <span class="dt">unnest =</span> <span class="ot">TRUE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">rename</a></span>(<span class="dt">req =</span> text)
 
 testthat<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/testthat/topics/equality-expectations">expect_equal</a></span>(output_unnested, output_df_unnested)</code></pre></div>
 <p><br></p>
+<p>If the input is a dataframe, setting the <code>.keep_all</code> option to TRUE allows you to retain all input columns. If FALSE, only the column you specify for classification will be retained.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sw &lt;-<span class="st"> </span>dplyr<span class="op">::</span>starwars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, height) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample_n</a></span>(<span class="kw">nrow</span>(input_df))
+
+sw_input_df &lt;-<span class="st"> </span>input_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span>(sw)
+
+sw_input_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(text, <span class="dt">unnest =</span> <span class="ot">FALSE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</code></pre></div>
 </div>
 <div id="batching" class="section level3">
 <h3 class="hasAnchor">
