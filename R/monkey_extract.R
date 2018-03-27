@@ -221,7 +221,7 @@ monkey_extract <- function(input, col = NULL,
       # Some acrobatics to replace NULLs with NAs
       if (detect_nulls(res) == TRUE) {
         res_orig <- res %>% purrr::modify_depth(2, replace_null) %>%
-          tibble::as_tibble() %>% tidyr::unnest()
+          tidyr::unnest()
 
         res <- NULL
         for (j in 1:nrow(res_orig)) {
