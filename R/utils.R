@@ -211,14 +211,16 @@ monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
   return(out)
 }
 
-
+# See whether we have a situation like what is returned in output$result when extractor ex_dqRio5sG is used
 detect_nulls <- function(tbl) {
   if (inherits(tbl, "data.frame")) {
     for (i in seq_along(tbl)) {
-      if (length(tbl[, i][[1]]) == 0) {
-        contains_nulls <- TRUE
-      } else {
-        contains_nulls <- FALSE
+      for (j in seq_along(tbl[, i])) {
+        if (length(tbl[, i][[j]]) == 0) {   # If any of the cells are of length 0, we have a NULL
+          contains_nulls <- TRUE
+        } else {
+          contains_nulls <- FALSE
+        }
       }
     }
   } else {
