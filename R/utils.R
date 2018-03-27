@@ -212,12 +212,19 @@ monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
 }
 
 
-replace_x <- function(x, replacement = NA_character_) {
-  if (length(x) == 0 || is.null(x) || is.na(x) || nrow(x) == 0 || length(x[[1]]) == 0) {
-    replacement
+detect_nulls <- function(tbl) {
+  if (inherits(tbl, "data.frame")) {
+    for (i in seq_along(tbl)) {
+      if (length(tbl[, i][[1]]) == 0) {
+        contains_nulls <- TRUE
+      } else {
+        contains_nulls <- FALSE
+      }
+    }
   } else {
-    x
+    contains_nulls <- FALSE
   }
+  return(contains_nulls)
 }
 
 
@@ -229,6 +236,13 @@ replace_null <- function(x, replacement = NA_character_) {
   }
 }
 
+replace_x <- function(x, replacement = NA_character_) {
+  if (length(x) == 0 || is.null(x) || is.na(x) || nrow(x) == 0 || length(x[[1]]) == 0) {
+    replacement
+  } else {
+    x
+  }
+}
 
 replace_nulls_vec <- function(v) {
   v <- lapply(v, replace_x)
