@@ -211,13 +211,22 @@ monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
   return(out)
 }
 
-
-replace_x <- function(x, replacement = NA_character_) {
-  if (length(x) == 0 || is.null(x) || is.na(x) || nrow(x) == 0 || length(x[[1]]) == 0) {
-    replacement
+# See whether we have a situation like what is returned in output$result when extractor ex_dqRio5sG is used
+detect_nulls <- function(tbl) {
+  if (inherits(tbl, "data.frame")) {
+    for (i in seq_along(tbl)) {
+      for (j in seq_along(tbl[, i])) {
+        if (length(tbl[, i][[j]]) == 0) {   # If any of the cells are of length 0, we have a NULL
+          contains_nulls <- TRUE
+        } else {
+          contains_nulls <- FALSE
+        }
+      }
+    }
   } else {
-    x
+    contains_nulls <- FALSE
   }
+  return(contains_nulls)
 }
 
 
@@ -229,6 +238,13 @@ replace_null <- function(x, replacement = NA_character_) {
   }
 }
 
+replace_x <- function(x, replacement = NA_character_) {
+  if (length(x) == 0 || is.null(x) || is.na(x) || nrow(x) == 0 || length(x[[1]]) == 0) {
+    replacement
+  } else {
+    x
+  }
+}
 
 replace_nulls_vec <- function(v) {
   v <- lapply(v, replace_x)

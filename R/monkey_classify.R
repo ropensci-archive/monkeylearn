@@ -182,6 +182,17 @@ monkey_classify <- function(input, col = NULL,
       output <- monkeylearn_parse_each(output, request_text = request[[i]], verbose = verbose)
       res <- output$result
 
+      # Some acrobatics to replace NULLs with NAs
+      if (detect_nulls(res) == TRUE) {
+        res_orig <- res %>% purrr::modify_depth(2, replace_null) %>%
+          tidyr::unnest()
+
+        res <- NULL
+        for (j in 1:nrow(res_orig)) {
+          res <- append(res, res_orig[j, ] %>% list())
+        }
+      }
+
       # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
       if ((length(res) == 1 && is.na(res)) |
         res %>% unlist() %>% is.null()) {
