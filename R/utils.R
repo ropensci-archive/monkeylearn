@@ -221,6 +221,15 @@ replace_x <- function(x, replacement = NA_character_) {
 }
 
 
+replace_null <- function(x, replacement = NA_character_) {
+  if (length(x) == 0 || length(x[[1]]) == 0) {
+    replacement
+  } else {
+    x
+  }
+}
+
+
 replace_nulls_vec <- function(v) {
   v <- lapply(v, replace_x)
 

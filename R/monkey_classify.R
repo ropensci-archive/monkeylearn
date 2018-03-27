@@ -76,7 +76,6 @@ monkey_classify <- function(input, col = NULL,
       stop("Column supplied does not appear in dataframe.")
     }
     request_orig <- input[[deparse(substitute(col))]]
-
   } else if (is.vector(input)) {
     if (!is.null(substitute(col))) {
       warning("Input is a vector but col was supplied; it will be ignored.")
@@ -117,7 +116,7 @@ monkey_classify <- function(input, col = NULL,
             "The following indices were empty strings and could not be sent to the API: ",
             paste0(emtpy_str_indices, collapse = ", "),
             "
-                         They will still be included in the output. \n"
+            They will still be included in the output. \n"
           ))
         } else {
           emtpy_str_indices_trunc <- emtpy_str_indices[1:20]
@@ -125,7 +124,7 @@ monkey_classify <- function(input, col = NULL,
             "The following indices were empty strings and could not be sent to the API. (Displaying first 20): ",
             paste0(paste0(emtpy_str_indices_trunc, collapse = ", "), "..."),
             "
-                         They will still be included in the output. \n"
+            They will still be included in the output. \n"
           ))
         }
       }
@@ -229,8 +228,10 @@ monkey_classify <- function(input, col = NULL,
     }
 
     if (.keep_all == TRUE && inherits(input, "data.frame")) {
-      results <- dplyr::bind_cols(input[, -(which(names(input) == deparse(substitute(col))))],
-                                  results)
+      results <- dplyr::bind_cols(
+        input[, -(which(names(input) == deparse(substitute(col))))],
+        results
+      )
     }
 
     if (unnest == TRUE & !(all(is.na(results$res)))) {
