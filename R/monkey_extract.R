@@ -220,7 +220,7 @@ monkey_extract <- function(input, col = NULL,
 
       # Some acrobatics to replace NULLs with NAs
       if (extractor_id == "ex_dqRio5sG") {
-        res_orig <- res %>% purrr::modify_depth(2, replace_x) %>%
+        res_orig <- res %>% purrr::modify_depth(2, replace_null) %>%
           tibble::as_tibble() %>% tidyr::unnest()
 
         res <- NULL

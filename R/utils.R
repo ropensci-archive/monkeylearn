@@ -213,6 +213,15 @@ monkeylearn_parse_each <- function(output, request_text, verbose = TRUE) {
 
 
 replace_x <- function(x, replacement = NA_character_) {
+  if (length(x) == 0 || is.null(x) || is.na(x) || nrow(x) == 0 || length(x[[1]]) == 0) {
+    replacement
+  } else {
+    x
+  }
+}
+
+
+replace_null <- function(x, replacement = NA_character_) {
   if (length(x) == 0 || length(x[[1]]) == 0) {
     replacement
   } else {
