@@ -1,17 +1,18 @@
 # monkeylearn 0.2.0
 
-* New functions `monkey_classify()` and `monkey_extract()` that accept as input both a vector and a dataframe. These functions:
-    * Always return a tibble explicitly relating each input to its classification 
-    * Have a `.keep_all` flag to retain other columns if input is a dataframe
+* New functions `monkey_classify()` and `monkey_extract()` that:
+    * Accept as input both a vector and a dataframe and named column
+    * Always return a tibble explicitly relating each input to its classification, allowing for the removal of the MD5 hash
     * Have an `unnest` flag to unnest the output (turn 1 row per input into 1 row per output)
-    * Include inputs that could not be processed in the output
-    * Message the first 20 indices of inputs that are not sent to the API (empty strings and now `NA` and `NULL` values)
+    * Have a `.keep_all` flag to retain other columns if input is a dataframe
+    * Coerce `NULL` values and empty vectors returned from MonkeyLearn to `NA`s
+    * Include inputs that could not be processed as `NA`s in the output
+    * Message the first 20 indices of inputs that are not sent to the API (these now include `NA` and `NULL` values as well as empty strings)
     * Message the currently processing batch
-    * Coerce of `NULL` values and empty vectors returned from MonkeyLearn to `NA`s
 
 * Bug fixes and improvements to `monkeylearn_classify()` and `monkeylearn_extract()`
-    * Fix to messaging when unable to connect to MonkeyLearn API
     * `monkeylearn_classify()` can now accept `params`
+    * Fix to messaging when unable to connect to MonkeyLearn API
     * Default texts per request is set to 200 now (the recommended number), rather than 20
     * Addition of message suggesting that users switch to newer functions
 
@@ -19,7 +20,7 @@
 
 * Creation of `pkgdown` website
 
-* Programmatic test coverage to re-use tests
+* Programmatic test coverage to re-use common test
 
 
 # monkeylearn 0.1.3

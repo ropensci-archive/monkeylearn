@@ -48,7 +48,8 @@
 #'
 #' @export
 
-monkey_classify <- function(input, col = NULL,
+monkey_classify <- function(input,
+                            col = NULL,
                             key = monkeylearn_key(quiet = TRUE),
                             classifier_id = "cl_oFKL5wft",
                             params = NULL,

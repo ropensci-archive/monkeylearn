@@ -83,14 +83,16 @@
 #'
 #' @export
 
-monkey_extract <- function(input, col = NULL,
+monkey_extract <- function(input,
+                           col = NULL,
                            key = monkeylearn_key(quiet = TRUE),
                            extractor_id = "ex_isnnZRbS",
                            params = NULL,
                            texts_per_req = NULL,
                            unnest = TRUE,
                            .keep_all = TRUE,
-                           verbose = TRUE) {
+                           verbose = TRUE,
+                           ...) {
   if (verbose && extractor_id == "ex_isnnZRbS") {
     message(paste0("Using extractor ID ", extractor_id, "; to find other extractors visit https://app.monkeylearn.com/main/explore/"))
   }
