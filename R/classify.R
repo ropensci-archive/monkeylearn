@@ -64,7 +64,8 @@ More information available here: https://ropensci.github.io/monkeylearn/")
       }
 
       monkeylearn_text_size(request[[i]])
-      request_part <- monkeylearn_prep(request[[i]],
+      request_part <- monkeylearn_prep(
+        request[[i]],
         params
       )
 
