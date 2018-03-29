@@ -56,11 +56,7 @@
 #' Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
 #' stock options.\n\n Their argument to the room of technologically inclined students
 #' was that Wall Street was where they could find far more challenging, diverse and,
-#' yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n
-#' Whereas in other opportunities you might be considering, it is working one type of data
-#' or one type of application, we deal in hundreds of products in hundreds of markets, with
-#' thousands or tens of thousands of clients, every day, millions of times of day worldwide,
-#' Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+#' yes, lucrative jobs working on some of the worlds most difficult technical problems."
 #'
 #' output <- monkey_extract(text,
 #'                             extractor_id = "ex_y7BPYzNG",

@@ -5,7 +5,7 @@
 \title{monkeylearn_classify}
 \usage{
 monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
-  classifier_id = "cl_oFKL5wft", texts_per_req = 20, verbose = TRUE)
+  classifier_id = "cl_oFKL5wft", texts_per_req = 200, verbose = TRUE)
 }
 \arguments{
 \item{request}{A vector of characters (each text smaller than 50kB)}
