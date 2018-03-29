@@ -60,6 +60,9 @@ monkeylearn_url_extractor <- function(extractor_id) {
 
 # no blank request
 monkeylearn_filter_blank <- function(request) {
+  # Turn NULLs to NA
+  request <- request %>% purrr::map_chr(replace_null)
+  # Remove NAs and emtpy strings
   request <- request[!gsub(" ", "", request) %in% c("", NA)]
 
   request

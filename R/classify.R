@@ -35,7 +35,7 @@
 
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
-                                 texts_per_req = 20,
+                                 texts_per_req = 200,
                                  verbose = TRUE) {
   if (verbose) {
     message("This function is in the process of being deprecated. We suggest you switch to monkey_classify.
@@ -65,7 +65,7 @@ More information available here: https://ropensci.github.io/monkeylearn/")
 
       monkeylearn_text_size(request[[i]])
       request_part <- monkeylearn_prep(request[[i]],
-        params = NULL
+        params
       )
 
       output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
@@ -73,7 +73,7 @@ More information available here: https://ropensci.github.io/monkeylearn/")
       # try 5 times, not more
       try_number <- 1
       while (class(output) == "try-error" && try_number < 6) {
-        message(paste0("Server returned nothing, trying again, try number", try_number)) # Changed from i to try_number
+        message(paste0("Server returned nothing, trying again, try number", try_number))
         Sys.sleep(2^try_number)
         output <- tryCatch(monkeylearn_get_classify(request_part, key, classifier_id))
         try_number <- try_number + 1
