@@ -7,8 +7,8 @@
 #' @param key The API key
 #' @param extractor_id The ID of the extractor
 #' @param texts_per_req Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.
-#' @param verbose whether to output messages about batch requests
-#' @param params parameters for the module as a named list. See the second example.
+#' @param verbose Whether to output messages about batch requests
+#' @param params Parameters for the module as a named list. See the second example.
 #'
 #' @examples \dontrun{
 #' text <- "In the 19th century, the major European powers had gone to great lengths

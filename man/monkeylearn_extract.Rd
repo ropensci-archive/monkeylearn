@@ -17,9 +17,9 @@ monkeylearn_extract(request, key = monkeylearn_key(quiet = TRUE),
 
 \item{texts_per_req}{Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.}
 
-\item{verbose}{whether to output messages about batch requests}
+\item{verbose}{Whether to output messages about batch requests}
 
-\item{params}{parameters for the module as a named list. See the second example.}
+\item{params}{Parameters for the module as a named list. See the second example.}
 }
 \value{
 A data.frame with the results whose attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".

@@ -116,16 +116,14 @@ monkey_classify <- function(input,
           message(paste0(
             "The following indices were empty strings and could not be sent to the API: ",
             paste0(emtpy_str_indices, collapse = ", "),
-            "
-            They will still be included in the output. \n"
+            "They will still be included in the output. \n"
           ))
         } else {
           emtpy_str_indices_trunc <- emtpy_str_indices[1:20]
           message(paste0(
             "The following indices were empty strings and could not be sent to the API. (Displaying first 20): ",
             paste0(paste0(emtpy_str_indices_trunc, collapse = ", "), "..."),
-            "
-            They will still be included in the output. \n"
+            "They will still be included in the output. \n"
           ))
         }
       }

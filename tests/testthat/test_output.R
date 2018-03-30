@@ -31,9 +31,9 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
   testthat::expect_is(output, "data.frame")
   test_headers(output)
 
-  text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir.
+  text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
   text2 <- "i want to buy an iphone"
-  text3 <- "Je déteste ne plus avoir de dentifrice.
+  text3 <- "Je déteste ne plus avoir de dentifrice."
   request <- c(text1, text2, text3)
   output <- monkeylearn_classify(request,
     classifier_id = "cl_oJNMkt2V"

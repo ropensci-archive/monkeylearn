@@ -7,12 +7,13 @@
 #' @param key The API key
 #' @param classifier_id The ID of the classifier
 #' @param texts_per_req Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.
-#' @param verbose whether to output messages about batch requests
+#' @param verbose Whether to output messages about batch requests
+#' @param params Parameters for the module as a named list. See the second example.
 #'
 #' @details Find IDs of classifiers using \url{https://app.monkeylearn.com/main/explore}.
 #'
-#'  You can use batch to send up to 200 texts to be analyzed within the API
-#'  (classification or extraction) with each request.
+#' You can use batch to send up to 200 texts to be analyzed within the API
+#' (classification or extraction) with each request.
 #' So for example, if you need to analyze 6000 tweets,
 #' instead of doing 6000 requests to the API, you can use batch to send 30 requests,
 #' each request with 200 tweets.
@@ -36,7 +37,8 @@
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
                                  classifier_id = "cl_oFKL5wft",
                                  texts_per_req = 200,
-                                 verbose = TRUE) {
+                                 verbose = TRUE,
+                                 params = NULL) {
   if (verbose) {
     message("This function is in the process of being deprecated. We suggest you switch to monkey_classify.
 More information available here: https://ropensci.github.io/monkeylearn/")
