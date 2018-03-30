@@ -80,7 +80,7 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
   text_4 <- "I hate not having any toothpaste."
   request_df <- tibble::tibble(
     txt = c(text1, text2, text3, text_4),
-    other_col = 1:4   # Add another column to make sure we keep this around
+    other_col = 1:4 # Add another column to make sure we keep this around
   )
 
   # General test of dataframe
