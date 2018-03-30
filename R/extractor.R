@@ -7,8 +7,8 @@
 #' @param key The API key
 #' @param extractor_id The ID of the extractor
 #' @param texts_per_req Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.
-#' @param verbose whether to output messages about batch requests
-#' @param params parameters for the module as a named list. See the second example.
+#' @param verbose Whether to output messages about batch requests
+#' @param params Parameters for the module as a named list. See the second example.
 #'
 #' @examples \dontrun{
 #' text <- "In the 19th century, the major European powers had gone to great lengths
@@ -25,15 +25,12 @@
 #' Columbia University faculty club trying to convince a packed room of potential
 #' recruits that Wall Street, not Silicon Valley, was the place to be for computer
 #' scientists.\n\n The Goldman employees knew they had an uphill battle. They were
-#'  fighting against perceptions of Wall Street as boring and regulation-bound and
-#'  Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
-#'   stock options.\n\n Their argument to the room of technologically inclined students
-#'   was that Wall Street was where they could find far more challenging, diverse and,
-#'    yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n
-#'    Whereas in other opportunities you might be considering, it is working one type of data
-#'    or one type of application, we deal in hundreds of products in hundreds of markets, with
-#'     thousands or tens of thousands of clients, every day, millions of times of day worldwide,
-#'      Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+#' fighting against perceptions of Wall Street as boring and regulation-bound and
+#' Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+#' stock options.\n\n Their argument to the room of technologically inclined students
+#' was that Wall Street was where they could find far more challenging, diverse and,
+#' yes, lucrative jobs working on some of the worlds most difficult technical problems."
+#'
 #' output <- monkeylearn_extract(text,
 #'                               extractor_id = "ex_y7BPYzNG",
 #'                               params = list(max_keywords = 3,

@@ -60,6 +60,9 @@ monkeylearn_url_extractor <- function(extractor_id) {
 
 # no blank request
 monkeylearn_filter_blank <- function(request) {
+  # Turn NULLs to NA
+  request <- request %>% purrr::map_chr(replace_null)
+  # Remove NAs and emtpy strings
   request <- request[!gsub(" ", "", request) %in% c("", NA)]
 
   request
@@ -216,7 +219,7 @@ detect_nulls <- function(tbl) {
   if (inherits(tbl, "data.frame")) {
     for (i in seq_along(tbl)) {
       for (j in seq_along(tbl[, i])) {
-        if (length(tbl[, i][[j]]) == 0) {   # If any of the cells are of length 0, we have a NULL
+        if (length(tbl[, i][[j]]) == 0) { # If any of the cells are of length 0, we have a NULL
           contains_nulls <- TRUE
         } else {
           contains_nulls <- FALSE

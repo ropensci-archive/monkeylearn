@@ -52,7 +52,7 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
   c(text1, text2, text3) %>% test_texts(classifier_id = "cl_oJNMkt2V")
 
   ## Test 5
-  text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.\n\n The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.\n\n Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide, Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+  text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.\n\n The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.\n\n Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the worlds most difficult technical problems."
 
   text %>% test_texts(
     action = "extract", extractor_id = "ex_y7BPYzNG",
@@ -78,8 +78,10 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
   text2 <- "i want to buy an iphone"
   text3 <- "Je déteste ne plus avoir de dentifrice."
   text_4 <- "I hate not having any toothpaste."
-  request_df <- tibble::tibble(txt = c(text1, text2, text3, text_4),
-                               other_col = 1:4)   # Add another column to make sure we keep this around
+  request_df <- tibble::tibble(
+    txt = c(text1, text2, text3, text_4),
+    other_col = 1:4   # Add another column to make sure we keep this around
+  )
 
   # General test of dataframe
   request_df %>% test_texts(col = txt)
@@ -180,7 +182,7 @@ testthat::test_that("We can reconstruct the same length vector as we had in our 
 testthat::test_that("Messaging works as expected", {
   text_w_many_empties <- c(text_w_empties, rep("", 25))
 
-  empties_msg_expected <- "The following indices were empty strings and could not be sent to the API. (Displaying first 20): 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23...\n            They will still be included in the output. \n\n"
+  empties_msg_expected <- "The following indices were empty strings and could not be sent to the API. (Displaying first 20): 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23...They will still be included in the output. \n\n"
   empties_mgs_out <- testthat::capture_message(monkey_classify(text_w_many_empties, classifier_id = "cl_Jx8qzYJh"))
 
   testthat::expect_equal(empties_mgs_out$message, empties_msg_expected)
