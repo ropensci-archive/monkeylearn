@@ -16,11 +16,11 @@
     * Default texts per request is set to 200 now (the recommended number), rather than 20
     * Addition of message suggesting that users switch to newer functions
 
-* Implementation of `ratelimitr`. Creation and documentation of two environment variables allowing smarter rate handling
+* Implementation of `ratelimitr`. Creation and documentation of two environment variables allowing smarter rate handling when querying the MonkeyLearn API.
 
 * Creation of `pkgdown` website
 
-* Programmatic test coverage to re-use common test
+* Programmatic test coverage to re-use common tests for multiple circumstances.
 
 
 # monkeylearn 0.1.3
