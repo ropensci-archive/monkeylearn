@@ -358,7 +358,7 @@ if(monkeylearn_plan != "custom"){
 }else{
   monkeylearn_rate <- Sys.getenv("MONKEYLEARN_RATE")
   if (identical(monkeylearn_rate, "")) {
-    message("Please indicate your Monkeylearn rate in the monkeylearn_rate environment variable\n
+    message("Please indicate your Monkeylearn rate in the MONKEYLEARN_RATE environment variable\n
             Now using 120 by default") # nolint
     monkeylearn_plan <- 120
   }
