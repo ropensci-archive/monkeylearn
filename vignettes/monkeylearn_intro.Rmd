@@ -1,6 +1,6 @@
 ---
 title: "monkeylearn, a R Package for Natural Language Processing Using Monkeylearn Existing Modules"
-author: "M. Salmon"
+author: "M. Salmon, A. Dobbyn"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -22,25 +22,37 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Intro
+
 This package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.
 
 The goal of the package is not to support machine learning algorithms development with R or the API, but only to *reap the benefits of the existing modules on Monkeylearn*. Therefore, there are only two functions, one for using *extractors*, and one for using *classifiers*. The difference between extractors and classifiers is that extractors output information about words, whereas classifiers output information about each text as a whole. Named entity recognition is an extraction task, whereas assigning a topic to a text is a classification task.
 
-To get an API key for MonkeyLearn, register at http://monkeylearn.com/. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. The free API key provides up to 100,000 requests a month For ease of use, save your API key as an environment variable as described at http://stat545.com/bit003_api-key-env-var.html.
+## Setup
 
-Both functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN_KEY" you don't need to input it manually.
+To get an API key for MonkeyLearn, register at http://monkeylearn.com/. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. For ease of use, save your API key as an environment variable as described at http://stat545.com/bit003_api-key-env-var.html. You might also want to use the `usethis::edit_r_environ()` function to modify .Renviron.
 
-You can see an example of the package in action in this blog post ["Analyzing #first7jobs tweets with MonkeyLearn and R"](https://blog.monkeylearn.com/analyzing-first7jobs-tweets-monkeylearn-r/).
+All functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN\_KEY" you don't need to input it manually.
+
+Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether your [Monkeylearn plan](https://app.monkeylearn.com/main/my-account/tab/change-plan/) is "free", "team", "business" or "custom". If you do not indiciate it by default it will be "free" with a message. If your plan is "custom" you'll need a third environment variable "MONKEYLEARN\_RATE" indicating the maximum amount of requests per minute that you can make to the API. If you do not indicate it, by default it will be 120 with a message.
+
+## So many monkeys/functions
+
+The packages exports `monkeylearn_classify`, `monkey_classify`, `monkeylearn_extract`, `monkey_extract`. The `monkey_` functions are the newer and better ones, so if you don't have legacy code, just start using those!
+
+For inspiration beyond this vignette, you can see external examples of the package in action [on this page](http://ropensci.github.io/monkeylearn/). In particular you'll find examples using the older set of functions but we now recommend using `monkey_extract` and `monkey_classify`, see more later in the vignette. 
 
 # Extract
 
 ## A first example 
 
 ```{r, message = FALSE}
-library("monkeylearn")
+library(monkeylearn)
+library(magrittr)
+
 text <- "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."
-output <- monkeylearn_extract(request = text,
-                              extractor_id = "ex_isnnZRbS")
+output <- monkey_extract(input = text,
+                         extractor_id = "ex_isnnZRbS")
 output
 attr(output, "headers")
 ```
@@ -54,22 +66,19 @@ text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the
 Columbia University faculty club trying to convince a packed room of potential
 recruits that Wall Street, not Silicon Valley, was the place to be for computer
 scientists.\n\n The Goldman employees knew they had an uphill battle. They were
- fighting against perceptions of Wall Street as boring and regulation-bound and
- Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
-  stock options.\n\n Their argument to the room of technologically inclined students
-  was that Wall Street was where they could find far more challenging, diverse and,
-   yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n
-   Whereas in other opportunities you might be considering, it is working one type of data
-   or one type of application, we deal in hundreds of products in hundreds of markets, with
-    thousands or tens of thousands of clients, every day, millions of times of day worldwide,
-     Afsheen Afshar, a managing director at Goldman Sachs, told the students."
-output <- monkeylearn_extract(text,
-                              extractor_id = "ex_y7BPYzNG",
-                              params = list(max_keywords = 3))
+fighting against perceptions of Wall Street as boring and regulation-bound and
+Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+stock options.\n\n Their argument to the room of technologically inclined students
+was that Wall Street was where they could find far more challenging, diverse and,
+yes, lucrative jobs working on some of the worlds most difficult technical problems."
+
+output <- monkey_extract(text,
+                        extractor_id = "ex_y7BPYzNG",
+                        params = list(max_keywords = 3))
 output
-output2 <- monkeylearn_extract(text,
-                              extractor_id = "ex_y7BPYzNG",
-                              params = list(max_keywords = 1))
+output2 <- monkey_extract(text,
+                          extractor_id = "ex_y7BPYzNG",
+                          params = list(max_keywords = 1))
 output2
 attr(output2, "headers")
 ```
@@ -94,10 +103,8 @@ The Goldman employees knew they had an uphill battle. They were fighting against
 Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the world’s most difficult technical problems.
 
 “Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide,” Afsheen Afshar, a managing director at Goldman Sachs, told the students."
-output <- monkeylearn_extract(request = text,
-                              extractor_id = "ex_y7BPYzNG")
-output
 
+monkey_extract(text, extractor_id = "ex_y7BPYzNG")
 ```
 
 * [Useful data extractor](https://app.monkeylearn.com/extraction/extractors/ex_dqRio5sG/tab/description-tab), `extractor_id = "ex_dqRio5sG"`. Extract useful data from text. This algorithm can be used to detect many different useful data: links, phones, ips, prices, times, emails, bitcoin addresses, dates, ipv6s, hex colors and credit cards.
@@ -107,10 +114,8 @@ When using this extractor, the format of the API output is a bit different than 
 ```{r, message = FALSE}
 text <- "Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am"
 text2 <- "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"
-output <- monkeylearn_extract(request = c(text, text2),
-                              extractor_id = "ex_dqRio5sG")
-output
 
+monkey_extract(c(text, text2), extractor_id = "ex_dqRio5sG", unnest = TRUE)
 ```
 
 
@@ -122,18 +127,15 @@ output
 text1 <- "my dog is an avid rice eater"
 text2 <- "i want to buy an iphone"
 request <- c(text1, text2)
-monkeylearn_classify(request,
-                     classifier_id = "cl_oFKL5wft")
 
+monkey_classify(request, classifier_id = "cl_oFKL5wft")
 ```
 ## How to find classifiers?
 
 You can find classifiers and their IDs at https://app.monkeylearn.com/main/explore or you can use the `monkeylearn_classifiers` function, choosing to show all classifiers or only the private ones with `private = TRUE`. The first column of the resulting data.frame is the `classifier_id` to be used in `monkeylearn_classify`.
 
 ```{r}
-
 monkeylearn_classifiers(private = FALSE)
-
 ```
 
 Here are a few other examples:
@@ -145,9 +147,8 @@ text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis un
 text2 <- "i want to buy an iphone"
 text3 <- "Je déteste ne plus avoir de dentifrice."
 request <- c(text1, text2, text3)
-monkeylearn_classify(request,
-                     classifier_id = "cl_oJNMkt2V")
 
+monkey_classify(request, classifier_id = "cl_oJNMkt2V")
 ```
 
 * [Profanity and abuse detection](https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab), `classifier_id = "cl_KFXhoTdt"`.
@@ -156,9 +157,8 @@ monkeylearn_classify(request,
 text1 <- "I think this is awesome."
 text2 <- "Holy shit! You did great!"
 request <- c(text1, text2)
-monkeylearn_classify(request,
-                     classifier_id = "cl_KFXhoTdt")
 
+monkey_classify(request, classifier_id = "cl_KFXhoTdt")
 ```
 
 * [General topic classifier](https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/), `classifier_id = "cl_5icAVzKR"`.
@@ -167,20 +167,157 @@ monkeylearn_classify(request,
 text1 <- "Let me tell you about my dog and my cat. They are really friendly and like going on walks. They both like chasing mice."
 text2 <- "My first R package was probably a disaster but I keep learning how to program."
 request <- c(text1, text2)
-monkeylearn_classify(request,
-                     classifier_id = "cl_5icAVzKR")
+monkey_classify(request, classifier_id = "cl_5icAVzKR")
 
 ```
 
-# Check the number of remaining calls
+
+# Get what you paid for
+
+Monkeylearn offers a different service based on your current plan, that is, "free", "team" or "business". These plans will both influence your _rate limiting_ (how fast?) and your _query limiting_ (how many queries?). See https://monkeylearn.com/pricing/. Thanks to your MONKEYLEARN_PLAN environment variable, the rate will be handled automatically thanks to [`ratelimitr`](https://github.com/tarakc02/ratelimitr).
+
+## Check the number of remaining calls
 
 After each call to a function you can check how many calls to the API you can still make  using `attr(output, "headers")$x.query.limit.remaining` and `attr(output, "headers")$x.query.limit.limit`. The period after which `attr(output, "headers")$x.query.limit.remaining` depends on your subscription and is not included in the output.
 
 
+
+# Fit `monkeylearn` into your pipeline!
+
+You can:
+
+* Send a vector of texts *or* a dataframe and a named column (unquoted)
+* Output either a nested or unnested dataframe
+    * Nested = 1 row per input; unnested = 1 row per output
+* This output
+    * Relates each input text to its (usually) multiple classifications/extractions
+    * Retains a record of inputs that could not be classified/extracted (e.g., empty strings)
+* Batch requests
+
+
+## In a bit more detail
+
+You can classify or extract a vector or dataframe of texts while relating the original input text to its classifications. This is important, because the input:output relationship may not always (and in fact, is not usually) 1:1. These functions retain the tie between each `input`[^1] element and all of its output elements.
+
+```{r monkey_input}
+input <- c("Emma Woodhouse, handsome, clever, and rich, with a comfortable home",     
+ "and happy disposition, seemed to unite some of the best blessings of",  
+ "existence; and had lived nearly twenty-one years in the world with very", 
+ "little to distress or vex her.",                                          
+ "",                   # <--- note the empty string!                                                   
+ "She was the youngest of the two daughters of a most affectionate,",       
+ "indulgent father; and had, in consequence of her sister's marriage, been",
+ "mistress of his house from a very early period. Her mother had died",     
+ "too long ago for her to have more than an indistinct remembrance of",     
+ "her caresses; and her place had been supplied by an excellent woman as",  
+ "governess, who had fallen little short of a mother in affection.")
+```
+
+That is true even if you have inputs that cannot be processed. For instance, empty string and `NA` input elements are not sent to the API for classification/extraction. (You'll get a warning of this if `verbose = TRUE`.) We've got one above to illustrate and elements that returned no classifications/extractions are included in the resulting dataframe. This way you'll know which inputs could not be processed.
+
+```{r monkey_output}
+(output <- monkey_classify(input, unnest = FALSE))
+```
+
+<br>
+
+If there are more than 20 empty inputs, we save your console by messaging only the first 20 indices.
+
+```{r very_empty_input}
+(very_empty_input <- rep("", 25) %>% c(input) %>% sample())
+```
+
+
+Since the entire original input is represented in the output, if you need to find all of the empty inputs you can easily filter the output to all of the rows containing empty strings.
+```{r}
+monkey_classify(very_empty_input, unnest = FALSE)
+```
+
+
+### Configuring the Output
+
+The default output is a nested dataframe with the same number of rows as your input dataframe or the same length as your input vector, depending on which one you sent in. 
+
+Let's take a look at the `res` output column. 
+```{r}
+output$res
+```
+
+You can easily choose an unnested output by setting the **unnest flag** to TRUE (which it is by default) to get one row per classification/extraction. 
+
+```{r unnest_true}
+(output_unnested <- monkey_classify(input, verbose = FALSE, unnest = TRUE))
+```
+
+We could have gotten the same result by sending in a dataframe and a named column. If a dataframe is supplied input column is not renamed to `req` as it is when input is a vector; the original column name is retained.
+
+```{r compare_df}
+input_df <- tibble::tibble(text = input) 
+output_df_unnested <- monkey_classify(input_df, text, unnest = TRUE, verbose = FALSE) %>% 
+    dplyr::rename(req = text)
+
+testthat::expect_equal(output_unnested, output_df_unnested)
+```
+
+<br>
+
+If the input is a dataframe, setting the `.keep_all` option to TRUE allows you to retain all input columns. If FALSE, only the column you specify for classification will be retained. 
+
+```{r keep_all}
+sw <- dplyr::starwars %>% 
+  dplyr::select(name, height) %>% 
+  dplyr::sample_n(nrow(input_df))
+
+sw_input_df <- input_df %>% 
+  dplyr::bind_cols(sw)
+
+sw_input_df %>% monkey_classify(text, unnest = FALSE, verbose = FALSE)
+```
+
+
+### Batching
+
+Retaining the relationship between input and output doesn't mean you'll need to send requests one-by-one. **Batch requests** by setting the `texts_per_req` value which governs the number of texts that are sent per request. Per the [MonkeyLearn documentation](http://help.monkeylearn.com/frequently-asked-questions/queries/can-i-classify-or-extract-more-than-one-text-with-one-api-request), the maximum we recommend sending at once is 200 requests. 
+
+If `texts_per_req` is NULL, the default, we try to optimize the response time from the API by setting `texts_per_req` to 200 when your input has more than 200 texts or to the length of the `input` if you've got fewer. You'll see a significant speedup by batching your requests this way. However, batching doesn't save you on queries; a batch of 150 texts still uses up 150 queries. 
+
+These functions also include some more verbose **progress reporting**, letting you know what batch you're on out of the total, and which texts are set to be processed in that batch.
+
+```{r one_by_one, warning=FALSE}
+one_by_one <- system.time(output <- monkey_classify(input, texts_per_req = 1))
+```
+
+```{r batch_of_five, warning=FALSE}
+batch_of_five <- system.time(output <- monkey_classify(input, texts_per_req = 5))
+```
+
+How much does sending 5 texts in a batch vs. 1 text improve our processing time?
+```{r speedup}
+(speedup <- one_by_one[1] / batch_of_five[1])
+```
+
+
+A 3-4x speedup isn't so bad! Worth keeping in mind that if you need the blazing fast speeds you might consider upgrading to a higher MonkeyLearn price tier. 
+
+<br>
+
+
+
+
+
+***
+
+<br>
+
+
 # Meta
 
-* Please [report any issues or bugs](https://github.com/ropenscilabs/monkeylearn/issues).
+* Please [report any issues or bugs](https://github.com/ropensci/monkeylearn/issues).
 * License: GPL
-* Get citation information for `opencage` in R doing `citation(package = 'monkeylearn')`
+* Get citation information for `monkeylearn` in R doing `citation(package = 'monkeylearn')`
 * Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 * This package is part of the [rOpenSci project](https://ropensci.org/).
+
+
+[^1]: Thanks to [Julia Silge](https://juliasilge.com/)'s fantastic [`janeaustenr`](https://github.com/juliasilge/janeaustenr) package for this text!
+

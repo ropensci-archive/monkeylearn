@@ -5,7 +5,8 @@
 \title{monkeylearn_extract}
 \usage{
 monkeylearn_extract(request, key = monkeylearn_key(quiet = TRUE),
-  extractor_id = "ex_isnnZRbS", verbose = FALSE, params = NULL)
+  extractor_id = "ex_isnnZRbS", texts_per_req = 200, verbose = TRUE,
+  params = NULL)
 }
 \arguments{
 \item{request}{A vector of characters (each text smaller than 50kB)}
@@ -14,9 +15,11 @@ monkeylearn_extract(request, key = monkeylearn_key(quiet = TRUE),
 
 \item{extractor_id}{The ID of the extractor}
 
-\item{verbose}{whether to output messages about batch requests}
+\item{texts_per_req}{Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.}
 
-\item{params}{parameters for the module as a named list. See the second example.}
+\item{verbose}{Whether to output messages about batch requests}
+
+\item{params}{Parameters for the module as a named list. See the second example.}
 }
 \value{
 A data.frame with the results whose attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
@@ -29,8 +32,8 @@ Access to Monkeylearn extractors modules
 Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 Within the free plan, you can make up to 20 requests per minute.
 
-  You can use batch to send up to 200 texts to be analyzed within the API
- (classification or extraction) with each request.
+You can use batch to send up to 200 texts to be analyzed within the API
+(classification or extraction) with each request.
 So for example, if you need to analyze 6000 tweets,
 instead of doing 6000 requests to the API, you can use batch to send 30 requests,
 each request with 200 tweets.
@@ -56,15 +59,12 @@ text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the
 Columbia University faculty club trying to convince a packed room of potential
 recruits that Wall Street, not Silicon Valley, was the place to be for computer
 scientists.\\n\\n The Goldman employees knew they had an uphill battle. They were
- fighting against perceptions of Wall Street as boring and regulation-bound and
- Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
-  stock options.\\n\\n Their argument to the room of technologically inclined students
-  was that Wall Street was where they could find far more challenging, diverse and,
-   yes, lucrative jobs working on some of the worlds most difficult technical problems.\\n\\n
-   Whereas in other opportunities you might be considering, it is working one type of data
-   or one type of application, we deal in hundreds of products in hundreds of markets, with
-    thousands or tens of thousands of clients, every day, millions of times of day worldwide,
-     Afsheen Afshar, a managing director at Goldman Sachs, told the students."
+fighting against perceptions of Wall Street as boring and regulation-bound and
+Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+stock options.\\n\\n Their argument to the room of technologically inclined students
+was that Wall Street was where they could find far more challenging, diverse and,
+yes, lucrative jobs working on some of the worlds most difficult technical problems."
+
 output <- monkeylearn_extract(text,
                               extractor_id = "ex_y7BPYzNG",
                               params = list(max_keywords = 3,

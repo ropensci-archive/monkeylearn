@@ -1,8 +1,11 @@
 Package: monkeylearn
 Type: Package
 Title: Accesses the Monkeylearn API for Text Classifiers and Extractors
-Version: 0.1.3
-Authors@R: c(person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre")), person("Thomas", "Leeper", role = c("ctb"), comment = "Thomas Leeper reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/45"), person("Jeroen", "Ooms", role = c("ctb")))
+Version: 0.2.0
+Authors@R: c(person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2815-0399")), 
+             person("Amanda", "Dobbyn", email = "amanda.e.dobbyn@gmail.com", role = c("aut")), 
+             person("Thomas", "Leeper", role = c("rev"), comment = "Thomas Leeper reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/45"), 
+             person("Jeroen", "Ooms", role = c("ctb")))
 Description: Allows using some services of Monkeylearn <http://monkeylearn.com/> which is
     a Machine Learning platform on the cloud for text analysis (classification and extraction).
 License: GPL (>= 2)
@@ -10,14 +13,19 @@ LazyData: TRUE
 URL: http://github.com/ropensci/monkeylearn
 BugReports: http://github.com/ropensci/monkeylearn/issues
 Encoding: UTF-8
-RoxygenNote: 6.0.1
-Suggests: testthat,
-    knitr,
+RoxygenNote: 6.0.1.9000
+Suggests: knitr,
     rmarkdown,
-    dplyr
-Imports: jsonlite,
-    httr,
-    methods,
+    testthat
+Imports: 
     digest,
-    tibble (>= 1.2)
+    dplyr,
+    httr,
+    jsonlite,
+    magrittr,
+    methods,
+    purrr,
+    tibble (>= 1.2),
+    tidyr,
+    ratelimitr
 VignetteBuilder: knitr

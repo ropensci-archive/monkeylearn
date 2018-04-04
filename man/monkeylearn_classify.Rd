@@ -5,7 +5,8 @@
 \title{monkeylearn_classify}
 \usage{
 monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
-  classifier_id = "cl_oFKL5wft", verbose = FALSE)
+  classifier_id = "cl_oFKL5wft", texts_per_req = 200, verbose = TRUE,
+  params = NULL)
 }
 \arguments{
 \item{request}{A vector of characters (each text smaller than 50kB)}
@@ -14,7 +15,11 @@ monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
 
 \item{classifier_id}{The ID of the classifier}
 
-\item{verbose}{whether to output messages about batch requests}
+\item{texts_per_req}{Number of texts to be fed through per request (max 200). Does not affect output, but may affect speed of processing.}
+
+\item{verbose}{Whether to output messages about batch requests}
+
+\item{params}{Parameters for the module as a named list. See the second example.}
 }
 \value{
 A data.frame (tibble) with the results whose attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
@@ -26,8 +31,8 @@ Access to Monkeylearn classifiers modules
 \details{
 Find IDs of classifiers using \url{https://app.monkeylearn.com/main/explore}.
 
- You can use batch to send up to 200 texts to be analyzed within the API
- (classification or extraction) with each request.
+You can use batch to send up to 200 texts to be analyzed within the API
+(classification or extraction) with each request.
 So for example, if you need to analyze 6000 tweets,
 instead of doing 6000 requests to the API, you can use batch to send 30 requests,
 each request with 200 tweets.
