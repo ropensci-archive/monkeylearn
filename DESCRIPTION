@@ -6,7 +6,8 @@ Authors@R: c(person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role 
              person("Amanda", "Dobbyn", email = "amanda.e.dobbyn@gmail.com", role = c("aut")), 
              person("Thomas", "Leeper", role = c("rev"), comment = "Thomas Leeper reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/45"), 
              person("Jeroen", "Ooms", role = c("ctb")),
-             person("rOpenSci", role = c("fnd")))
+             person("rOpenSci", role = c("fnd"), comment = c("https://ropensci.org/")),
+             person("Earlybird Software", role = c("fnd"), comment = c("http://earlybird.co/")))
 Description: Allows using some services of Monkeylearn <http://monkeylearn.com/> which is
     a Machine Learning platform on the cloud for text analysis (classification and extraction).
 License: GPL (>= 2)
