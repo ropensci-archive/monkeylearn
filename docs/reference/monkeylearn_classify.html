@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">monkeylearn</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -114,7 +114,8 @@
     
 
     <pre class="usage"><span class='fu'>monkeylearn_classify</span>(<span class='no'>request</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='monkeylearn_key.html'>monkeylearn_key</a></span>(<span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>classifier_id</span> <span class='kw'>=</span> <span class='st'>"cl_oFKL5wft"</span>, <span class='kw'>texts_per_req</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>classifier_id</span> <span class='kw'>=</span> <span class='st'>"cl_oFKL5wft"</span>, <span class='kw'>texts_per_req</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,7 +138,11 @@
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>whether to output messages about batch requests</p></td>
+      <td><p>Whether to output messages about batch requests</p></td>
+    </tr>
+    <tr>
+      <th>params</th>
+      <td><p>Parameters for the module as a named list. See the second example.</p></td>
     </tr>
     </table>
     
@@ -150,7 +155,7 @@ Both data.frames include a column with the (list of) md5 checksum(s) of the corr
 
     <p>Find IDs of classifiers using <a href='https://app.monkeylearn.com/main/explore'>https://app.monkeylearn.com/main/explore</a>.</p>
 <p>You can use batch to send up to 200 texts to be analyzed within the API
- (classification or extraction) with each request.
+(classification or extraction) with each request.
 So for example, if you need to analyze 6000 tweets,
 instead of doing 6000 requests to the API, you can use batch to send 30 requests,
 each request with 200 tweets.

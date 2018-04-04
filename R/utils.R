@@ -337,18 +337,33 @@ test_headers <- function(df) {
 # 60 for the Team plan and 120 for the Business plan.
 # The API is limited to 5 concurrent requests per second.
 monkeylearn_rates <- data.frame(
-  plan = c("free", "team", "business"),
-  req_min = c(20, 60, 120)
+  plan = c("free", "team", "business", "custom"),
+  req_min = c(20, 60, 120, 999)
 )
 
 monkeylearn_plan <- Sys.getenv("MONKEYLEARN_PLAN")
 if (identical(monkeylearn_plan, "")) {
-  warning("Please indicate your Monkeylearn plan in the MONKEYLEARN_PLAN environment variable\n
+  message("Please indicate your Monkeylearn plan in the MONKEYLEARN_PLAN environment variable\n
           Now using 'free' by default") # nolint
   monkeylearn_plan <- "free"
 }
 
-monkeylearn_rate <- monkeylearn_rates$req_min[monkeylearn_rates$plan == monkeylearn_plan]
+
+if(!monkeylearn_plan %in% monkeylearn_rates$plan){
+  stop('Your MONKEYLEARN_PLAN should be either "free", "team", "business" or  "custom"')
+}
+
+if(monkeylearn_plan != "custom"){
+  monkeylearn_rate <- monkeylearn_rates$req_min[monkeylearn_rates$plan == monkeylearn_plan]
+}else{
+  monkeylearn_rate <- Sys.getenv("MONKEYLEARN_RATE")
+  if (identical(monkeylearn_rate, "")) {
+    message("Please indicate your Monkeylearn rate in the MONKEYLEARN_RATE environment variable\n
+            Now using 120 by default") # nolint
+    monkeylearn_plan <- 120
+  }
+}
+
 
 # rate limiting
 monkey_post <- ratelimitr::limit_rate(

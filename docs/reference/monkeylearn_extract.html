@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">monkeylearn</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -138,11 +138,11 @@
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>whether to output messages about batch requests</p></td>
+      <td><p>Whether to output messages about batch requests</p></td>
     </tr>
     <tr>
       <th>params</th>
-      <td><p>parameters for the module as a named list. See the second example.</p></td>
+      <td><p>Parameters for the module as a named list. See the second example.</p></td>
     </tr>
     </table>
     
@@ -178,7 +178,16 @@ to maintain a balance of power throughout Europe, resulting in the existence of
 <span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>monkeylearn_extract</span>(<span class='kw'>request</span> <span class='kw'>=</span> <span class='no'>text</span>)
 <span class='no'>output</span>
 <span class='co'># example with parameters</span>
-<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='st'>[1085 chars quoted with '"']</span>
+<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='st'>"A panel of Goldman Sachs employees spent a recent Tuesday night at the
+Columbia University faculty club trying to convince a packed room of potential
+recruits that Wall Street, not Silicon Valley, was the place to be for computer
+scientists.\n\n The Goldman employees knew they had an uphill battle. They were
+fighting against perceptions of Wall Street as boring and regulation-bound and
+Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+stock options.\n\n Their argument to the room of technologically inclined students
+was that Wall Street was where they could find far more challenging, diverse and,
+yes, lucrative jobs working on some of the worlds most difficult technical problems."</span>
+
 <span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>monkeylearn_extract</span>(<span class='no'>text</span>,
                               <span class='kw'>extractor_id</span> <span class='kw'>=</span> <span class='st'>"ex_y7BPYzNG"</span>,
                               <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>max_keywords</span> <span class='kw'>=</span> <span class='fl'>3</span>,

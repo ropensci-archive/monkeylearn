@@ -16,7 +16,7 @@
     * Default texts per request is set to 200 now (the recommended number), rather than 20
     * Addition of message suggesting that users switch to newer functions
 
-* Implementation of `ratelimitr`
+* Implementation of `ratelimitr`. Creation and documentation of two environment variables allowing smarter rate handling
 
 * Creation of `pkgdown` website
 

@@ -52,7 +52,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">monkeylearn</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -103,11 +103,43 @@
 
   <div class="col-md-9">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1>Change log <small></small></h1>
       <small>Source: <a href='http://github.com/ropensci/monkeylearn/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div class="contents">
+    <div id="monkeylearn-0-2-0" class="section level1">
+<h1 class="page-header">
+<a href="#monkeylearn-0-2-0" class="anchor"></a>monkeylearn 0.2.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>New functions <code><a href="../reference/monkey_classify.html">monkey_classify()</a></code> and <code><a href="../reference/monkey_extract.html">monkey_extract()</a></code> that:
+<ul>
+<li>Accept as input both a vector and a dataframe and named column</li>
+<li>Always return a tibble explicitly relating each input to its classification, allowing for the removal of the MD5 hash</li>
+<li>Have an <code>unnest</code> flag to unnest the output (turn 1 row per input into 1 row per output)</li>
+<li>Have a <code>.keep_all</code> flag to retain other columns if input is a dataframe</li>
+<li>Coerce <code>NULL</code> values and empty vectors returned from MonkeyLearn to <code>NA</code>s</li>
+<li>Include inputs that could not be processed as <code>NA</code>s in the output</li>
+<li>Message the first 20 indices of inputs that are not sent to the API (these now include <code>NA</code> and <code>NULL</code> values as well as empty strings)</li>
+<li>Message the currently processing batch</li>
+</ul>
+</li>
+<li>Bug fixes and improvements to <code><a href="../reference/monkeylearn_classify.html">monkeylearn_classify()</a></code> and <code><a href="../reference/monkeylearn_extract.html">monkeylearn_extract()</a></code>
+<ul>
+<li>
+<code><a href="../reference/monkeylearn_classify.html">monkeylearn_classify()</a></code> can now accept <code>params</code>
+</li>
+<li>Fix to messaging when unable to connect to MonkeyLearn API</li>
+<li>Default texts per request is set to 200 now (the recommended number), rather than 20</li>
+<li>Addition of message suggesting that users switch to newer functions</li>
+</ul>
+</li>
+<li><p>Implementation of <code>ratelimitr</code>. Creation and documentation of two environment variables allowing smarter rate handling</p></li>
+<li><p>Creation of <code>pkgdown</code> website</p></li>
+<li><p>Programmatic test coverage to re-use common test</p></li>
+</ul>
+</div>
     <div id="monkeylearn-0-1-3" class="section level1">
 <h1 class="page-header">
 <a href="#monkeylearn-0-1-3" class="anchor"></a>monkeylearn 0.1.3<small> 2017-05-16 </small>
@@ -140,6 +172,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#monkeylearn-0-2-0">0.2.0</a></li>
         <li><a href="#monkeylearn-0-1-3">0.1.3</a></li>
         <li><a href="#monkeylearn-0-1-2">0.1.2</a></li>
         <li><a href="#monkeylearn-0-1-1">0.1.1</a></li>
