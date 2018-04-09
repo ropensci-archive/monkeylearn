@@ -1,10 +1,13 @@
 
 # status check
-monkeylearn_check <- function(req) {
+monkeylearn_check <- function(req, try_number = 1, verbose = FALSE) {
   if (req$status_code < 400) return(TRUE)
-  if (req$status_code == 429) {
-    "Pause for throttle limit, 60 seconds"
-    Sys.sleep(60)
+  if (req$status_code >= 400) {
+    if(verbose){
+      message(paste("Pause for http error, wait & try number", try + 2)) # nolint
+
+    }
+       Sys.sleep(2^try_number)
     return(FALSE)
   }
   if (identical(req, "")) {
@@ -96,7 +99,8 @@ monkeylearn_get_extractor <- function(request, key, extractor_id) {
 }
 
 
-monkeylearn_get_classify <- function(request, key, classifier_id) {
+monkeylearn_get_classify <- function(request, key, classifier_id,
+                                     try_number, verbose) {
   monkey_post(monkeylearn_url_classify(classifier_id),
     httr::add_headers(
       "Accept" = "application/json",

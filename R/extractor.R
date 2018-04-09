@@ -102,9 +102,12 @@ More information available here: https://ropensci.github.io/monkeylearn/")
         try_number <- try_number + 1
       }
 
-      # check the output -- if it is 429 try again (throttle limit)
-      while (!monkeylearn_check(output)) {
+      # check the output
+      try_number <- 1
+      while (!monkeylearn_check(output, try_number, verbose) &&
+             try_number < 6)
         output <- monkeylearn_get_extractor(request_part, key, extractor_id)
+        try_number <- try_number + 1
       }
       # parse output
       output <- monkeylearn_parse(output, request_text = request[[i]])
