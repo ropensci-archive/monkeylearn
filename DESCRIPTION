@@ -20,6 +20,7 @@ Suggests: knitr,
     rmarkdown,
     testthat
 Imports: 
+    cowsay,
     digest,
     dplyr,
     httr,
