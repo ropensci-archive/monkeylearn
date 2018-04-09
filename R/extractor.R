@@ -105,7 +105,7 @@ More information available here: https://ropensci.github.io/monkeylearn/")
       # check the output
       try_number <- 1
       while (!monkeylearn_check(output, try_number, verbose) &&
-             try_number < 6)
+             try_number < 6){
         output <- monkeylearn_get_extractor(request_part, key, extractor_id)
         try_number <- try_number + 1
       }

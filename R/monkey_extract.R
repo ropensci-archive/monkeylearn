@@ -204,7 +204,7 @@ monkey_extract <- function(input,
       # Check the output -- if it is 429 (throttle limit) try again. Try 5 times, not more
       try_number <- 1
       while (!monkeylearn_check(output, try_number, verbose) &&
-             try_number < 6)
+             try_number < 6){
         output <- monkeylearn_get_extractor(request_part, key, extractor_id)
         try_number <- try_number + 1
       }

@@ -86,7 +86,7 @@ More information available here: https://ropensci.github.io/monkeylearn/")
       # try 5 times, not more
       try_number <- 1
       while (!monkeylearn_check(output, try_number, verbose) &&
-             try_number < 6)
+             try_number < 6){
         output <- monkeylearn_get_classify(request_part, key, classifier_id)
         try_number <- try_number + 1
       }
