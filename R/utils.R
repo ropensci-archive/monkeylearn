@@ -99,8 +99,7 @@ monkeylearn_get_extractor <- function(request, key, extractor_id) {
 }
 
 
-monkeylearn_get_classify <- function(request, key, classifier_id,
-                                     try_number, verbose) {
+monkeylearn_get_classify <- function(request, key, classifier_id) {
   monkey_post(monkeylearn_url_classify(classifier_id),
     httr::add_headers(
       "Accept" = "application/json",
