@@ -91,7 +91,7 @@
 <h1 class="hasAnchor">
 <a href="#installation-and-setup" class="anchor"></a>Installation and setup</h1>
 <p>To install the package, you will need the <code>devtools</code> package.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ropensci/monkeylearn"</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ropensci/monkeylearn"</span>)</code></pre></div>
 <p>To get an API key for MonkeyLearn, register at <a href="http://monkeylearn.com/" class="uri">http://monkeylearn.com/</a>. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. For ease of use, save your API key as an environment variable as described at <a href="http://stat545.com/bit003_api-key-env-var.html" class="uri">http://stat545.com/bit003_api-key-env-var.html</a>.</p>
 <p>All functions of the package will conveniently look for your API key using <code>Sys.getenv("MONKEYLEARN_KEY")</code> so if your API key is an environment variable called “MONKEYLEARN_KEY” you don’t need to input it manually.</p>
 <p>Please also create a “MONKEYLEARN_PLAN” environment variable indicating whether your <a href="https://app.monkeylearn.com/main/my-account/tab/change-plan/">Monkeylearn plan</a> is “free”, “team” or “business”.</p>
@@ -107,11 +107,18 @@
 <p>Submit your use cases by opening <a href="https://github.com/ropensci/monkeylearn/issues/new">a new issue</a>!</p>
 <div id="using-the-newer-set-of-functions-monkey_extract-and-monkey_classify" class="section level2">
 <h2 class="hasAnchor">
-<a href="#using-the-newer-set-of-functions-monkey_extract-and-monkey_classify" class="anchor"></a>Using the newer set of functions monkey_extract and monkey_classify</h2>
+<a href="#using-the-newer-set-of-functions-monkey_extract-and-monkey_classify" class="anchor"></a>Using the newer set of functions <code>monkey_extract</code> and <code>monkey_classify</code>
+</h2>
+<ul>
+<li>
+<a href="https://github.com/aedobbyn/">@aedobbyn’s</a> <a href="https://dobb.ae/2018/03/25/monkeys-are-like-onions/">Monkeys are like Onions</a>
+</li>
+</ul>
 </div>
 <div id="using-the-older-set-of-functions-monkeylearn_extract-and-monkeylearn_classify" class="section level2">
 <h2 class="hasAnchor">
-<a href="#using-the-older-set-of-functions-monkeylearn_extract-and-monkeylearn_classify" class="anchor"></a>Using the older set of functions monkeylearn_extract and monkeylearn_classify</h2>
+<a href="#using-the-older-set-of-functions-monkeylearn_extract-and-monkeylearn_classify" class="anchor"></a>Using the older set of functions <code>monkeylearn_extract</code> and <code>monkeylearn_classify</code>
+</h2>
 <ul>
 <li><p><a href="https://github.com/maelle/">@maelle’s</a> <a href="http://www.masalmon.eu/2016/10/02/first7jobs-repost/">Analyzing #first7jobs tweets with Monkeylearn and R</a></p></li>
 <li><p><a href="https://github.com/maelle/">@maelle’s</a> <a href="http://www.masalmon.eu/2017/05/20/billnye/">Which science is all around? #BillMeetScienceTwitter</a></p></li>
@@ -158,6 +165,10 @@
 <ul class="list-unstyled">
 <li>Maëlle Salmon <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2815-0399" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>Amanda Dobbyn <br><small class="roles"> Author </small>  </li>
+<li>rOpenSci <br><small class="roles"> Funder </small>  <br><small>(https://ropensci.org/)</small>
+</li>
+<li>Earlybird Software <br><small class="roles"> Funder </small>  <br><small>(http://earlybird.co/)</small>
+</li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
@@ -177,7 +188,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Maëlle Salmon, Amanda Dobbyn.</p>
+  <p>Developed by Maëlle Salmon, Amanda Dobbyn, rOpenSci, Earlybird Software.</p>
 </div>
 
 <div class="pkgdown">
