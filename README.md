@@ -30,9 +30,11 @@ Please refer to the [`pkgdown` website](http://ropensci.github.io/monkeylearn/) 
 
 Submit your use cases by opening [a new issue](https://github.com/ropensci/monkeylearn/issues/new)!
 
-## Using the newer set of functions monkey_extract and monkey_classify
+## Using the newer set of functions `monkey_extract` and `monkey_classify`
 
-## Using the older set of functions monkeylearn_extract and monkeylearn_classify
+* [@aedobbyn's](https://github.com/aedobbyn/) [Monkeys are like Onions](https://dobb.ae/2018/03/25/monkeys-are-like-onions/)
+
+## Using the older set of functions `monkeylearn_extract` and `monkeylearn_classify`
 
 * [@maelle's](https://github.com/maelle/) [Analyzing #first7jobs tweets with Monkeylearn and R](http://www.masalmon.eu/2016/10/02/first7jobs-repost/)
 
