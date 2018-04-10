@@ -182,8 +182,9 @@ testthat::test_that("We can reconstruct the same length vector as we had in our 
 testthat::test_that("Messaging works as expected", {
   text_w_many_empties <- c(text_w_empties, rep("", 25))
 
-  empties_msg_expected <- "The following indices were empty strings and could not be sent to the API. (Displaying first 20): 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23...They will still be included in the output. \n\n"
+  empties_msg_expected <- "The following indices were empty strings and could not be sent to the API. (Displaying first 20): 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23... They will still be included in the output. \n\n"
   empties_mgs_out <- testthat::capture_message(monkey_classify(text_w_many_empties, classifier_id = "cl_Jx8qzYJh"))
 
   testthat::expect_equal(empties_mgs_out$message, empties_msg_expected)
 })
+

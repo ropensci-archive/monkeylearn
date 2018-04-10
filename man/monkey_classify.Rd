@@ -57,9 +57,9 @@ and \code{attr(output, "headers")$x.query.limit.limit}.
 }
 \examples{
 \dontrun{
-text1 <- "HaurÃ s de dirigir-te al punt de trobada del grup al que et vulguis unir."
+text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
 text2 <- "i want to buy an iphone"
-text3 <- "Je dÃ©teste ne plus avoir de dentifrice."
+text3 <- "Je déteste ne plus avoir de dentifrice."
 text_4 <- "I hate not having any toothpaste."
 request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
 monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)
