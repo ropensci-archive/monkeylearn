@@ -34,7 +34,7 @@ To get an API key for MonkeyLearn, register at http://monkeylearn.com/. Note tha
 
 All functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN\_KEY" you don't need to input it manually.
 
-Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether your [Monkeylearn plan](https://app.monkeylearn.com/main/my-account/tab/change-plan/) is "free", "team", "business" or "custom". If you do not indiciate it by default it will be "free" with a message. If your plan is "custom" you'll need a third environment variable "MONKEYLEARN\_RATE" indicating the maximum amount of requests per minute that you can make to the API. If you do not indicate it, by default it will be 120 with a message.
+Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether your [Monkeylearn plan](https://app.monkeylearn.com/main/my-account/tab/change-plan/) is "free", "team", "business" or "custom". If you do not indicate it by default it will be "free" with a message. If your plan is "custom" you'll need a third environment variable "MONKEYLEARN\_RATE" indicating the maximum amount of requests per minute that you can make to the API. If you do not indicate it, by default it will be 120 with a message.
 
 ## So many monkeys/functions
 
