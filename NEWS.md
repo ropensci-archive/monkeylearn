@@ -22,6 +22,8 @@
 
 * Programmatic test coverage to re-use common tests for multiple circumstances.
 
+* Use of a `cowsay` monkey when verbose=TRUE.
+
 
 # monkeylearn 0.1.3
 
