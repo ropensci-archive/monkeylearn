@@ -3,11 +3,10 @@
 monkeylearn_check <- function(req, try_number = 1, verbose = FALSE) {
   if (req$status_code < 400) return(TRUE)
   if (req$status_code >= 400) {
-    if(verbose){
+    if (verbose) {
       message(paste("Pause for http error, wait & try number", try_number + 2)) # nolint
-
     }
-       Sys.sleep(2^try_number)
+    Sys.sleep(2^try_number)
     return(FALSE)
   }
   if (identical(req, "")) {
@@ -352,13 +351,13 @@ if (identical(monkeylearn_plan, "")) {
 }
 
 
-if(!monkeylearn_plan %in% monkeylearn_rates$plan){
+if (!monkeylearn_plan %in% monkeylearn_rates$plan) {
   stop('Your MONKEYLEARN_PLAN should be either "free", "team", "business" or  "custom"')
 }
 
-if(monkeylearn_plan != "custom"){
+if (monkeylearn_plan != "custom") {
   monkeylearn_rate <- monkeylearn_rates$req_min[monkeylearn_rates$plan == monkeylearn_plan]
-}else{
+} else {
   monkeylearn_rate <- Sys.getenv("MONKEYLEARN_RATE")
   if (identical(monkeylearn_rate, "")) {
     message("Please indicate your Monkeylearn rate in the MONKEYLEARN_RATE environment variable\n

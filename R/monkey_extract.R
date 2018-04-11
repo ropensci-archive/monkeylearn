@@ -178,7 +178,6 @@ monkey_extract <- function(input,
         message(paste0("Processing batch ", i, " of ", length(request), " batches: texts ", min_text, " to ", max_text))
 
         if (i %% 10 == 0) {
-          # Insert possible ASCII art or message here
           cowsay::say("Still working!", by = "monkey")
         }
       }
@@ -204,7 +203,7 @@ monkey_extract <- function(input,
       # Check the output -- if it is 429 (throttle limit) try again. Try 5 times, not more
       try_number <- 1
       while (!monkeylearn_check(output, try_number, verbose) &&
-             try_number < 6){
+        try_number < 6) {
         output <- monkeylearn_get_extractor(request_part, key, extractor_id)
         try_number <- try_number + 1
       }
@@ -231,9 +230,6 @@ monkey_extract <- function(input,
         res %>% unlist() %>% is.null()) {
         res <- rep(NA_character_, length_orig)
       }
-
-      # ---- Replace NULLs with NAs ----
-      # res <- res %>% map(replace_na, list(NA_character_))
 
       res_nested <- tibble::tibble(res = res)
 
