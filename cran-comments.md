@@ -9,6 +9,7 @@
 
 ## Release summary
 
+
 * New functions `monkey_classify()` and `monkey_extract()` that:
     * Accept as input both a vector and a dataframe and named column
     * Always return a tibble explicitly relating each input to its classification, allowing for the removal of the MD5 hash
@@ -25,10 +26,13 @@
     * Default texts per request is set to 200 now (the recommended number), rather than 20
     * Addition of message suggesting that users switch to newer functions
 
-* Implementation of `ratelimitr`. Creation and documentation of two environment variables allowing smarter rate handling
+* Implementation of `ratelimitr`. Creation and documentation of two environment variables allowing smarter rate handling when querying the MonkeyLearn API.
 
 * Creation of `pkgdown` website
 
-* Programmatic test coverage to re-use common test
+* Programmatic test coverage to re-use common tests for multiple circumstances.
+
+* Use of a `cowsay` monkey when verbose=TRUE.
+
 
 ---
