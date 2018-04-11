@@ -187,4 +187,3 @@ testthat::test_that("Messaging works as expected", {
 
   testthat::expect_equal(empties_mgs_out$message, empties_msg_expected)
 })
-
