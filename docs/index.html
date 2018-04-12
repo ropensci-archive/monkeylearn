@@ -90,7 +90,9 @@
 <div id="installation-and-setup" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installation-and-setup" class="anchor"></a>Installation and setup</h1>
-<p>To install the package, you will need the <code>devtools</code> package.</p>
+<p>To install the stable CRAN version:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"monkeylearn"</span>)</code></pre></div>
+<p>To install the development version:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ropensci/monkeylearn"</span>)</code></pre></div>
 <p>To get an API key for MonkeyLearn, register at <a href="http://monkeylearn.com/" class="uri">http://monkeylearn.com/</a>. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. For ease of use, save your API key as an environment variable as described at <a href="http://stat545.com/bit003_api-key-env-var.html" class="uri">http://stat545.com/bit003_api-key-env-var.html</a>.</p>
 <p>All functions of the package will conveniently look for your API key using <code>Sys.getenv("MONKEYLEARN_KEY")</code> so if your API key is an environment variable called “MONKEYLEARN_KEY” you don’t need to input it manually.</p>
@@ -132,7 +134,7 @@
 <ul>
 <li>Please <a href="https://github.com/ropensci/monkeylearn/issues">report any issues or bugs</a>.</li>
 <li>License: GPL</li>
-<li>Get citation information for <code>opencage</code> in R doing <code>citation(package = 'monkeylearn')</code>
+<li>Get citation information for <code>monkeylearn</code> in R doing <code>citation(package = 'monkeylearn')</code>
 </li>
 <li>Please note that this project is released with a <a href="CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</li>
 </ul>
