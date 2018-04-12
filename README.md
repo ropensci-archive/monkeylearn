@@ -10,7 +10,13 @@ The current goal of the package is not to support machine learning algorithms de
 
 # Installation and setup
 
-To install the package, you will need the `devtools` package.
+To install the stable CRAN version:
+
+``` r
+install.packages("monkeylearn")
+```
+
+To install the development version:
 
 ``` r
 devtools::install_github("ropensci/monkeylearn")
