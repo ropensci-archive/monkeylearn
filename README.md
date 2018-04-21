@@ -8,6 +8,10 @@ This R package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.
 
 The current goal of the package is not to support machine learning algorithms development with R or the API, but only to *reap the benefits of the existing modules on Monkeylearn*. Therefore, there are only two types of functions, one for using *extractors* (`monkey_extract` and the old less user-friendly `monkeylearn_extract`), and one for using *classifiers* (`monkey_classify` and the old less user-friendly `monkeylearn_classify`). The difference between extractors and classifiers is that extractors output information about words, whereas classifiers output information about each text as a whole. Named entity recognition is an extraction task, whereas assigning a topic to a text is a classification task.
 
+<p align="center">
+  <img src="https://github.com/ropensci/monkeylearn/raw/T130-img/man/figures/still_working_monkey.jpg" width="250" />
+</p>
+
 # Installation and setup
 
 To install the stable CRAN version:
@@ -21,9 +25,6 @@ To install the development version:
 ``` r
 devtools::install_github("ropensci/monkeylearn")
 ```
-<p style="text-align:center">
-  <img src="https://github.com/ropensci/monkeylearn/raw/T130-img/man/figures/still_working_monkey.jpg" width="400" />
-</p>
 
 To get an API key for MonkeyLearn, register at <http://monkeylearn.com/>. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. For ease of use, save your API key as an environment variable as described at <http://stat545.com/bit003_api-key-env-var.html>.
 
