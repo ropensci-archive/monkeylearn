@@ -21,8 +21,9 @@ To install the development version:
 ``` r
 devtools::install_github("ropensci/monkeylearn")
 ```
-
-<img src="https://github.com/ropensci/monkeylearn/raw/T130-img/man/figures/still_working_monkey.jpg" width="400" />
+<p style="text-align:center">
+  <img src="https://github.com/ropensci/monkeylearn/raw/T130-img/man/figures/still_working_monkey.jpg" width="400" />
+</p>
 
 To get an API key for MonkeyLearn, register at <http://monkeylearn.com/>. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. For ease of use, save your API key as an environment variable as described at <http://stat545.com/bit003_api-key-env-var.html>.
 
