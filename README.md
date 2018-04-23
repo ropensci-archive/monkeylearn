@@ -31,7 +31,7 @@ Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether
 
 
 <p align="center">
-  <img src="https://github.com/ropensci/monkeylearn/blob/dev/man/figures/still_working_monkey.jpg" width="600" />
+  <img src="https://github.com/ropensci/monkeylearn/blob/dev/man/figures/still_working_monkey.jpg" width="400" />
 </p>
 
 
