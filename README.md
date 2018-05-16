@@ -1,7 +1,7 @@
 monkeylearn
 ===========
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/monkeylearn)](http://cran.r-project.org/package=monkeylearn) [![Build Status](https://travis-ci.org/ropensci/monkeylearn.svg?branch=master)](https://travis-ci.org/ropensci/monkeylearn) [![Build status](https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true)](https://ci.appveyor.com/project/ropensci/monkeylearn) [![codecov](https://codecov.io/gh/ropensci/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/monkeylearn)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/monkeylearn)](http://cran.r-project.org/package=monkeylearn) [![Build Status](https://travis-ci.org/ropensci/monkeylearn.svg?branch=master)](https://travis-ci.org/ropensci/monkeylearn) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ropensci/monkeylearn?branch=master&svg=true)](https://ci.appveyor.com/project/maelle/monkeylearn) [![codecov](https://codecov.io/gh/ropensci/monkeylearn/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/monkeylearn)
 [![](https://badges.ropensci.org/45_status.svg)](https://github.com/ropensci/onboarding/issues/45)
 
 This R package is an interface to the [MonkeyLearn API](http://docs.monkeylearn.com/article/api-reference/). MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text. :monkey:
