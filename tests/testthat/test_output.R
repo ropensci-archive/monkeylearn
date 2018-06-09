@@ -1,4 +1,4 @@
-context("test output")
+testthat::context("test output")
 
 testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as attribute", {
   text1 <- "my dog is an avid rice eater"
