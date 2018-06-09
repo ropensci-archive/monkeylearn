@@ -47,7 +47,8 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
 
   text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.\n\n The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.\n\n Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the worlds most difficult technical problems."
   output <- monkeylearn_extract(text,
-    extractor_id = "ex_y7BPYzNG",
+    # extractor_id = "ex_y7BPYzNG",
+    extractor_id = "ex_vqBQ7V9B",
     params = list(
       max_keywords = 3,
       use_company_names = 1
