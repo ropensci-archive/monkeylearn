@@ -243,7 +243,11 @@ monkey_classify <- function(input,
     }
 
     if (unnest == TRUE & !(all(is.na(results$res)))) {
-      results <- tidyr::unnest(results)
+      if (classifier_id == "cl_qkjxv9Ly") {
+        results <- results %>% tidyr::unnest(res) %>% tidyr::unnest(res)
+      } else {
+        results <- tidyr::unnest(results)
+      }
     }
 
     # Done!
