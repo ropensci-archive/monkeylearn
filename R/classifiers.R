@@ -1,12 +1,12 @@
 #' monkeylearn_classifiers
 #'
-#' List of Monkeylearn classifiers modules
+#' List of Monkeylearn classifier modules
 #'
 #' @param key The API key
 #' @param private default is FALSE, whether to show private modules only instead of private and public modules
 #' @return A data.frame (tibble) with details about the
 #' classifiers including their classifier_id which should be used in
-#' \code{monkeylearn_classify}.
+#' \code{monkey_classify}.
 #' @details If you don't have any private modules,
 #' \code{monkeylearn_classifiers(private = TRUE)} returns an empty data.frame.
 #'

@@ -37,6 +37,10 @@ monkeylearn_url <- function() {
   "https://api.monkeylearn.com/v2/"
 }
 
+monkeylearn_url_v3 <- function() {
+  "https://api.monkeylearn.com/v3/"
+}
+
 
 # URL for classify
 monkeylearn_url_classify <- function(classifier_id) {
