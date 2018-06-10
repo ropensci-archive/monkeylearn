@@ -9,7 +9,7 @@ monkeylearn_check <- function(req, try_number = 1, verbose = FALSE) {
     Sys.sleep(2^try_number)
     return(FALSE)
   }
-  if (identical(req, "")) {
+  if (grepl("([A-Za-z0-9])", req) == FALSE) {
     stop("No output to parse",
       call. = FALSE
     )
