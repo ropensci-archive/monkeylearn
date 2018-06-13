@@ -8,6 +8,10 @@ r:
 sudo: false
 cache: packages
 
+branches:
+  except:
+    - T134-v3
+
 r_build_args: "--no-build-vignettes"
 r_check_args: "--no-build-vignettes --no-vignettes"
 

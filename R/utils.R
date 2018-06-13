@@ -45,10 +45,10 @@ monkeylearn_url_v3 <- function() {
 # URL for classify
 monkeylearn_url_classify <- function(classifier_id) {
   paste0(
-    monkeylearn_url(),
+    monkeylearn_url_v3(),
     "classifiers/",
     classifier_id,
-    "/classify/"
+    "/classify"
   )
 }
 
