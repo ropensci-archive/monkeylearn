@@ -22,11 +22,11 @@ To install the development version:
 devtools::install_github("ropensci/monkeylearn")
 ```
 
-To get an API key for MonkeyLearn, register at <http://monkeylearn.com/>. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. For ease of use, save your API key as an environment variable as described at <http://stat545.com/bit003_api-key-env-var.html>.
+To get an API key for MonkeyLearn, register at <http://monkeylearn.com/>. For ease of use, save your API key as an environment variable as described at <http://happygitwithr.com/api-tokens.html>.
 
 All functions of the package will conveniently look for your API key using `Sys.getenv("MONKEYLEARN_KEY")` so if your API key is an environment variable called "MONKEYLEARN\_KEY" you don't need to input it manually.
 
-Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether your [Monkeylearn plan](https://app.monkeylearn.com/main/my-account/tab/change-plan/) is "free", "team" or "business".
+Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether your [Monkeylearn plan](https://app.monkeylearn.com/main/my-account/tab/change-plan/) is "free", "team", "business", or "custom".
 
 # Documentation
 
