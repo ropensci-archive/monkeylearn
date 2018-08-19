@@ -28,7 +28,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item Thomas Leeper (Thomas Leeper reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/45) [reviewer]
+  \item Thomas Leeper (Thomas Leeper reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/45) [NA]
   \item Jeroen Ooms [contributor]
   \item rOpenSci (https://ropensci.org/) [funder]
   \item Earlybird Software (http://earlybird.co/) [funder]

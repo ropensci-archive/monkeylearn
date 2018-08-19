@@ -8,8 +8,8 @@
 <title>Accesses the Monkeylearn API for Text Classifiers and Extractors • monkeylearn</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Accesses the Monkeylearn API for Text Classifiers and Extractors">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Accesses the Monkeylearn API for Text Classifiers and Extractors">
 <meta property="og:description" content="Allows using some services of Monkeylearn &lt;http://monkeylearn.com/&gt; which is
     a Machine Learning platform on the cloud for text analysis (classification and extraction).">
 <meta name="twitter:card" content="summary">
@@ -91,12 +91,12 @@
 <h1 class="hasAnchor">
 <a href="#installation-and-setup" class="anchor"></a>Installation and setup</h1>
 <p>To install the stable CRAN version:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"monkeylearn"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"monkeylearn"</span>)</a></code></pre></div>
 <p>To install the development version:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ropensci/monkeylearn"</span>)</code></pre></div>
-<p>To get an API key for MonkeyLearn, register at <a href="http://monkeylearn.com/" class="uri">http://monkeylearn.com/</a>. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. For ease of use, save your API key as an environment variable as described at <a href="http://stat545.com/bit003_api-key-env-var.html" class="uri">http://stat545.com/bit003_api-key-env-var.html</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ropensci/monkeylearn"</span>)</a></code></pre></div>
+<p>To get an API key for MonkeyLearn, register at <a href="http://monkeylearn.com/" class="uri">http://monkeylearn.com/</a>. For ease of use, save your API key as an environment variable as described at <a href="http://happygitwithr.com/api-tokens.html" class="uri">http://happygitwithr.com/api-tokens.html</a>.</p>
 <p>All functions of the package will conveniently look for your API key using <code>Sys.getenv("MONKEYLEARN_KEY")</code> so if your API key is an environment variable called “MONKEYLEARN_KEY” you don’t need to input it manually.</p>
-<p>Please also create a “MONKEYLEARN_PLAN” environment variable indicating whether your <a href="https://app.monkeylearn.com/main/my-account/tab/change-plan/">Monkeylearn plan</a> is “free”, “team” or “business”.</p>
+<p>Please also create a “MONKEYLEARN_PLAN” environment variable indicating whether your <a href="https://app.monkeylearn.com/main/my-account/tab/change-plan/">Monkeylearn plan</a> is “free”, “team”, “business”, or “custom”.</p>
 </div>
 <div id="documentation" class="section level1">
 <h1 class="hasAnchor">
@@ -180,7 +180,7 @@
 <ul class="list-unstyled">
 <li><a href="http://cran.r-project.org/package=monkeylearn"><img src="http://www.r-pkg.org/badges/version/monkeylearn" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://travis-ci.org/ropensci/monkeylearn"><img src="https://travis-ci.org/ropensci/monkeylearn.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/ropensci/monkeylearn"><img src="https://ci.appveyor.com/api/projects/status/m4to8epnyd8y34rq?svg=true" alt="Build status"></a></li>
+<li><a href="https://ci.appveyor.com/project/maelle/monkeylearn"><img src="https://ci.appveyor.com/api/projects/status/github/ropensci/monkeylearn?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/gh/ropensci/monkeylearn"><img src="https://codecov.io/gh/ropensci/monkeylearn/branch/master/graph/badge.svg" alt="codecov"></a></li>
 <li><a href="https://github.com/ropensci/onboarding/issues/45"><img src="https://badges.ropensci.org/45_status.svg"></a></li>
 </ul>
@@ -199,6 +199,8 @@
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

@@ -8,8 +8,8 @@
 <title>monkeylearn, a R Package for Natural Language Processing Using Monkeylearn Existing Modules • monkeylearn</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="monkeylearn, a R Package for Natural Language Processing Using Monkeylearn Existing Modules">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="monkeylearn, a R Package for Natural Language Processing Using Monkeylearn Existing Modules">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -18,7 +18,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -77,20 +77,20 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>monkeylearn, a R Package for Natural Language Processing Using Monkeylearn Existing Modules</h1>
                         <h4 class="author">M. Salmon, A. Dobbyn</h4>
             
-            <h4 class="date">2018-04-12</h4>
+            <h4 class="date">2018-08-19</h4>
       
-      <small>Source: <a href="http://github.com/ropensci/monkeylearn/blob/master/vignettes/monkeylearn_intro.Rmd"><code>vignettes/monkeylearn_intro.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="http://github.com/ropensci/monkeylearn/blob/master/vignettes/monkeylearn_intro.Rmd"><code>vignettes/monkeylearn_intro.Rmd</code></a></small>
+      <div class="hidden name"><code>monkeylearn_intro.Rmd</code></div>
 
     </div>
 
     
     
-<div class="contents">
 <div id="intro" class="section level1">
 <h1 class="hasAnchor">
 <a href="#intro" class="anchor"></a>Intro</h1>
@@ -116,38 +116,38 @@
 <div id="a-first-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-first-example" class="anchor"></a>A first example</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(monkeylearn)
-<span class="kw">library</span>(magrittr)
-
-text &lt;-<span class="st"> "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."</span>
-output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(<span class="dt">input =</span> text,
-                         <span class="dt">extractor_id =</span> <span class="st">"ex_isnnZRbS"</span>)
-output
-<span class="kw">attr</span>(output, <span class="st">"headers"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(monkeylearn)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">text &lt;-<span class="st"> "In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany."</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(<span class="dt">input =</span> text,</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">                         <span class="dt">extractor_id =</span> <span class="st">"ex_isnnZRbS"</span>)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">output</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">attr</span>(output, <span class="st">"headers"</span>)</a></code></pre></div>
 </div>
 <div id="parameters" class="section level2">
 <h2 class="hasAnchor">
 <a href="#parameters" class="anchor"></a>Parameters</h2>
 <p>If the documentation of the extractor you use states it has parameters, you can pass them as a named list, see below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> "A panel of Goldman Sachs employees spent a recent Tuesday night at the</span>
-<span class="st">Columbia University faculty club trying to convince a packed room of potential</span>
-<span class="st">recruits that Wall Street, not Silicon Valley, was the place to be for computer</span>
-<span class="st">scientists.</span><span class="ch">\n\n</span><span class="st"> The Goldman employees knew they had an uphill battle. They were</span>
-<span class="st">fighting against perceptions of Wall Street as boring and regulation-bound and</span>
-<span class="st">Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar</span>
-<span class="st">stock options.</span><span class="ch">\n\n</span><span class="st"> Their argument to the room of technologically inclined students</span>
-<span class="st">was that Wall Street was where they could find far more challenging, diverse and,</span>
-<span class="st">yes, lucrative jobs working on some of the worlds most difficult technical problems."</span>
-
-output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(text,
-                        <span class="dt">extractor_id =</span> <span class="st">"ex_y7BPYzNG"</span>,
-                        <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">max_keywords =</span> <span class="dv">3</span>))
-output
-output2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(text,
-                          <span class="dt">extractor_id =</span> <span class="st">"ex_y7BPYzNG"</span>,
-                          <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">max_keywords =</span> <span class="dv">1</span>))
-output2
-<span class="kw">attr</span>(output2, <span class="st">"headers"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">text &lt;-<span class="st"> "A panel of Goldman Sachs employees spent a recent Tuesday night at the</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">Columbia University faculty club trying to convince a packed room of potential</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">recruits that Wall Street, not Silicon Valley, was the place to be for computer</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">scientists.</span><span class="ch">\n\n</span><span class="st"> The Goldman employees knew they had an uphill battle. They were</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">fighting against perceptions of Wall Street as boring and regulation-bound and</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">stock options.</span><span class="ch">\n\n</span><span class="st"> Their argument to the room of technologically inclined students</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">was that Wall Street was where they could find far more challenging, diverse and,</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">yes, lucrative jobs working on some of the worlds most difficult technical problems."</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(text,</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">                        <span class="dt">extractor_id =</span> <span class="st">"ex_y7BPYzNG"</span>,</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">                        <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">max_keywords =</span> <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">output</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">output2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(text,</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">                          <span class="dt">extractor_id =</span> <span class="st">"ex_y7BPYzNG"</span>,</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">                          <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">max_keywords =</span> <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">output2</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="kw">attr</span>(output2, <span class="st">"headers"</span>)</a></code></pre></div>
 </div>
 <div id="how-to-find-extractors" class="section level2">
 <h2 class="hasAnchor">
@@ -159,24 +159,24 @@ output2
 <li><p><a href="https://app.monkeylearn.com/extraction/extractors/ex_isnnZRbS/tab/description-tab">Entity extractor</a>, <code>extractor_id = "ex_isnnZRbS"</code> (used in the first example). Extract Entities from text using Named Entity Recognition (NER). NER labels sequences of words in a text which are the names of things, such as person and company names. This implementation labels 3 classes: PERSON, ORGANIZATION and LOCATION. This NER tagger is implemented using Conditional Random Field (CRF) sequence models.</p></li>
 <li><p><a href="https://app.monkeylearn.com/extraction/extractors/ex_y7BPYzNG/tab/description-tab">Keyword extractor</a>, <code>extractor_id = "ex_y7BPYzNG"</code>. Extract keywords from text in English. Keywords can be compounded by one or more words and are defined as the important topics in your content and can be used to index data, generate tag clouds or for searching. This keyword extraction algorithm employs statistical algorithms and natural language processing technology to analyze your content and identify the relevant keywords.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> "A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.</span>
-
-<span class="st">The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.</span>
-
-<span class="st">Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the world’s most difficult technical problems.</span>
-
-<span class="st">“Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide,” Afsheen Afshar, a managing director at Goldman Sachs, told the students."</span>
-
-<span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(text, <span class="dt">extractor_id =</span> <span class="st">"ex_y7BPYzNG"</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">text &lt;-<span class="st"> "A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the world’s most difficult technical problems.</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">“Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide,” Afsheen Afshar, a managing director at Goldman Sachs, told the students."</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(text, <span class="dt">extractor_id =</span> <span class="st">"ex_y7BPYzNG"</span>)</a></code></pre></div>
 <ul>
 <li>
 <a href="https://app.monkeylearn.com/extraction/extractors/ex_dqRio5sG/tab/description-tab">Useful data extractor</a>, <code>extractor_id = "ex_dqRio5sG"</code>. Extract useful data from text. This algorithm can be used to detect many different useful data: links, phones, ips, prices, times, emails, bitcoin addresses, dates, ipv6s, hex colors and credit cards.</li>
 </ul>
 <p>When using this extractor, the format of the API output is a bit different than for other extractors, see below how the output looks like.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> "Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am"</span>
-text2 &lt;-<span class="st"> "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"</span>
-
-<span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(<span class="kw">c</span>(text, text2), <span class="dt">extractor_id =</span> <span class="st">"ex_dqRio5sG"</span>, <span class="dt">unnest =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">text &lt;-<span class="st"> "Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am"</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">text2 &lt;-<span class="st"> "Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am"</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw"><a href="../reference/monkey_extract.html">monkey_extract</a></span>(<span class="kw">c</span>(text, text2), <span class="dt">extractor_id =</span> <span class="st">"ex_dqRio5sG"</span>, <span class="dt">unnest =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="classify" class="section level1">
@@ -185,45 +185,45 @@ text2 &lt;-<span class="st"> "Hi, my email is mary@example.com and my credit car
 <div id="a-first-example-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-first-example-1" class="anchor"></a>A first example</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> "my dog is an avid rice eater"</span>
-text2 &lt;-<span class="st"> "i want to buy an iphone"</span>
-request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
-
-<span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_oFKL5wft"</span>)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">text1 &lt;-<span class="st"> "my dog is an avid rice eater"</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">text2 &lt;-<span class="st"> "i want to buy an iphone"</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_oFKL5wft"</span>)</a></code></pre></div>
 </div>
 <div id="how-to-find-classifiers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-find-classifiers" class="anchor"></a>How to find classifiers?</h2>
 <p>You can find classifiers and their IDs at <a href="https://app.monkeylearn.com/main/explore" class="uri">https://app.monkeylearn.com/main/explore</a> or you can use the <code>monkeylearn_classifiers</code> function, choosing to show all classifiers or only the private ones with <code>private = TRUE</code>. The first column of the resulting data.frame is the <code>classifier_id</code> to be used in <code>monkeylearn_classify</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/monkeylearn_classifiers.html">monkeylearn_classifiers</a></span>(<span class="dt">private =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/monkeylearn_classifiers.html">monkeylearn_classifiers</a></span>(<span class="dt">private =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Here are a few other examples:</p>
 <ul>
 <li>
 <a href="https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab">Language detection</a>, <code>classifier_id = "cl_oJNMkt2V"</code>. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."</span>
-text2 &lt;-<span class="st"> "i want to buy an iphone"</span>
-text3 &lt;-<span class="st"> "Je déteste ne plus avoir de dentifrice."</span>
-request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2, text3)
-
-<span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_oJNMkt2V"</span>)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">text1 &lt;-<span class="st"> "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">text2 &lt;-<span class="st"> "i want to buy an iphone"</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">text3 &lt;-<span class="st"> "Je déteste ne plus avoir de dentifrice."</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2, text3)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_oJNMkt2V"</span>)</a></code></pre></div>
 <ul>
 <li>
 <a href="https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab">Profanity and abuse detection</a>, <code>classifier_id = "cl_KFXhoTdt"</code>.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> "I think this is awesome."</span>
-text2 &lt;-<span class="st"> "Holy shit! You did great!"</span>
-request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
-
-<span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_KFXhoTdt"</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">text1 &lt;-<span class="st"> "I think this is awesome."</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">text2 &lt;-<span class="st"> "Holy shit! You did great!"</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_KFXhoTdt"</span>)</a></code></pre></div>
 <ul>
 <li>
 <a href="https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/">General topic classifier</a>, <code>classifier_id = "cl_5icAVzKR"</code>.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text1 &lt;-<span class="st"> "Let me tell you about my dog and my cat. They are really friendly and like going on walks. They both like chasing mice."</span>
-text2 &lt;-<span class="st"> "My first R package was probably a disaster but I keep learning how to program."</span>
-request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
-<span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_5icAVzKR"</span>)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">text1 &lt;-<span class="st"> "Let me tell you about my dog and my cat. They are really friendly and like going on walks. They both like chasing mice."</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">text2 &lt;-<span class="st"> "My first R package was probably a disaster but I keep learning how to program."</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(request, <span class="dt">classifier_id =</span> <span class="st">"cl_5icAVzKR"</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="get-what-you-paid-for" class="section level1">
@@ -258,49 +258,49 @@ request &lt;-<span class="st"> </span><span class="kw">c</span>(text1, text2)
 <div id="in-a-bit-more-detail" class="section level2">
 <h2 class="hasAnchor">
 <a href="#in-a-bit-more-detail" class="anchor"></a>In a bit more detail</h2>
-<p>You can classify or extract a vector or dataframe of texts while relating the original input text to its classifications. This is important, because the input:output relationship may not always (and in fact, is not usually) 1:1. These functions retain the tie between each <code>input</code><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> element and all of its output elements.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">input &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"Emma Woodhouse, handsome, clever, and rich, with a comfortable home"</span>,     
- <span class="st">"and happy disposition, seemed to unite some of the best blessings of"</span>,  
- <span class="st">"existence; and had lived nearly twenty-one years in the world with very"</span>, 
- <span class="st">"little to distress or vex her."</span>,                                          
- <span class="st">""</span>,                   <span class="co"># &lt;--- note the empty string!                                                   </span>
- <span class="st">"She was the youngest of the two daughters of a most affectionate,"</span>,       
- <span class="st">"indulgent father; and had, in consequence of her sister's marriage, been"</span>,
- <span class="st">"mistress of his house from a very early period. Her mother had died"</span>,     
- <span class="st">"too long ago for her to have more than an indistinct remembrance of"</span>,     
- <span class="st">"her caresses; and her place had been supplied by an excellent woman as"</span>,  
- <span class="st">"governess, who had fallen little short of a mother in affection."</span>)</code></pre></div>
+<p>You can classify or extract a vector or dataframe of texts while relating the original input text to its classifications. This is important, because the input:output relationship may not always (and in fact, is not usually) 1:1. These functions retain the tie between each <code>input</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> element and all of its output elements.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">input &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"Emma Woodhouse, handsome, clever, and rich, with a comfortable home"</span>,     </a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"> <span class="st">"and happy disposition, seemed to unite some of the best blessings of"</span>,  </a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"> <span class="st">"existence; and had lived nearly twenty-one years in the world with very"</span>, </a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"> <span class="st">"little to distress or vex her."</span>,                                          </a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"> <span class="st">""</span>,                   <span class="co"># &lt;--- note the empty string!                                                   </span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"> <span class="st">"She was the youngest of the two daughters of a most affectionate,"</span>,       </a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"> <span class="st">"indulgent father; and had, in consequence of her sister's marriage, been"</span>,</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"> <span class="st">"mistress of his house from a very early period. Her mother had died"</span>,     </a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"> <span class="st">"too long ago for her to have more than an indistinct remembrance of"</span>,     </a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"> <span class="st">"her caresses; and her place had been supplied by an excellent woman as"</span>,  </a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"> <span class="st">"governess, who had fallen little short of a mother in affection."</span>)</a></code></pre></div>
 <p>That is true even if you have inputs that cannot be processed. For instance, empty string and <code>NA</code> input elements are not sent to the API for classification/extraction. (You’ll get a warning of this if <code>verbose = TRUE</code>.) We’ve got one above to illustrate and elements that returned no classifications/extractions are included in the resulting dataframe. This way you’ll know which inputs could not be processed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input, <span class="dt">unnest =</span> <span class="ot">FALSE</span>))</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">(output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input, <span class="dt">unnest =</span> <span class="ot">FALSE</span>))</a></code></pre></div>
 <p><br></p>
 <p>If there are more than 20 empty inputs, we save your console by messaging only the first 20 indices.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(very_empty_input &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">""</span>, <span class="dv">25</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">c</span>(input) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample</span>())</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">(very_empty_input &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">""</span>, <span class="dv">25</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">c</span>(input) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample</span>())</a></code></pre></div>
 <p>Since the entire original input is represented in the output, if you need to find all of the empty inputs you can easily filter the output to all of the rows containing empty strings.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(very_empty_input, <span class="dt">unnest =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(very_empty_input, <span class="dt">unnest =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <div id="configuring-the-output" class="section level3">
 <h3 class="hasAnchor">
 <a href="#configuring-the-output" class="anchor"></a>Configuring the Output</h3>
 <p>The default output is a nested dataframe with the same number of rows as your input dataframe or the same length as your input vector, depending on which one you sent in.</p>
 <p>Let’s take a look at the <code>res</code> output column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output<span class="op">$</span>res</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">output<span class="op">$</span>res</a></code></pre></div>
 <p>You can easily choose an unnested output by setting the <strong>unnest flag</strong> to TRUE (which it is by default) to get one row per classification/extraction.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(output_unnested &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input, <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">unnest =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">(output_unnested &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input, <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">unnest =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <p>We could have gotten the same result by sending in a dataframe and a named column. If a dataframe is supplied input column is not renamed to <code>req</code> as it is when input is a vector; the original column name is retained.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">input_df &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="dt">text =</span> input) 
-output_df_unnested &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input_df, text, <span class="dt">unnest =</span> <span class="ot">TRUE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">rename</a></span>(<span class="dt">req =</span> text)
-
-testthat<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/testthat/topics/equality-expectations">expect_equal</a></span>(output_unnested, output_df_unnested)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">input_df &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="dt">text =</span> input) </a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">output_df_unnested &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input_df, text, <span class="dt">unnest =</span> <span class="ot">TRUE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">rename</a></span>(<span class="dt">req =</span> text)</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">testthat<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/testthat/topics/equality-expectations">expect_equal</a></span>(output_unnested, output_df_unnested)</a></code></pre></div>
 <p><br></p>
 <p>If the input is a dataframe, setting the <code>.keep_all</code> option to TRUE allows you to retain all input columns. If FALSE, only the column you specify for classification will be retained.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sw &lt;-<span class="st"> </span>dplyr<span class="op">::</span>starwars <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, height) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample_n</a></span>(<span class="kw">nrow</span>(input_df))
-
-sw_input_df &lt;-<span class="st"> </span>input_df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span>(sw)
-
-sw_input_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(text, <span class="dt">unnest =</span> <span class="ot">FALSE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">sw &lt;-<span class="st"> </span>dplyr<span class="op">::</span>starwars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, height) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample_n</a></span>(<span class="kw">nrow</span>(input_df))</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">sw_input_df &lt;-<span class="st"> </span>input_df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span>(sw)</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb17-8" data-line-number="8">sw_input_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(text, <span class="dt">unnest =</span> <span class="ot">FALSE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="batching" class="section level3">
 <h3 class="hasAnchor">
@@ -308,10 +308,10 @@ sw_input_df <span class="op">%&gt;%</span><span class="st"> </span><span class="
 <p>Retaining the relationship between input and output doesn’t mean you’ll need to send requests one-by-one. <strong>Batch requests</strong> by setting the <code>texts_per_req</code> value which governs the number of texts that are sent per request. Per the <a href="http://help.monkeylearn.com/frequently-asked-questions/queries/can-i-classify-or-extract-more-than-one-text-with-one-api-request">MonkeyLearn documentation</a>, the maximum we recommend sending at once is 200 requests.</p>
 <p>If <code>texts_per_req</code> is NULL, the default, we try to optimize the response time from the API by setting <code>texts_per_req</code> to 200 when your input has more than 200 texts or to the length of the <code>input</code> if you’ve got fewer. You’ll see a significant speedup by batching your requests this way. However, batching doesn’t save you on queries; a batch of 150 texts still uses up 150 queries.</p>
 <p>These functions also include some more verbose <strong>progress reporting</strong>, letting you know what batch you’re on out of the total, and which texts are set to be processed in that batch.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">one_by_one &lt;-<span class="st"> </span><span class="kw">system.time</span>(output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input, <span class="dt">texts_per_req =</span> <span class="dv">1</span>))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">batch_of_five &lt;-<span class="st"> </span><span class="kw">system.time</span>(output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input, <span class="dt">texts_per_req =</span> <span class="dv">5</span>))</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">one_by_one &lt;-<span class="st"> </span><span class="kw">system.time</span>(output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input, <span class="dt">texts_per_req =</span> <span class="dv">1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">batch_of_five &lt;-<span class="st"> </span><span class="kw">system.time</span>(output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/monkey_classify.html">monkey_classify</a></span>(input, <span class="dt">texts_per_req =</span> <span class="dv">5</span>))</a></code></pre></div>
 <p>How much does sending 5 texts in a batch vs. 1 text improve our processing time?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(speedup &lt;-<span class="st"> </span>one_by_one[<span class="dv">1</span>] <span class="op">/</span><span class="st"> </span>batch_of_five[<span class="dv">1</span>])</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">(speedup &lt;-<span class="st"> </span>one_by_one[<span class="dv">1</span>] <span class="op">/</span><span class="st"> </span>batch_of_five[<span class="dv">1</span>])</a></code></pre></div>
 <p>A 3-4x speedup isn’t so bad! Worth keeping in mind that if you need the blazing fast speeds you might consider upgrading to a higher MonkeyLearn price tier.</p>
 <p><br></p>
 <hr>
@@ -334,9 +334,8 @@ sw_input_df <span class="op">%&gt;%</span><span class="st"> </span><span class="
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Thanks to <a href="https://juliasilge.com/">Julia Silge</a>’s fantastic <a href="https://github.com/juliasilge/janeaustenr"><code>janeaustenr</code></a> package for this text!<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>Thanks to <a href="https://juliasilge.com/">Julia Silge</a>’s fantastic <a href="https://github.com/juliasilge/janeaustenr"><code>janeaustenr</code></a> package for this text!<a href="#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
-</div>
 </div>
   </div>
 
@@ -392,6 +391,8 @@ sw_input_df <span class="op">%&gt;%</span><span class="st"> </span><span class="
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>
