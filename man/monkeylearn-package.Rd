@@ -13,7 +13,7 @@ a Machine Learning platform on the cloud for text analysis (classification and e
 Useful links:
 \itemize{
   \item \url{http://github.com/ropensci/monkeylearn}
-  \item \url{http://ropensci.github.io/monkeylearn/}
+  \item \url{http://docs.ropensci.org/monkeylearn/}
   \item Report bugs at \url{http://github.com/ropensci/monkeylearn/issues}
 }
 

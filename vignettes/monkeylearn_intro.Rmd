@@ -40,7 +40,7 @@ Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether
 
 The packages exports `monkeylearn_classify`, `monkey_classify`, `monkeylearn_extract`, `monkey_extract`. The `monkey_` functions are the newer and better ones, so if you don't have legacy code, just start using those!
 
-For inspiration beyond this vignette, you can see external examples of the package in action [on this page](http://ropensci.github.io/monkeylearn/). In particular you'll find examples using the older set of functions but we now recommend using `monkey_extract` and `monkey_classify`, see more later in the vignette. 
+For inspiration beyond this vignette, you can see external examples of the package in action [on this page](http://docs.ropensci.org/monkeylearn/). In particular you'll find examples using the older set of functions but we now recommend using `monkey_extract` and `monkey_classify`, see more later in the vignette. 
 
 # Extract
 

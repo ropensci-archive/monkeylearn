@@ -30,7 +30,7 @@ Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether
 
 # Documentation
 
-Please refer to the [`pkgdown` website](http://ropensci.github.io/monkeylearn/) to read docs, in particular the [reference](http://ropensci.github.io/monkeylearn/reference/index.html) and the [vignettes](http://ropensci.github.io/monkeylearn/articles/index.html).
+Please refer to the [`pkgdown` website](http://docs.ropensci.org/monkeylearn/) to read docs, in particular the [reference](http://docs.ropensci.org/monkeylearn/reference/index.html) and the [vignettes](http://docs.ropensci.org/monkeylearn/articles/index.html).
 
 # External use cases
 
