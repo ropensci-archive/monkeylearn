@@ -182,7 +182,7 @@ monkey_classify <- function(input,
       if (detect_nulls(res) == TRUE) {
         res_orig <- res %>%
           purrr::modify_depth(2, replace_null) %>%
-          tidyr::unnest(cols = c(res))
+          tidyr::unnest(cols = res)
 
         res <- NULL
         for (j in 1:nrow(res_orig)) {
@@ -243,7 +243,7 @@ monkey_classify <- function(input,
     }
 
     if (unnest == TRUE & !(all(is.na(results$res)))) {
-      results <- tidyr::unnest(results, cols = c(res))
+      results <- tidyr::unnest(results, cols = res)
     }
 
     # Done!
