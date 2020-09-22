@@ -9,3 +9,4 @@
 ^codemeta\.json$
 ^_pkgdown\.yml$
 ^docs$
+^\.github$

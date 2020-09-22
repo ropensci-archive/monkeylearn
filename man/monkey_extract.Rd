@@ -4,9 +4,18 @@
 \alias{monkey_extract}
 \title{Monkeylearn extract from a dataframe column or vector of texts}
 \usage{
-monkey_extract(input, col = NULL, key = monkeylearn_key(quiet = TRUE),
-  extractor_id = "ex_isnnZRbS", params = NULL, texts_per_req = NULL,
-  unnest = TRUE, .keep_all = TRUE, verbose = TRUE, ...)
+monkey_extract(
+  input,
+  col = NULL,
+  key = monkeylearn_key(quiet = TRUE),
+  extractor_id = "ex_isnnZRbS",
+  params = NULL,
+  texts_per_req = NULL,
+  unnest = TRUE,
+  .keep_all = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{input}{A dataframe or vector of texts (each text smaller than 50kB)}
@@ -86,10 +95,10 @@ output
 text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the
 Columbia University faculty club trying to convince a packed room of potential
 recruits that Wall Street, not Silicon Valley, was the place to be for computer
-scientists.\\n\\n The Goldman employees knew they had an uphill battle. They were
+scientists.\n\n The Goldman employees knew they had an uphill battle. They were
 fighting against perceptions of Wall Street as boring and regulation-bound and
 Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
-stock options.\\n\\n Their argument to the room of technologically inclined students
+stock options.\n\n Their argument to the room of technologically inclined students
 was that Wall Street was where they could find far more challenging, diverse and,
 yes, lucrative jobs working on some of the worlds most difficult technical problems."
 
