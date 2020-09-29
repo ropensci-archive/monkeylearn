@@ -4,9 +4,14 @@
 \alias{monkeylearn_classify}
 \title{monkeylearn_classify}
 \usage{
-monkeylearn_classify(request, key = monkeylearn_key(quiet = TRUE),
-  classifier_id = "cl_oFKL5wft", texts_per_req = 200, verbose = TRUE,
-  params = NULL)
+monkeylearn_classify(
+  request,
+  key = monkeylearn_key(quiet = TRUE),
+  classifier_id = "cl_oFKL5wft",
+  texts_per_req = 200,
+  verbose = TRUE,
+  params = NULL
+)
 }
 \arguments{
 \item{request}{A vector of characters (each text smaller than 50kB)}
@@ -49,5 +54,6 @@ text2 <- "i want to buy an iphone"
 request <- c(text1, text2)
 output <- monkeylearn_classify(request)
 output
-attr(output, "headers")}
+attr(output, "headers")
+}
 }

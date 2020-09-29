@@ -10,7 +10,8 @@
 #' @details If you don't have any private modules,
 #' \code{monkeylearn_classifiers(private = TRUE)} returns an empty data.frame.
 #'
-#' @examples \dontrun{
+#' @examples
+#' \dontrun{
 #' monkeylearn_classifiers(private = FALSE)
 #' monkeylearn_classifiers(private = TRUE)
 #' }

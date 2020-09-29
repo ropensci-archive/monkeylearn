@@ -23,13 +23,15 @@
 #' You can check the number of calls you can still make in the API using \code{attr(output, "headers")$x.query.limit.remaining}
 #' and \code{attr(output, "headers")$x.query.limit.limit}.
 #'
-#' @examples \dontrun{
+#' @examples
+#' \dontrun{
 #' text1 <- "my dog is an avid rice eater"
 #' text2 <- "i want to buy an iphone"
 #' request <- c(text1, text2)
 #' output <- monkeylearn_classify(request)
 #' output
-#' attr(output, "headers")}
+#' attr(output, "headers")
+#' }
 #' @return A data.frame (tibble) with the results whose attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
 #' Both data.frames include a column with the (list of) md5 checksum(s) of the corresponding text(s) computed using the \code{digest digest} function.
 #' @export

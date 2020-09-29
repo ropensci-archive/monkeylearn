@@ -4,9 +4,18 @@
 \alias{monkey_classify}
 \title{Monkeylearn classify from a dataframe column or vector of texts}
 \usage{
-monkey_classify(input, col = NULL, key = monkeylearn_key(quiet = TRUE),
-  classifier_id = "cl_oFKL5wft", params = NULL, texts_per_req = NULL,
-  unnest = TRUE, .keep_all = TRUE, verbose = TRUE, ...)
+monkey_classify(
+  input,
+  col = NULL,
+  key = monkeylearn_key(quiet = TRUE),
+  classifier_id = "cl_oFKL5wft",
+  params = NULL,
+  texts_per_req = NULL,
+  unnest = TRUE,
+  .keep_all = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{input}{A dataframe or vector of texts (each text smaller than 50kB)}
@@ -63,6 +72,7 @@ text3 <- "Je déteste ne plus avoir de dentifrice."
 text_4 <- "I hate not having any toothpaste."
 request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
 monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)
-attr(output, "headers")}
+attr(output, "headers")
+}
 
 }

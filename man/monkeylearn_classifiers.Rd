@@ -4,8 +4,7 @@
 \alias{monkeylearn_classifiers}
 \title{monkeylearn_classifiers}
 \usage{
-monkeylearn_classifiers(private = FALSE, key = monkeylearn_key(quiet =
-  TRUE))
+monkeylearn_classifiers(private = FALSE, key = monkeylearn_key(quiet = TRUE))
 }
 \arguments{
 \item{private}{default is FALSE, whether to show private modules only instead of private and public modules}

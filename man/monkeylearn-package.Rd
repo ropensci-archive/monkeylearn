@@ -7,7 +7,7 @@
 \title{monkeylearn: Accesses the Monkeylearn API for Text Classifiers and Extractors}
 \description{
 Allows using some services of Monkeylearn <http://monkeylearn.com/> which is
-a Machine Learning platform on the cloud for text analysis (classification and extraction).
+    a Machine Learning platform on the cloud for text analysis (classification and extraction).
 }
 \seealso{
 Useful links:
@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Maëlle Salmon \email{maelle.salmon@yahoo.se} (0000-0002-2815-0399)
+\strong{Maintainer}: Maëlle Salmon \email{maelle.salmon@yahoo.se} (\href{https://orcid.org/0000-0002-2815-0399}{ORCID})
 
 Authors:
 \itemize{

@@ -1,7 +1,9 @@
 
 # status check
 monkeylearn_check <- function(req, try_number = 1, verbose = FALSE) {
-  if (req$status_code < 400) return(TRUE)
+  if (req$status_code < 400) {
+    return(TRUE)
+  }
   if (req$status_code >= 400) {
     if (verbose) {
       message(paste("Pause for http error, wait & try number", try_number + 2)) # nolint

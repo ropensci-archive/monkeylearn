@@ -35,7 +35,8 @@
 #' @importFrom magrittr %>%
 #'
 #'
-#' @examples \dontrun{
+#' @examples
+#' \dontrun{
 #' text <- "In the 19th century, the major European powers had gone to great lengths
 #' to maintain a balance of power throughout Europe, resulting in the existence of
 #' a complex network of political and military alliances throughout the continent by 1900.[7]
@@ -51,18 +52,22 @@
 #' text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the
 #' Columbia University faculty club trying to convince a packed room of potential
 #' recruits that Wall Street, not Silicon Valley, was the place to be for computer
-#' scientists.\n\n The Goldman employees knew they had an uphill battle. They were
+#' scientists.\\n\\n The Goldman employees knew they had an uphill battle. They were
 #' fighting against perceptions of Wall Street as boring and regulation-bound and
 #' Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
-#' stock options.\n\n Their argument to the room of technologically inclined students
+#' stock options.\\n\\n Their argument to the room of technologically inclined students
 #' was that Wall Street was where they could find far more challenging, diverse and,
 #' yes, lucrative jobs working on some of the worlds most difficult technical problems."
 #'
 #' output <- monkey_extract(text,
-#'                             extractor_id = "ex_y7BPYzNG",
-#'                             params = list(max_keywords = 3,
-#'                             use_company_names = 1))
-#' attr(output, "headers")}
+#'   extractor_id = "ex_y7BPYzNG",
+#'   params = list(
+#'     max_keywords = 3,
+#'     use_company_names = 1
+#'   )
+#' )
+#' attr(output, "headers")
+#' }
 #'
 #' @details Find IDs of extractors using \url{https://app.monkeylearn.com/main/explore}.
 #' Within the free plan, you can make up to 20 requests per minute.
@@ -217,7 +222,7 @@ monkey_extract <- function(input,
       if (detect_nulls(res) == TRUE) {
         res_orig <- res %>%
           purrr::modify_depth(2, replace_null) %>%
-          tidyr::unnest()
+          tidyr::unnest(res)
 
         res <- NULL
         for (j in 1:nrow(res_orig)) {
@@ -227,7 +232,9 @@ monkey_extract <- function(input,
 
       # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
       if ((length(res) == 1 && is.na(res)) |
-        res %>% unlist() %>% is.null()) {
+        res %>%
+          unlist() %>%
+          is.null()) {
         res <- rep(NA_character_, length_orig)
       }
 
@@ -278,7 +285,7 @@ monkey_extract <- function(input,
     }
 
     if (unnest == TRUE & !(all(is.na(results$res)))) {
-      results <- tidyr::unnest(results)
+      results <- tidyr::unnest(results, res)
     }
 
     # Done!

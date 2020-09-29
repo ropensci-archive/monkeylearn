@@ -34,14 +34,16 @@
 #'
 #' @importFrom magrittr %>%
 #'
-#' @examples \dontrun{
+#' @examples
+#' \dontrun{
 #' text1 <- "Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir."
 #' text2 <- "i want to buy an iphone"
 #' text3 <- "Je déteste ne plus avoir de dentifrice."
 #' text_4 <- "I hate not having any toothpaste."
 #' request_df <- tibble::as_tibble(list(txt = c(text1, text2, text3, text_4)))
 #' monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)
-#' attr(output, "headers")}
+#' attr(output, "headers")
+#' }
 #'
 #' @return A data.frame (tibble) with the cleaned input (empty strings removed) and a new column, nested by default, containing the classification for that particular row.
 #' Attribute is a data.frame (tibble) "headers" including the number of remaining queries as "x.query.limit.remaining".
@@ -182,7 +184,7 @@ monkey_classify <- function(input,
       if (detect_nulls(res) == TRUE) {
         res_orig <- res %>%
           purrr::modify_depth(2, replace_null) %>%
-          tidyr::unnest()
+          tidyr::unnest(res)
 
         res <- NULL
         for (j in 1:nrow(res_orig)) {
@@ -192,7 +194,9 @@ monkey_classify <- function(input,
 
       # If the entire output is NULL or NA, give ourselves a vector of NAs of the original length of the input
       if ((length(res) == 1 && is.na(res)) |
-        res %>% unlist() %>% is.null()) {
+        res %>%
+          unlist() %>%
+          is.null()) {
         res <- rep(NA_character_, length_orig)
       }
 
@@ -243,7 +247,7 @@ monkey_classify <- function(input,
     }
 
     if (unnest == TRUE & !(all(is.na(results$res)))) {
-      results <- tidyr::unnest(results)
+      results <- tidyr::unnest(results, res)
     }
 
     # Done!

@@ -15,7 +15,7 @@ LazyData: TRUE
 URL: http://github.com/ropensci/monkeylearn, http://ropensci.github.io/monkeylearn/
 BugReports: http://github.com/ropensci/monkeylearn/issues
 Encoding: UTF-8
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 7.1.1
 Suggests: knitr,
     rmarkdown,
     testthat
