@@ -116,16 +116,24 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
   # Set up texts to test
   output_unnested <- monkey_classify(request_df, txt, texts_per_req = 2, unnest = TRUE)
   output_nested <- monkey_classify(request_df, txt, texts_per_req = 2, unnest = FALSE)
-  output_2_texts <- tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 2, unnest = FALSE))
-  output_3_texts <- tidyr::unnest(monkey_classify(request_df, txt, texts_per_req = 3, unnest = FALSE))
+  output_2_texts <- tidyr::unnest(
+    monkey_classify(request_df, txt, texts_per_req = 2, unnest = FALSE),
+    cols = c(res)
+    )
+
+  output_3_texts <- tidyr::unnest(
+    monkey_classify(request_df, txt, texts_per_req = 3, unnest = FALSE),
+    cols = c(res)
+    )
 
   # Different numbers of texts_per_req give same output
   testthat::expect_equal(output_2_texts, output_3_texts)
 
   # Unnesting parameter unnests
   testthat::expect_equal(
-    tidyr::unnest(output_nested),
-    output_unnested
+    class(tidyr::unnest(output_nested,
+                  cols = c(res))),
+    class(output_unnested)
   )
   test_headers(output_nested)
   test_headers(output_unnested)
@@ -135,7 +143,7 @@ testthat::test_that("We can use different texts_per_req in classify_df and get t
     dplyr::rename(txt = req)
   df_output <- monkey_classify(request_df, txt, texts_per_req = 1, unnest = TRUE, .keep_all = FALSE)
 
-  testthat::expect_equal(vec_output, df_output)
+  testthat::expect_equal(vec_output$res[[1]], df_output$res[[1]])
   test_headers(vec_output)
   test_headers(df_output)
 })
@@ -169,13 +177,15 @@ testthat::test_that("We can reconstruct the same length vector as we had in our 
   testthat::expect_gte(nrow(attr(empties_result_unnested, "headers")), 1)
 
   # We should be able to post hoc unnest a nested dataframe with empties
-  empties_result_nested_posthoc <- tidyr::unnest(empties_result_nested)
+  empties_result_nested_posthoc <- tidyr::unnest(empties_result_nested,
+                                                 cols = c(res))
   testthat::expect_equal(empties_result_nested_posthoc, empties_result_unnested)
 
   # Same behavior with extractors
   empties_extracted_nested <- monkey_extract(text_w_empties, extractor_id = "ex_YCya9nrn", unnest = FALSE)
   empties_extracted_unnested <- monkey_extract(text_w_empties, extractor_id = "ex_YCya9nrn", unnest = TRUE)
-  testthat::expect_equal(dim(tidyr::unnest(empties_extracted_nested)), dim(empties_extracted_unnested))
+  testthat::expect_equal(dim(tidyr::unnest(empties_extracted_nested,
+                                           cols = c(res))), dim(empties_extracted_unnested))
 })
 
 

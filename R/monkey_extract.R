@@ -278,7 +278,8 @@ monkey_extract <- function(input,
     }
 
     if (unnest == TRUE & !(all(is.na(results$res)))) {
-      results <- tidyr::unnest(results)
+      results <- tidyr::unnest(results,
+                               cols = c(res))
     }
 
     # Done!
