@@ -55,7 +55,7 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
   text <- "A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.\n\n The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.\n\n Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the worlds most difficult technical problems."
 
   text %>% test_texts(
-    action = "extract", extractor_id = "ex_y7BPYzNG",
+    action = "extract", extractor_id = "ex_YCya9nrn",
     params = list(
       max_keywords = 3,
       use_company_names = 1
@@ -65,9 +65,9 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
 
 
 testthat::test_that("No error if no results from the extractor call", {
-  testthat::expect_is(monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", unnest = FALSE), "tbl_df")
+  testthat::expect_is(monkey_extract(input = "hello", extractor_id = "ex_YCya9nrn", unnest = FALSE), "tbl_df")
   testthat::expect_message(
-    monkey_extract(input = "hello", extractor_id = "ex_y7BPYzNG", unnest = FALSE, verbose = TRUE),
+    monkey_extract(input = "hello", extractor_id = "ex_YCya9nrn", unnest = FALSE, verbose = TRUE),
     "No results for this call"
   )
 })
@@ -173,8 +173,8 @@ testthat::test_that("We can reconstruct the same length vector as we had in our 
   testthat::expect_equal(empties_result_nested_posthoc, empties_result_unnested)
 
   # Same behavior with extractors
-  empties_extracted_nested <- monkey_extract(text_w_empties, extractor_id = "ex_y7BPYzNG", unnest = FALSE)
-  empties_extracted_unnested <- monkey_extract(text_w_empties, extractor_id = "ex_y7BPYzNG", unnest = TRUE)
+  empties_extracted_nested <- monkey_extract(text_w_empties, extractor_id = "ex_YCya9nrn", unnest = FALSE)
+  empties_extracted_unnested <- monkey_extract(text_w_empties, extractor_id = "ex_YCya9nrn", unnest = TRUE)
   testthat::expect_equal(dim(tidyr::unnest(empties_extracted_nested)), dim(empties_extracted_unnested))
 })
 

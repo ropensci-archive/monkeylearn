@@ -33,7 +33,7 @@
 #' yes, lucrative jobs working on some of the worlds most difficult technical problems."
 #'
 #' output <- monkeylearn_extract(text,
-#'   extractor_id = "ex_y7BPYzNG",
+#'   extractor_id = "ex_YCya9nrn",
 #'   params = list(
 #'     max_keywords = 3,
 #'     use_company_names = 1

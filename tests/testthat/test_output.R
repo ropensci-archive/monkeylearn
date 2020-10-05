@@ -64,9 +64,9 @@ testthat::test_that("monkeylearn_classifiers returns a data frame", {
 })
 
 testthat::test_that("No error if no results from the extractor call", {
-  testthat::expect_is(monkeylearn_extract(request = "hello", extractor_id = "ex_y7BPYzNG"), "tbl_df")
+  testthat::expect_is(monkeylearn_extract(request = "hello", extractor_id = "ex_YCya9nrn"), "tbl_df")
   testthat::expect_message(
-    monkeylearn_extract(request = "hello", extractor_id = "ex_y7BPYzNG"),
+    monkeylearn_extract(request = "hello", extractor_id = "ex_YCya9nrn"),
     "No results for this call"
   )
 })
