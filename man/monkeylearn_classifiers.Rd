@@ -14,7 +14,7 @@ monkeylearn_classifiers(private = FALSE, key = monkeylearn_key(quiet = TRUE))
 \value{
 A data.frame (tibble) with details about the
 classifiers including their classifier_id which should be used in
-\code{monkeylearn_classify}.
+\code{monkey_classify}.
 }
 \description{
 List of Monkeylearn classifiers modules

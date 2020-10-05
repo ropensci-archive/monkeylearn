@@ -38,7 +38,7 @@ Please also create a "MONKEYLEARN\_PLAN" environment variable indicating whether
 
 ## So many monkeys/functions
 
-The packages exports `monkeylearn_classify`, `monkey_classify`, `monkeylearn_extract`, `monkey_extract`. The `monkey_` functions are the newer and better ones, so if you don't have legacy code, just start using those!
+The packages exports , `monkey_classify` , `monkey_extract`. 
 
 For inspiration beyond this vignette, you can see external examples of the package in action [on this page](http://docs.ropensci.org/monkeylearn/). In particular you'll find examples using the older set of functions but we now recommend using `monkey_extract` and `monkey_classify`, see more later in the vignette. 
 
@@ -132,7 +132,7 @@ monkey_classify(request, classifier_id = "cl_pi3C7JiL")
 ```
 ## How to find classifiers?
 
-You can find classifiers and their IDs at https://app.monkeylearn.com/main/explore or you can use the `monkeylearn_classifiers` function, choosing to show all classifiers or only the private ones with `private = TRUE`. The first column of the resulting data.frame is the `classifier_id` to be used in `monkeylearn_classify`.
+You can find classifiers and their IDs at https://app.monkeylearn.com/main/explore or you can use the `monkey_classifiers` function, choosing to show all classifiers or only the private ones with `private = TRUE`. The first column of the resulting data.frame is the `classifier_id` to be used in `monkeylearn_classify`.
 
 ```{r}
 monkeylearn_classifiers(private = FALSE)

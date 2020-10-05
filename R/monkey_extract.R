@@ -43,7 +43,7 @@
 #' Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of
 #' the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary,
 #' Russia and Germany."
-#' output <- monkeylearn_extract(request = text)
+#' output <- monkey_extract(input = text)
 #' output
 #'
 #'

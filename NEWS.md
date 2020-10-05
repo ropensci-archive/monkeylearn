@@ -1,3 +1,9 @@
+# monkeylearn dev
+
+* Make `monkeylearn_classify()` and `monkeylearn_extract()` defunct.
+* Change default and test classifiers/extractors to not use defunct ones.
+* Fix internal code using tidyr (`col` argument now needs to be used).
+
 # monkeylearn 0.2.0
 
 * New functions `monkey_classify()` and `monkey_extract()` that:

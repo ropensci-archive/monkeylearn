@@ -87,7 +87,7 @@ These had started in 1815, with the Holy Alliance between Prussia, Russia, and A
 Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of
 the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary,
 Russia and Germany."
-output <- monkeylearn_extract(request = text)
+output <- monkey_extract(input = text)
 output
 
 
@@ -103,7 +103,7 @@ was that Wall Street was where they could find far more challenging, diverse and
 yes, lucrative jobs working on some of the worlds most difficult technical problems."
 
 output <- monkey_extract(text,
-                            extractor_id = "ex_y7BPYzNG",
+                            extractor_id = "ex_YCya9nrn",
                             params = list(max_keywords = 3,
                             use_company_names = 1))
 attr(output, "headers")}

@@ -3,7 +3,5 @@
 export(monkey_classify)
 export(monkey_extract)
 export(monkeylearn_classifiers)
-export(monkeylearn_classify)
-export(monkeylearn_extract)
 export(monkeylearn_key)
 importFrom(magrittr,"%>%")
