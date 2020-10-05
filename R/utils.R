@@ -306,14 +306,14 @@ get_request_orig <- function(input) {
 
 
 test_texts <- function(input, action = "classify",
-                       do_test_headers = TRUE, classifier_id = "cl_oFKL5wft",
+                       do_test_headers = TRUE, classifier_id = "cl_sGdE8hD9",
                        extractor_id = "ex_isnnZRbS", ...) {
   stopifnot(action %in% c("classify", "extract"))
 
   if (action == "classify") {
-    output <- monkey_classify(input, classifier_id = "cl_oFKL5wft", ...)
+    output <- monkey_classify(input, classifier_id = classifier_id, ...)
   } else if (action == "extract") {
-    output <- monkey_extract(input, extractor_id = "ex_isnnZRbS", ...)
+    output <- monkey_extract(input, extractor_id = extractor_id, ...)
   }
 
   testthat::expect_is(output, "data.frame")
