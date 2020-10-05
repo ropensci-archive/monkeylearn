@@ -5,7 +5,7 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
   text2 <- "i want to buy an iphone"
   request <- c(text1, text2)
   output <- monkeylearn_classify(request,
-    classifier_id = "cl_oFKL5wft"
+    classifier_id = "cl_sGdE8hD9"
   )
 
   testthat::expect_is(output, "data.frame")

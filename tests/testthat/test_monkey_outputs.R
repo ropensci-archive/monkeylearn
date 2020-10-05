@@ -29,7 +29,7 @@ testthat::test_that("monkeylearn_parse returns a data.frame with a data.frame as
   request %>% test_texts()
 
   testthat::expect_warning(monkey_classify(request, foo, # This is a vector, so we shouldn't supply a column
-    classifier_id = "cl_oFKL5wft"
+    classifier_id = "cl_sGdE8hD9"
   ))
 
   ## Test 2

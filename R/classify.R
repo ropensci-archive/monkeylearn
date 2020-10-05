@@ -35,7 +35,7 @@
 #' @export
 
 monkeylearn_classify <- function(request, key = monkeylearn_key(quiet = TRUE),
-                                 classifier_id = "cl_oFKL5wft",
+                                 classifier_id = "cl_sGdE8hD9",
                                  texts_per_req = 200,
                                  verbose = TRUE,
                                  params = NULL) {

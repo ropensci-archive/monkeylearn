@@ -63,7 +63,7 @@ text1 <- "my dog is an avid rice eater"
 text2 <- "i want to buy an iphone"
 request <- c(text1, text2)
 
-monkey_classify(request, classifier_id = "cl_oFKL5wft")
+monkey_classify(request, classifier_id = "cl_sGdE8hD9")
 
 ## ------------------------------------------------------------------------
 monkeylearn_classifiers(private = FALSE)

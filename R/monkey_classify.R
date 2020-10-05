@@ -51,14 +51,14 @@
 monkey_classify <- function(input,
                             col = NULL,
                             key = monkeylearn_key(quiet = TRUE),
-                            classifier_id = "cl_oFKL5wft",
+                            classifier_id = "cl_sGdE8hD9",
                             params = NULL,
                             texts_per_req = NULL,
                             unnest = TRUE,
                             .keep_all = TRUE,
                             verbose = TRUE,
                             ...) {
-  if (verbose && classifier_id == "cl_oFKL5wft") {
+  if (verbose && classifier_id == "cl_sGdE8hD9") {
     message(paste0("Using classifier ID ", classifier_id, "; to find other classifiers, run monkeylearn_classifiers() or visit https://app.monkeylearn.com/main/explore/"))
   }
 
